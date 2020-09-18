@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
-using ADF.Net.Data;
 using ADF.Net.Data.DataAccess.EF;
 using ADF.Net.Data.DataEntities;
-using ADF.Net.Service;
 using ADF.Net.Service.GenericCrudModels;
 using ADF.Net.Service.Implementations;
 using ADF.Net.Service.Models;
@@ -72,14 +69,13 @@ namespace ADF.Net.Web.Api.Tests
             var okResult = _controller.Get();
 
             // Assert
-            Assert.IsType<OkObjectResult>(okResult.Result);
+            Assert.IsType<OkObjectResult>(okResult);
 
         }
 
         [Fact]
         public void Get_WhenCalled_ReturnsAllItems()
         {
-            // Act
             var okResult = _controller.Get().Result as OkObjectResult;
             // Assert
             var model = Assert.IsType<ListModel<ProductModel>>(okResult?.Value);
@@ -94,7 +90,16 @@ namespace ADF.Net.Web.Api.Tests
             // Act
             var okResult = _controller.Get(testGuid);
             // Assert
-            Assert.IsType<OkObjectResult>(okResult.Result);
+            Assert.IsType<OkObjectResult>(okResult);
+        }
+
+        [Fact]
+        public void GetById_UnknownGuidPassed_ReturnsNotFoundResult()
+        {
+            // Act
+            var notFoundResult = _controller.Get(Guid.NewGuid());
+            // Assert
+            Assert.IsType<NotFoundResult>(notFoundResult);
         }
     }
 }
