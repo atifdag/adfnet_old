@@ -61,6 +61,33 @@ namespace ADF.Net.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} daha önce kullanılmış!.
+        /// </summary>
+        public static string DangerFieldDuplicated {
+            get {
+                return ResourceManager.GetString("DangerFieldDuplicated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} alanı boş bırakılamaz!.
+        /// </summary>
+        public static string DangerFieldIsEmpty {
+            get {
+                return ResourceManager.GetString("DangerFieldIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İçerik geçerli değil!.
+        /// </summary>
+        public static string DangerInvalidEntitiy {
+            get {
+                return ResourceManager.GetString("DangerInvalidEntitiy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kayıt bulunamadı!.
         /// </summary>
         public static string DangerRecordNotFound {

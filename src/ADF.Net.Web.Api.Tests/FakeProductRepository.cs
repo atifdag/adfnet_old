@@ -177,12 +177,12 @@ namespace ADF.Net.Web.Api.Tests
 
         public int SaveChanges()
         {
-            return _context.SaveChanges();
+            return 0;
         }
 
         public Task<int> SaveChangesAsync()
         {
-            return Task.FromResult(_context.SaveChanges());
+            return Task.FromResult(0);
         }
 
 

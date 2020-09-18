@@ -120,4 +120,10 @@
   <data name="All" xml:space="preserve">
     <value>Tümü</value>
   </data>
+  <data name="Code" xml:space="preserve">
+    <value>Kod</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ad</value>
+  </data>
 </root>

@@ -10,11 +10,7 @@ namespace ADF.Net.Service
 
         DetailModel<T> Detail(Guid id);
 
-        AddModel<T> Add();
-
         AddModel<T> Add(AddModel<T> addModel);
-
-        UpdateModel<T> Update(Guid id);
 
         UpdateModel<T> Update(UpdateModel<T> updateModel);
 

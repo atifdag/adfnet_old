@@ -4,7 +4,6 @@ using ADF.Net.Core.Exceptions;
 using ADF.Net.Core.Globalization;
 using ADF.Net.Service;
 using ADF.Net.Service.GenericCrudModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ADF.Net.Web.Common
@@ -26,8 +25,6 @@ namespace ADF.Net.Web.Common
 
         public ActionResult<ListModel<T>> Get()
         {
-            ListModel<T> model;
-
             try
             {
                 var filterModel = new FilterModel
@@ -39,18 +36,13 @@ namespace ADF.Net.Web.Common
                     PageSize = 10,
                     Searched = string.Empty
                 };
-                model = _service.List(filterModel);
-                return Ok(model);
+                return Ok(_service.List(filterModel));
             }
 
             catch (Exception exception)
             {
-                model = new ListModel<T>
-                {
-                    HasError = true,
-                    Message = exception.Message
-                };
-                return BadRequest(model);
+                ModelState.AddModelError("ErrorMessage", exception.ToString());
+                return BadRequest(ModelState);
             }
         }
 
@@ -64,7 +56,8 @@ namespace ADF.Net.Web.Common
 
             catch (NotFoundException)
             {
-                return NotFound(Messages.DangerRecordNotFound);
+                ModelState.AddModelError("ErrorMessage", Messages.DangerRecordNotFound);
+                return NotFound(ModelState);
             }
 
             catch (Exception exception)
@@ -75,11 +68,12 @@ namespace ADF.Net.Web.Common
         }
 
         [HttpPost]
-        public ActionResult<AddModel<T>> Post([FromBody] AddModel<T> addModel)
+        public ActionResult Post([FromBody] AddModel<T> addModel)
         {
             try
             {
-                return Ok(_service.Add(addModel));
+                var affectedModel = _service.Add(addModel);
+                return CreatedAtAction("Get", new { id = affectedModel.Item.Id }, affectedModel);
             }
 
             catch (ValidationException exception)
@@ -139,6 +133,12 @@ namespace ADF.Net.Web.Common
             {
                 _service.Delete(id);
                 return Ok();
+            }
+
+            catch (NotFoundException)
+            {
+                ModelState.AddModelError("ErrorMessage", Messages.DangerRecordNotFound);
+                return NotFound(ModelState);
             }
 
             catch (InvalidTransactionException exception)

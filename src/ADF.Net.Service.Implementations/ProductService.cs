@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using ADF.Net.Core;
 using ADF.Net.Core.Exceptions;
 using ADF.Net.Core.Globalization;
 using ADF.Net.Core.Helpers;
+using ADF.Net.Core.Validation.FluentValidation;
 using ADF.Net.Core.ValueObjects;
 using ADF.Net.Data;
 using ADF.Net.Data.DataEntities;
 using ADF.Net.Service.GenericCrudModels;
+using ADF.Net.Service.Implementations.ValidationRules.FluentValidation;
 using ADF.Net.Service.Models;
 
 namespace ADF.Net.Service.Implementations
@@ -168,29 +171,101 @@ namespace ADF.Net.Service.Implementations
             };
         }
 
-        public AddModel<ProductModel> Add()
-        {
-            throw new NotImplementedException();
-        }
-
         public AddModel<ProductModel> Add(AddModel<ProductModel> addModel)
         {
-            throw new NotImplementedException();
+            
+            var validator = new FluentValidator<ProductModel, ProductValidationRules>(addModel.Item);
+            var validationResults = validator.Validate();
+            if (!validator.IsValid)
+            {
+                throw new ValidationException(Messages.DangerInvalidEntitiy)
+                {
+                    ValidationResult = validationResults
+                };
+            }
+
+            var item = addModel.Item.CreateMapped<ProductModel, Product>();
+
+            if (_repositoryProduct.Get().FirstOrDefault(e => e.Code == item.Code) != null)
+            {
+                throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
+            }
+            item.Id = GuidHelper.NewGuid();
+            item.Version = 1;
+            item.CreationTime = DateTime.Now;
+            item.LastModificationTime = DateTime.Now;
+            item.DisplayOrder = 1;
+
+            _repositoryProduct.Add(item, true);
+            var maxDisplayOrder = _repositoryProduct.Get().Max(e => e.DisplayOrder);
+            item.DisplayOrder = maxDisplayOrder + 1;
+            var affectedItem = _repositoryProduct.Update(item, true);
+
+            addModel.Item = affectedItem.CreateMapped<Product, ProductModel>();
+
+
+            return addModel;
         }
 
-        public UpdateModel<ProductModel> Update(Guid id)
-        {
-            throw new NotImplementedException();
-        }
 
         public UpdateModel<ProductModel> Update(UpdateModel<ProductModel> updateModel)
         {
-            throw new NotImplementedException();
+            IValidator validator = new FluentValidator<ProductModel, ProductValidationRules>(updateModel.Item);
+
+            var validationResults = validator.Validate();
+
+            if (!validator.IsValid)
+            {
+                throw new ValidationException(Messages.DangerInvalidEntitiy)
+                {
+                    ValidationResult = validationResults
+                };
+            }
+
+            var item = _repositoryProduct.Get()
+             
+                .FirstOrDefault(e => e.Id == updateModel.Item.Id);
+
+            if (item == null)
+            {
+                throw new NotFoundException(Messages.DangerRecordNotFound);
+            }
+
+            if (updateModel.Item.Code != item.Code)
+            {
+                if (_repositoryProduct.Get().Any(p => p.Code == updateModel.Item.Code))
+                {
+                    throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
+                }
+            }
+
+           
+
+            item.Code = updateModel.Item.Code;
+            item.Name = updateModel.Item.Name;
+            item.Description = updateModel.Item.Description;
+            item.IsApproved = updateModel.Item.IsApproved;
+            item.LastModificationTime = DateTime.Now;
+            item.LastModificationTime = DateTime.Now;
+            var version = item.Version;
+            item.Version = version + 1;
+            var affectedItem = _repositoryProduct.Update(item, true);
+            updateModel.Item = affectedItem.CreateMapped<Product, ProductModel>();
+
+            return updateModel;
         }
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+           
+
+            var item = _repositoryProduct.Get(x => x.Id == id);
+            if (item == null)
+            {
+                throw new NotFoundException(Messages.DangerRecordNotFound);
+            }
+
+            _repositoryProduct.Delete(item, true);
         }
     }
 }
