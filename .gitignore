@@ -1,0 +1,51 @@
+.vs
+*.suo
+*.user
+_ReSharper.*
+dist
+tmp
+bin
+obj
+packages
+out-tsc
+node_modules
+typings
+.vs
+obj
+bin
+debug
+e2e
+package-lock.json
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# profiling files
+chrome-profiler-events.json
+speed-measure-plugin.json
+
+# IDEs and editors
+*.launch
+.settings/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+npm-debug.log
+yarn-error.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+.gradle
+build

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ADF.Net.Core\ADF.Net.Core.csproj" />
+    <ProjectReference Include="..\ADF.Net.Data\ADF.Net.Data.csproj" />
+  </ItemGroup>
+
+</Project>
