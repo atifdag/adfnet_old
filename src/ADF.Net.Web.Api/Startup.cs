@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using ADF.Net.Data.DataAccess.EF;
+using IDS.Web.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace ADF.Net.Web.Api
 {
@@ -15,6 +18,20 @@ namespace ADF.Net.Web.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            var builder = new ConfigurationBuilder()
+             .SetBasePath(Directory.GetCurrentDirectory())
+             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+             .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+             .AddEnvironmentVariables();
+            Configuration = builder.Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.SQLite(Directory.GetCurrentDirectory()+ "/Logs/log.db")
+                .WriteTo.Seq("http://localhost:5341")
+                .CreateLogger();
+
+            Log.Information("AdfNet Baþlatýldý...");
         }
 
         public IConfiguration Configuration { get; }
@@ -69,6 +86,8 @@ namespace ADF.Net.Web.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<SerilogMiddleware>();
 
             app.UseSwagger();
 
