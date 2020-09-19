@@ -18,12 +18,12 @@ namespace ADF.Net.Web.Api
         {
             Configuration = configuration;
 
-            var builder = new ConfigurationBuilder()
-             .SetBasePath(Directory.GetCurrentDirectory())
-             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-             .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
-             .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            //var builder = new ConfigurationBuilder()
+            // .SetBasePath(Directory.GetCurrentDirectory())
+            // .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            // .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+            // .AddEnvironmentVariables();
+            //Configuration = builder.Build();
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.SQLite(Directory.GetCurrentDirectory()+ "/Logs/log.db")
