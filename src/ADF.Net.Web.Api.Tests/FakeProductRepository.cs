@@ -29,7 +29,7 @@ namespace ADF.Net.Web.Api.Tests
                 LastModificationTime = DateTime.Now,
                 Name = "Product 1",
                 Version = 1,
-                UnitPrice = 1,
+                UnitPrice = 1.20m,
                 Category = new Category
                 {
                     Id = Guid.Parse("5d981459-8f5a-4fb6-ba4a-479590917876"),
@@ -54,7 +54,7 @@ namespace ADF.Net.Web.Api.Tests
                 LastModificationTime = DateTime.Now,
                 Name = "Product 2",
                 Version = 1, 
-                UnitPrice = 25,
+                UnitPrice = 10.25m,
                 Category = new Category
                 {
                     Id = Guid.Parse("5d981459-8f5a-4fb6-ba4a-479590917876"),
