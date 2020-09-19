@@ -1,37 +1,40 @@
-﻿using Microsoft.AspNetCore.Http;
-using Serilog;
-using Serilog.Events;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Serilog;
+using Serilog.Events;
 
-namespace IDS.Web.Infrastructure
+namespace ADF.Net.Web.Api
 {
     public class SerilogMiddleware
     {
-        const string MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
+        private const string MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
 
-        static readonly ILogger Log = Serilog.Log.ForContext<SerilogMiddleware>();
-        //private static AnkaCMSIdentity identity;
-        readonly RequestDelegate _next;
+        private static readonly ILogger Log = Serilog.Log.ForContext<SerilogMiddleware>();
+        //private static CustomIdentity identity;
+        private readonly RequestDelegate _next;
 
         public SerilogMiddleware(RequestDelegate next)
         {
-            if (next == null) throw new ArgumentNullException(nameof(next));
-            _next = next;
+            _next = next ?? throw new ArgumentNullException(nameof(next));
         }
 
         public async Task Invoke(HttpContext httpContext)
         {
             if (httpContext == null) throw new ArgumentNullException(nameof(httpContext));
             var path = httpContext.Request.Path;
-            if (path.StartsWithSegments(new PathString("/Home"))|| path.StartsWithSegments(new PathString("/ContentFiles")))
-            { await _next(httpContext);return; }
+            if (path.StartsWithSegments(new PathString("/Home")) ||
+                path.StartsWithSegments(new PathString("/ContentFiles")))
+            {
+                await _next(httpContext);
+                return;
+            }
 
-            //identity = (AnkaCMSIdentity)httpContext.User.Identity;
+            //identity = (CustomIdentity)httpContext.User.Identity;
             var requestBody = string.Empty;
 
             var sw = Stopwatch.StartNew();
@@ -61,7 +64,7 @@ namespace IDS.Web.Infrastructure
             catch (Exception ex) when (LogException(httpContext, sw, ex, requestBody)) { }
         }
 
-        static bool LogException(HttpContext httpContext, Stopwatch sw, Exception ex, string requestBody)
+        private static bool LogException(HttpContext httpContext, Stopwatch sw, Exception ex, string requestBody)
         {
             sw.Stop();
             LogForErrorContext(httpContext, requestBody)
@@ -69,7 +72,7 @@ namespace IDS.Web.Infrastructure
             return false;
         }
 
-        static ILogger LogForErrorContext(HttpContext httpContext, string requestBody)
+        private static ILogger LogForErrorContext(HttpContext httpContext, string requestBody)
         {
             var request = httpContext.Request;
 

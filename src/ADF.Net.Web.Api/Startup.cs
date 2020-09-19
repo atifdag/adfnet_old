@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using ADF.Net.Data.DataAccess.EF;
-using IDS.Web.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -75,7 +74,7 @@ namespace ADF.Net.Web.Api
             services.AddSwaggerGen(c =>
             {
                 c.MapType<Guid>(() => new OpenApiSchema { Type = "string", Format = "uuid" });
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ADFNetDoctor API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ADFNet API", Version = "v1" });
             });
         }
 
@@ -93,7 +92,7 @@ namespace ADF.Net.Web.Api
 
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "ADFNetDoctor API v1");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "ADFNet API v1");
 
             });
 
