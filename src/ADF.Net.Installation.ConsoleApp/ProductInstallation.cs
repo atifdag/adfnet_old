@@ -10,33 +10,41 @@ namespace ADF.Net.Installation.ConsoleApp
 {
     public static class ProductInstallation
     {
-        private static readonly List<Product> Items = new List<Product>
+        private static readonly List<Tuple<string, string, string>> Items = new List<Tuple<string, string, string>>
         {
-            new Product {Code = "tr", Name = "Türkçe"},
-            new Product {Code = "ar", Name = "العربية"},
-            new Product {Code = "en", Name = "English"}
+            Tuple.Create("Product1", "Product 1","Category1"),
+            Tuple.Create("Product2", "Product 2","Category2"),
+            Tuple.Create("Product3", "Product 3","Category3")
         };
 
         public static void Install(IServiceProvider provider)
         {
             var unitOfWork = provider.GetService<IUnitOfWork<EfDbContext>>();
-
+            var repositoryCategory = provider.GetService<IRepository<Category>>();
             var listProduct = new List<Product>();
-           
+
             var counterProduct = 1;
             var itemsCount = Items.Count;
 
-            foreach (var item in Items)
+            foreach (var (item1, item2, item3) in Items)
             {
-                item.Id = GuidHelper.NewGuid();
-                item.CreationTime = DateTime.Now;
-                item.LastModificationTime = DateTime.Now;
-                item.DisplayOrder = counterProduct;
-                item.Version = 1;
-                item.IsApproved = true;
-                listProduct.Add(item);
+                var itemCategory = repositoryCategory.Get(x => x.Code == item3);
+                var itemProduct = new Product
+                {
+                    Id = GuidHelper.NewGuid(),
+                    Code = item1,
+                    Name = item2,
+                    CreationTime = DateTime.Now,
+                    LastModificationTime = DateTime.Now,
+                    DisplayOrder = counterProduct,
+                    Version = 1,
+                    IsApproved = true,
+                    Category = itemCategory
+                };
 
-                Console.WriteLine(counterProduct + @"/" + itemsCount + @" Product (" + item.Code + @")");
+                listProduct.Add(itemProduct);
+
+                Console.WriteLine(counterProduct + @"/" + itemsCount + @" Product (" + itemProduct.Code + @")");
                 counterProduct++;
             }
 

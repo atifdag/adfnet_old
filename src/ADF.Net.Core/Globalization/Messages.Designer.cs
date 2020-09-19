@@ -88,6 +88,15 @@ namespace ADF.Net.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Üst kayıt bulunamadı!.
+        /// </summary>
+        public static string DangerParentNotFound {
+            get {
+                return ResourceManager.GetString("DangerParentNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kayıt bulunamadı!.
         /// </summary>
         public static string DangerRecordNotFound {

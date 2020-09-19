@@ -141,8 +141,13 @@ namespace ADF.Net.Installation.ConsoleApp
 
                 try
                 {
+                    CategoryInstallation.Install(provider);
+                    Console.WriteLine(@"Category installed.");
+                    Console.WriteLine(@"");
+
+
                     ProductInstallation.Install(provider);
-                    Console.WriteLine(@"Products installed.");
+                    Console.WriteLine(@"Product installed.");
                     Console.WriteLine(@"");
 
                     Console.WriteLine(@"Kurulum Tamamlandı.");

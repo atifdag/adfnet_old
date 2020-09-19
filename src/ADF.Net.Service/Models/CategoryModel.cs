@@ -2,7 +2,7 @@
 
 namespace ADF.Net.Service.Models
 {
-    public class ProductModel : IServiceModel
+    public class CategoryModel : IServiceModel
     {
         public Guid Id { get; set; }
         public int DisplayOrder { get; set; }
@@ -13,7 +13,5 @@ namespace ADF.Net.Service.Models
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public decimal UnitPrice { get; set; }
-        public Tuple<Guid, string, string> Category { get; set; }
     }
 }

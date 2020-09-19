@@ -119,17 +119,26 @@
   </resheader>
   <data name="DangerFieldDuplicated" xml:space="preserve">
     <value>{0} daha önce kullanılmış!</value>
+    <comment>{0} daha önce kullanılmış!</comment>
   </data>
   <data name="DangerFieldIsEmpty" xml:space="preserve">
     <value>{0} alanı boş bırakılamaz!</value>
+    <comment>{0} alanı boş bırakılamaz!</comment>
   </data>
   <data name="DangerInvalidEntitiy" xml:space="preserve">
     <value>İçerik geçerli değil!</value>
+    <comment>İçerik geçerli değil!</comment>
+  </data>
+  <data name="DangerParentNotFound" xml:space="preserve">
+    <value>Üst kayıt bulunamadı!</value>
+    <comment>Üst kayıt bulunamadı!</comment>
   </data>
   <data name="DangerRecordNotFound" xml:space="preserve">
     <value>Kayıt bulunamadı!</value>
+    <comment>Kayıt bulunamadı!</comment>
   </data>
   <data name="DangerRecordNotFoundInPage" xml:space="preserve">
     <value>Sayfada kayıt bulunamadı!</value>
+    <comment>Sayfada kayıt bulunamadı!</comment>
   </data>
 </root>

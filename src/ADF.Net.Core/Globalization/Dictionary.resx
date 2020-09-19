@@ -119,11 +119,26 @@
   </resheader>
   <data name="All" xml:space="preserve">
     <value>Tümü</value>
+    <comment>Tümü</comment>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+    <comment>Kategori</comment>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Kod</value>
+    <comment>Kod</comment>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Ad</value>
+    <comment>Ad</comment>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Ürün</value>
+    <comment>Ürün</comment>
+  </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Birim Fiyat</value>
+    <comment>Birim Fiyat</comment>
   </data>
 </root>

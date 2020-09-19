@@ -11,19 +11,18 @@ using Xunit;
 
 namespace ADF.Net.Web.Api.Tests
 {
-    public class ProductTests
+    public class CategoryTests
     {
-        
+       
 
-        private readonly ProductsController _controller;
+        private readonly CategoriesController _controller;
 
-        public ProductTests()
+        public CategoryTests()
         {
             var dbContext = new EfDbContext(new DbContextOptions<EfDbContext>());
             var fakeCategoryRepository = new FakeCategoryRepository(dbContext);
-            var fakeProductRepository = new FakeProductRepository(dbContext);
-            IProductService service = new ProductService(new MainService(), fakeProductRepository, fakeCategoryRepository);
-            _controller = new ProductsController(service);
+            ICategoryService service = new CategoryService(new MainService(), fakeCategoryRepository);
+            _controller = new CategoriesController(service);
         }
 
         [Fact]
@@ -42,7 +41,7 @@ namespace ADF.Net.Web.Api.Tests
         {
             var okResult = _controller.Get().Result as OkObjectResult;
             // Assert
-            var model = Assert.IsType<ListModel<ProductModel>>(okResult?.Value);
+            var model = Assert.IsType<ListModel<CategoryModel>>(okResult?.Value);
             Assert.Equal(3, model.Items.Count);
         }
 
@@ -66,8 +65,8 @@ namespace ADF.Net.Web.Api.Tests
             // Act
             var okResult = _controller.Get(testGuid).Result as OkObjectResult;
             // Assert
-            Assert.IsType<DetailModel<ProductModel>>(okResult?.Value);
-            Assert.Equal(testGuid, ((DetailModel<ProductModel>) okResult.Value).Item.Id);
+            Assert.IsType<DetailModel<CategoryModel>>(okResult?.Value);
+            Assert.Equal(testGuid, ((DetailModel<CategoryModel>) okResult.Value).Item.Id);
         }
 
         [Fact]
@@ -84,9 +83,9 @@ namespace ADF.Net.Web.Api.Tests
         public void Add_InvalidObjectPassed_ReturnsBadRequest()
         {
             // Arrange
-            var nameMissingItem = new AddModel<ProductModel>
+            var nameMissingItem = new AddModel<CategoryModel>
             {
-                Item = new ProductModel
+                Item = new CategoryModel
                 {
                     Code = "code1"
                 }
@@ -102,14 +101,12 @@ namespace ADF.Net.Web.Api.Tests
         public void Add_ValidObjectPassed_ReturnsCreatedResponse()
         {
             // Arrange
-            var testItem = new AddModel<ProductModel>
+            var testItem = new AddModel<CategoryModel>
             {
-                Item = new ProductModel
+                Item = new CategoryModel
                 {
                     Code = "code1",
-                    Name = "ProductTest1",
-                    UnitPrice = 10,
-                    Category = new Tuple<Guid, string, string>(new Guid("5d981459-8f5a-4fb6-ba4a-479590917876"), string.Empty, string.Empty)
+                    Name = "CategoryTest1"
                 }
             };
             // Act
@@ -123,21 +120,19 @@ namespace ADF.Net.Web.Api.Tests
         public void Add_ValidObjectPassed_ReturnedResponseHasCreatedItem()
         {
             // Arrange
-            var testItem = new AddModel<ProductModel>
+            var testItem = new AddModel<CategoryModel>
             {
-                Item = new ProductModel
+                Item = new CategoryModel
                 {
                     Code = "code1",
-                    Name = "ProductTest1",
-                    UnitPrice = 10,
-                    Category = new Tuple<Guid, string, string>(new Guid("5d981459-8f5a-4fb6-ba4a-479590917876"), string.Empty, string.Empty)
+                    Name = "CategoryTest1"
                 }
             };
             // Act
             var createdResponse = _controller.Post(testItem) as CreatedAtActionResult;
-            var model = createdResponse?.Value as AddModel<ProductModel>;
+            var model = createdResponse?.Value as AddModel<CategoryModel>;
             // Assert
-            Assert.IsType<AddModel<ProductModel>>(model);
+            Assert.IsType<AddModel<CategoryModel>>(model);
             Assert.Equal("code1", model.Item.Code);
         }
 

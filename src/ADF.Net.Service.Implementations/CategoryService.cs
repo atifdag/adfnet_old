@@ -16,24 +16,23 @@ using ADF.Net.Service.Models;
 
 namespace ADF.Net.Service.Implementations
 {
-    public class ProductService : IProductService
+    public class CategoryService : ICategoryService
     {
 
         private readonly IMainService _serviceMain;
-        private readonly IRepository<Product> _repositoryProduct;
         private readonly IRepository<Category> _repositoryCategory;
-        public ProductService(IMainService serviceMain, IRepository<Product> repositoryProduct, IRepository<Category> repositoryCategory)
+
+        public CategoryService(IMainService serviceMain, IRepository<Category> repositoryCategory)
         {
             _serviceMain = serviceMain;
-            _repositoryProduct = repositoryProduct;
             _repositoryCategory = repositoryCategory;
         }
 
-        public ListModel<ProductModel> List(FilterModel filterModel)
+        public ListModel<CategoryModel> List(FilterModel filterModel)
         {
             var startDate = filterModel.StartDate.ResetTimeToStartOfDay();
             var endDate = filterModel.EndDate.ResetTimeToEndOfDay();
-            Expression<Func<Product, bool>> expression;
+            Expression<Func<Category, bool>> expression;
 
             if (filterModel.Status != -1)
             {
@@ -76,7 +75,7 @@ namespace ADF.Net.Service.Implementations
 
             expression = expression.And(e => e.CreationTime >= startDate && e.CreationTime <= endDate);
 
-            var model = filterModel.CreateMapped<FilterModel, ListModel<ProductModel>>();
+            var model = filterModel.CreateMapped<FilterModel, ListModel<CategoryModel>>();
 
             model.Paging ??= new Paging
             {
@@ -84,22 +83,20 @@ namespace ADF.Net.Service.Implementations
                 PageNumber = filterModel.PageNumber
             };
 
-            var sortHelper = new SortHelper<Product>();
+            var sortHelper = new SortHelper<Category>();
             sortHelper.OrderBy(x => x.DisplayOrder);
 
-            var query = (IOrderedQueryable<Product>)_repositoryProduct
-                .Join(x=>x.Category)
+            var query = (IOrderedQueryable<Category>)_repositoryCategory.Get()
                 .Where(expression);
 
             query = sortHelper.GenerateOrderedQuery(query);
 
             model.Paging.TotalItemCount = query.Count();
             var items = model.Paging.PageSize > 0 ? query.Skip((model.Paging.PageNumber - 1) * model.Paging.PageSize).Take(model.Paging.PageSize) : query;
-            var modelItems = new HashSet<ProductModel>();
+            var modelItems = new HashSet<CategoryModel>();
             foreach (var item in items)
             {
-                var modelItem = item.CreateMapped<Product, ProductModel>();
-                modelItem.Category = new Tuple<Guid, string, string>(item.Category.Id, item.Category.Code, item.Category.Name);
+                var modelItem = item.CreateMapped<Category, CategoryModel>();
                 modelItems.Add(modelItem);
             }
             model.Items = modelItems.ToList();
@@ -158,29 +155,26 @@ namespace ADF.Net.Service.Implementations
             return model;
         }
 
-        public DetailModel<ProductModel> Detail(Guid id)
+        public DetailModel<CategoryModel> Detail(Guid id)
         {
-            var item = _repositoryProduct
-                .Join(x => x.Category)
+            var item = _repositoryCategory.Get()
                 .FirstOrDefault(x => x.Id == id);
             if (item == null)
             {
                 throw new NotFoundException(Messages.DangerRecordNotFound);
             }
 
-            var modelItem = item.CreateMapped<Product, ProductModel>();
-            modelItem.Category = new Tuple<Guid, string, string>(item.Category.Id, item.Category.Code, item.Category.Name);
-            return new DetailModel<ProductModel>
+            var modelItem = item.CreateMapped<Category, CategoryModel>();
+            return new DetailModel<CategoryModel>
             {
-
                 Item = modelItem
             };
         }
 
-        public AddModel<ProductModel> Add(AddModel<ProductModel> addModel)
+        public AddModel<CategoryModel> Add(AddModel<CategoryModel> addModel)
         {
             
-            var validator = new FluentValidator<ProductModel, ProductValidationRules>(addModel.Item);
+            var validator = new FluentValidator<CategoryModel, CategoryValidationRules>(addModel.Item);
             var validationResults = validator.Validate();
             if (!validator.IsValid)
             {
@@ -190,16 +184,9 @@ namespace ADF.Net.Service.Implementations
                 };
             }
 
-            var parent = _repositoryCategory.Get(e => e.Id == addModel.Item.Category.Item1);
+            var item = addModel.Item.CreateMapped<CategoryModel, Category>();
 
-            if (parent == null)
-            {
-                throw new NotFoundException(Messages.DangerParentNotFound);
-            }
-
-            var item = addModel.Item.CreateMapped<ProductModel, Product>();
-
-            if (_repositoryProduct.Get().FirstOrDefault(e => e.Code == item.Code) != null)
+            if (_repositoryCategory.Get().FirstOrDefault(e => e.Code == item.Code) != null)
             {
                 throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
             }
@@ -207,24 +194,23 @@ namespace ADF.Net.Service.Implementations
             item.Version = 1;
             item.CreationTime = DateTime.Now;
             item.LastModificationTime = DateTime.Now;
-            item.Category = parent;
             item.DisplayOrder = 1;
 
-            _repositoryProduct.Add(item, true);
-            var maxDisplayOrder = _repositoryProduct.Get().Max(e => e.DisplayOrder);
+            _repositoryCategory.Add(item, true);
+            var maxDisplayOrder = _repositoryCategory.Get().Max(e => e.DisplayOrder);
             item.DisplayOrder = maxDisplayOrder + 1;
-            var affectedItem = _repositoryProduct.Update(item, true);
+            var affectedItem = _repositoryCategory.Update(item, true);
 
-            addModel.Item = affectedItem.CreateMapped<Product, ProductModel>();
-            addModel.Item.Category = new Tuple<Guid, string, string>(parent.Id, parent.Code, parent.Name);
+            addModel.Item = affectedItem.CreateMapped<Category, CategoryModel>();
+
 
             return addModel;
         }
 
 
-        public UpdateModel<ProductModel> Update(UpdateModel<ProductModel> updateModel)
+        public UpdateModel<CategoryModel> Update(UpdateModel<CategoryModel> updateModel)
         {
-            IValidator validator = new FluentValidator<ProductModel, ProductValidationRules>(updateModel.Item);
+            IValidator validator = new FluentValidator<CategoryModel, CategoryValidationRules>(updateModel.Item);
 
             var validationResults = validator.Validate();
 
@@ -236,16 +222,8 @@ namespace ADF.Net.Service.Implementations
                 };
             }
 
-            var parent = _repositoryCategory.Get(e => e.Id == updateModel.Item.Category.Item1);
-
-            if (parent == null)
-            {
-                throw new NotFoundException(Messages.DangerParentNotFound);
-            }
-
-            var item = _repositoryProduct
-                .Join(x => x.Category)
-
+            var item = _repositoryCategory.Get()
+             
                 .FirstOrDefault(e => e.Id == updateModel.Item.Id);
 
             if (item == null)
@@ -255,7 +233,7 @@ namespace ADF.Net.Service.Implementations
 
             if (updateModel.Item.Code != item.Code)
             {
-                if (_repositoryProduct.Get().Any(p => p.Code == updateModel.Item.Code))
+                if (_repositoryCategory.Get().Any(p => p.Code == updateModel.Item.Code))
                 {
                     throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
                 }
@@ -268,12 +246,11 @@ namespace ADF.Net.Service.Implementations
             item.Description = updateModel.Item.Description;
             item.IsApproved = updateModel.Item.IsApproved;
             item.LastModificationTime = DateTime.Now;
-            item.Category = parent;
             var version = item.Version;
             item.Version = version + 1;
-            var affectedItem = _repositoryProduct.Update(item, true);
-            updateModel.Item = affectedItem.CreateMapped<Product, ProductModel>();
-            updateModel.Item.Category = new Tuple<Guid, string, string>(parent.Id, parent.Code, parent.Name);
+            var affectedItem = _repositoryCategory.Update(item, true);
+            updateModel.Item = affectedItem.CreateMapped<Category, CategoryModel>();
+
             return updateModel;
         }
 
@@ -281,13 +258,13 @@ namespace ADF.Net.Service.Implementations
         {
            
 
-            var item = _repositoryProduct.Get(x => x.Id == id);
+            var item = _repositoryCategory.Get(x => x.Id == id);
             if (item == null)
             {
                 throw new NotFoundException(Messages.DangerRecordNotFound);
             }
 
-            _repositoryProduct.Delete(item, true);
+            _repositoryCategory.Delete(item, true);
         }
     }
 }

@@ -70,6 +70,15 @@ namespace ADF.Net.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kategori.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kod.
         /// </summary>
         public static string Code {
@@ -84,6 +93,24 @@ namespace ADF.Net.Core.Globalization {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ürün.
+        /// </summary>
+        public static string Product {
+            get {
+                return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birim Fiyat.
+        /// </summary>
+        public static string UnitPrice {
+            get {
+                return ResourceManager.GetString("UnitPrice", resourceCulture);
             }
         }
     }
