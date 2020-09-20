@@ -1,11 +1,14 @@
-﻿namespace ADF.Net.Core.Exceptions
+﻿using ADF.Net.Core.Globalization;
+
+namespace ADF.Net.Core.Exceptions
 {
 
     public class NotFoundException : BaseApplicationException
     {
-        public NotFoundException(string message) : base(message)
+        public NotFoundException() : base(Messages.DangerRecordNotFound)
         {
-
         }
+
+     
     }
 }

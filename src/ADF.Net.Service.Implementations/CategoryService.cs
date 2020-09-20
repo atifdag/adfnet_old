@@ -86,8 +86,7 @@ namespace ADF.Net.Service.Implementations
             var sortHelper = new SortHelper<Category>();
             sortHelper.OrderBy(x => x.DisplayOrder);
 
-            var query = (IOrderedQueryable<Category>)_repositoryCategory.Get()
-                .Where(expression);
+            var query = (IOrderedQueryable<Category>)_repositoryCategory.Get().Where(expression);
 
             query = sortHelper.GenerateOrderedQuery(query);
 
@@ -157,11 +156,10 @@ namespace ADF.Net.Service.Implementations
 
         public DetailModel<CategoryModel> Detail(Guid id)
         {
-            var item = _repositoryCategory.Get()
-                .FirstOrDefault(x => x.Id == id);
+            var item = _repositoryCategory.Get().FirstOrDefault(x => x.Id == id);
             if (item == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             var modelItem = item.CreateMapped<Category, CategoryModel>();
@@ -173,7 +171,7 @@ namespace ADF.Net.Service.Implementations
 
         public AddModel<CategoryModel> Add(AddModel<CategoryModel> addModel)
         {
-            
+
             var validator = new FluentValidator<CategoryModel, CategoryValidationRules>(addModel.Item);
             var validationResults = validator.Validate();
             if (!validator.IsValid)
@@ -222,13 +220,11 @@ namespace ADF.Net.Service.Implementations
                 };
             }
 
-            var item = _repositoryCategory.Get()
-             
-                .FirstOrDefault(e => e.Id == updateModel.Item.Id);
+            var item = _repositoryCategory.Get().FirstOrDefault(e => e.Id == updateModel.Item.Id);
 
             if (item == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             if (updateModel.Item.Code != item.Code)
@@ -239,7 +235,7 @@ namespace ADF.Net.Service.Implementations
                 }
             }
 
-           
+
 
             item.Code = updateModel.Item.Code;
             item.Name = updateModel.Item.Name;
@@ -256,12 +252,12 @@ namespace ADF.Net.Service.Implementations
 
         public void Delete(Guid id)
         {
-           
 
-            var item = _repositoryCategory.Get(x => x.Id == id);
+
+            var item = _repositoryCategory.Get().FirstOrDefault(x => x.Id == id);
             if (item == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             _repositoryCategory.Delete(item, true);

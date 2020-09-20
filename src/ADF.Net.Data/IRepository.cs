@@ -18,7 +18,7 @@ namespace ADF.Net.Data
         Task<IQueryable<TEntity>> GetAsync();
 
         IQueryable<TEntity> Get(string sql);
-        
+
         Task<IQueryable<TEntity>> GetAsync(string sql);
 
         TEntity Get(Expression<Func<TEntity, bool>> predicate);

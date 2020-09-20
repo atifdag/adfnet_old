@@ -76,9 +76,9 @@ namespace ADF.Net.Service.Implementations
 
             expression = expression.And(e => e.CreationTime >= startDate && e.CreationTime <= endDate);
 
-            var model = filterModel.CreateMapped<FilterModel, ListModel<ProductModel>>();
+            var listModel = filterModel.CreateMapped<FilterModel, ListModel<ProductModel>>();
 
-            model.Paging ??= new Paging
+            listModel.Paging ??= new Paging
             {
                 PageSize = filterModel.PageSize,
                 PageNumber = filterModel.PageNumber
@@ -93,8 +93,8 @@ namespace ADF.Net.Service.Implementations
 
             query = sortHelper.GenerateOrderedQuery(query);
 
-            model.Paging.TotalItemCount = query.Count();
-            var items = model.Paging.PageSize > 0 ? query.Skip((model.Paging.PageNumber - 1) * model.Paging.PageSize).Take(model.Paging.PageSize) : query;
+            listModel.Paging.TotalItemCount = query.Count();
+            var items = listModel.Paging.PageSize > 0 ? query.Skip((listModel.Paging.PageNumber - 1) * listModel.Paging.PageSize).Take(listModel.Paging.PageSize) : query;
             var modelItems = new HashSet<ProductModel>();
             foreach (var item in items)
             {
@@ -102,60 +102,60 @@ namespace ADF.Net.Service.Implementations
                 modelItem.Category = new Tuple<Guid, string, string>(item.Category.Id, item.Category.Code, item.Category.Name);
                 modelItems.Add(modelItem);
             }
-            model.Items = modelItems.ToList();
+            listModel.Items = modelItems.ToList();
             var pageSizeDescription = _serviceMain.ApplicationSettings.PageSizeList;
             var pageSizes = pageSizeDescription.Split(',').Select(s => new KeyValuePair<int, string>(s.ToInt(), s)).ToList();
             pageSizes.Insert(0, new KeyValuePair<int, string>(-1, "[" + Dictionary.All + "]"));
-            model.Paging.PageSizes = pageSizes;
-            model.Paging.PageCount = (int)Math.Ceiling((float)model.Paging.TotalItemCount / model.Paging.PageSize);
-            if (model.Paging.TotalItemCount > model.Items.Count)
+            listModel.Paging.PageSizes = pageSizes;
+            listModel.Paging.PageCount = (int)Math.Ceiling((float)listModel.Paging.TotalItemCount / listModel.Paging.PageSize);
+            if (listModel.Paging.TotalItemCount > listModel.Items.Count)
             {
-                model.Paging.HasNextPage = true;
+                listModel.Paging.HasNextPage = true;
             }
 
 
-            if (model.Paging.PageNumber == 1)
+            if (listModel.Paging.PageNumber == 1)
             {
-                if (model.Paging.TotalItemCount > 0)
+                if (listModel.Paging.TotalItemCount > 0)
                 {
-                    model.Paging.IsFirstPage = true;
+                    listModel.Paging.IsFirstPage = true;
                 }
 
 
-                if (model.Paging.PageCount == 1)
+                if (listModel.Paging.PageCount == 1)
                 {
-                    model.Paging.IsLastPage = true;
+                    listModel.Paging.IsLastPage = true;
                 }
 
             }
 
-            else if (model.Paging.PageNumber == model.Paging.PageCount)
+            else if (listModel.Paging.PageNumber == listModel.Paging.PageCount)
             {
-                model.Paging.HasNextPage = false;
+                listModel.Paging.HasNextPage = false;
 
-                if (model.Paging.PageCount > 1)
+                if (listModel.Paging.PageCount > 1)
                 {
-                    model.Paging.IsLastPage = true;
-                    model.Paging.HasPreviousPage = true;
+                    listModel.Paging.IsLastPage = true;
+                    listModel.Paging.HasPreviousPage = true;
                 }
             }
 
             else
             {
-                model.Paging.HasNextPage = true;
-                model.Paging.HasPreviousPage = true;
+                listModel.Paging.HasNextPage = true;
+                listModel.Paging.HasPreviousPage = true;
             }
 
-            if (model.Paging.TotalItemCount > model.Items.Count && model.Items.Count <= 0)
+            if (listModel.Paging.TotalItemCount > listModel.Items.Count && listModel.Items.Count <= 0)
             {
-                model.Message = Messages.DangerRecordNotFoundInPage;
+                listModel.Message = Messages.DangerRecordNotFoundInPage;
             }
 
-            if (model.Paging.TotalItemCount == 0)
+            if (listModel.Paging.TotalItemCount == 0)
             {
-                model.Message = Messages.DangerRecordNotFound;
+                listModel.Message = Messages.DangerRecordNotFound;
             }
-            return model;
+            return listModel;
         }
 
         public DetailModel<ProductModel> Detail(Guid id)
@@ -165,7 +165,7 @@ namespace ADF.Net.Service.Implementations
                 .FirstOrDefault(x => x.Id == id);
             if (item == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             var modelItem = item.CreateMapped<Product, ProductModel>();
@@ -190,11 +190,11 @@ namespace ADF.Net.Service.Implementations
                 };
             }
 
-            var parent = _repositoryCategory.Get(e => e.Id == addModel.Item.Category.Item1);
+            var parent = _repositoryCategory.Get().FirstOrDefault(e => e.Id == addModel.Item.Category.Item1);
 
             if (parent == null)
             {
-                throw new NotFoundException(Messages.DangerParentNotFound);
+                throw new ParentNotFoundException();
             }
 
             var item = addModel.Item.CreateMapped<ProductModel, Product>();
@@ -236,21 +236,20 @@ namespace ADF.Net.Service.Implementations
                 };
             }
 
-            var parent = _repositoryCategory.Get(e => e.Id == updateModel.Item.Category.Item1);
+            var parent = _repositoryCategory.Get().FirstOrDefault(e => e.Id == updateModel.Item.Category.Item1);
 
             if (parent == null)
             {
-                throw new NotFoundException(Messages.DangerParentNotFound);
+                throw new ParentNotFoundException();
             }
 
             var item = _repositoryProduct
                 .Join(x => x.Category)
-
                 .FirstOrDefault(e => e.Id == updateModel.Item.Id);
 
             if (item == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             if (updateModel.Item.Code != item.Code)
@@ -260,8 +259,6 @@ namespace ADF.Net.Service.Implementations
                     throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
                 }
             }
-
-           
 
             item.Code = updateModel.Item.Code;
             item.Name = updateModel.Item.Name;
@@ -279,15 +276,14 @@ namespace ADF.Net.Service.Implementations
 
         public void Delete(Guid id)
         {
-           
-
             var item = _repositoryProduct.Get(x => x.Id == id);
             if (item == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             _repositoryProduct.Delete(item, true);
+
         }
     }
 }
