@@ -61,6 +61,15 @@ namespace ADF.Net.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mevcut veritabanı kaldırılamadı!.
+        /// </summary>
+        public static string DangerExistingDatabaseNotRemoved {
+            get {
+                return ResourceManager.GetString("DangerExistingDatabaseNotRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} daha önce kullanılmış!.
         /// </summary>
         public static string DangerFieldDuplicated {
@@ -88,6 +97,15 @@ namespace ADF.Net.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yeni veritabanı oluşturulamadı!.
+        /// </summary>
+        public static string DangerNewDatabaseNotCreated {
+            get {
+                return ResourceManager.GetString("DangerNewDatabaseNotCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Üst kayıt bulunamadı!.
         /// </summary>
         public static string DangerParentNotFound {
@@ -111,6 +129,78 @@ namespace ADF.Net.Core.Globalization {
         public static string DangerRecordNotFoundInPage {
             get {
                 return ResourceManager.GetString("DangerRecordNotFoundInPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pencereyi kapatabilirsiniz..
+        /// </summary>
+        public static string InfoCanCloseWindow {
+            get {
+                return ResourceManager.GetString("InfoCanCloseWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mevcut veritabanı kaldırıldı..
+        /// </summary>
+        public static string InfoExistingDatabaseRemoved {
+            get {
+                return ResourceManager.GetString("InfoExistingDatabaseRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mevcut veritabanı kaldırılıyor....
+        /// </summary>
+        public static string InfoExistingDatabaseRemoving {
+            get {
+                return ResourceManager.GetString("InfoExistingDatabaseRemoving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yeni veritabanı oluşturuldu..
+        /// </summary>
+        public static string InfoNewDatabaseCreated {
+            get {
+                return ResourceManager.GetString("InfoNewDatabaseCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yeni veritabanı oluşturuluyor....
+        /// </summary>
+        public static string InfoNewDatabaseCreating {
+            get {
+                return ResourceManager.GetString("InfoNewDatabaseCreating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kurulum başlatılıyor....
+        /// </summary>
+        public static string InfoStartingInstallation {
+            get {
+                return ResourceManager.GetString("InfoStartingInstallation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kurulum Tamamlandı..
+        /// </summary>
+        public static string SuccessInstallationOk {
+            get {
+                return ResourceManager.GetString("SuccessInstallationOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} tamamlandı..
+        /// </summary>
+        public static string SuccessItemOk {
+            get {
+                return ResourceManager.GetString("SuccessItemOk", resourceCulture);
             }
         }
     }

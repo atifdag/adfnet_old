@@ -129,6 +129,22 @@
     <value>Kod</value>
     <comment>Kod</comment>
   </data>
+  <data name="Database" xml:space="preserve">
+    <value>Veritabanı</value>
+    <comment>Veritabanı</comment>
+  </data>
+  <data name="DatabaseType" xml:space="preserve">
+    <value>Veritabanı Türü</value>
+    <comment>Veritabanı Türü</comment>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>Bitiş Zamanı</value>
+    <comment>Bitiş Zamanı</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hata</value>
+    <comment>Hata</comment>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Ad</value>
     <comment>Ad</comment>
@@ -136,6 +152,14 @@
   <data name="Product" xml:space="preserve">
     <value>Ürün</value>
     <comment>Ürün</comment>
+  </data>
+  <data name="Server" xml:space="preserve">
+    <value>Sunucu</value>
+    <comment>Sunucu</comment>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Başlama Zamanı</value>
+    <comment>Başlama Zamanı</comment>
   </data>
   <data name="UnitPrice" xml:space="preserve">
     <value>Birim Fiyat</value>

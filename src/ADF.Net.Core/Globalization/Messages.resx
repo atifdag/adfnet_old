@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DangerExistingDatabaseNotRemoved" xml:space="preserve">
+    <value>Mevcut veritabanı kaldırılamadı!</value>
+    <comment>Mevcut veritabanı kaldırılamadı!</comment>
+  </data>
   <data name="DangerFieldDuplicated" xml:space="preserve">
     <value>{0} daha önce kullanılmış!</value>
     <comment>{0} daha önce kullanılmış!</comment>
@@ -129,6 +133,10 @@
     <value>İçerik geçerli değil!</value>
     <comment>İçerik geçerli değil!</comment>
   </data>
+  <data name="DangerNewDatabaseNotCreated" xml:space="preserve">
+    <value>Yeni veritabanı oluşturulamadı!</value>
+    <comment>Yeni veritabanı oluşturulamadı!</comment>
+  </data>
   <data name="DangerParentNotFound" xml:space="preserve">
     <value>Üst kayıt bulunamadı!</value>
     <comment>Üst kayıt bulunamadı!</comment>
@@ -140,5 +148,37 @@
   <data name="DangerRecordNotFoundInPage" xml:space="preserve">
     <value>Sayfada kayıt bulunamadı!</value>
     <comment>Sayfada kayıt bulunamadı!</comment>
+  </data>
+  <data name="InfoCanCloseWindow" xml:space="preserve">
+    <value>Pencereyi kapatabilirsiniz.</value>
+    <comment>Pencereyi kapatabilirsiniz.</comment>
+  </data>
+  <data name="InfoExistingDatabaseRemoved" xml:space="preserve">
+    <value>Mevcut veritabanı kaldırıldı.</value>
+    <comment>Mevcut veritabanı kaldırıldı.</comment>
+  </data>
+  <data name="InfoExistingDatabaseRemoving" xml:space="preserve">
+    <value>Mevcut veritabanı kaldırılıyor...</value>
+    <comment>Mevcut veritabanı kaldırılıyor...</comment>
+  </data>
+  <data name="InfoNewDatabaseCreated" xml:space="preserve">
+    <value>Yeni veritabanı oluşturuldu.</value>
+    <comment>Yeni veritabanı oluşturuldu.</comment>
+  </data>
+  <data name="InfoNewDatabaseCreating" xml:space="preserve">
+    <value>Yeni veritabanı oluşturuluyor...</value>
+    <comment>Yeni veritabanı oluşturuluyor...</comment>
+  </data>
+  <data name="InfoStartingInstallation" xml:space="preserve">
+    <value>Kurulum başlatılıyor...</value>
+    <comment>Kurulum başlatılıyor...</comment>
+  </data>
+  <data name="SuccessInstallationOk" xml:space="preserve">
+    <value>Kurulum Tamamlandı.</value>
+    <comment>Kurulum Tamamlandı.</comment>
+  </data>
+  <data name="SuccessItemOk" xml:space="preserve">
+    <value>{0} tamamlandı.</value>
+    <comment>{0} tamamlandı.</comment>
   </data>
 </root>

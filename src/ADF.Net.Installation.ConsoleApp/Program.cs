@@ -1,4 +1,5 @@
 ﻿using System;
+using ADF.Net.Core.Globalization;
 using ADF.Net.Data;
 using ADF.Net.Data.DataAccess.EF;
 using Microsoft.EntityFrameworkCore;
@@ -106,67 +107,62 @@ namespace ADF.Net.Installation.ConsoleApp
                     dbName = s.Replace("Initial Catalog=", "");
                 }
             }
+            
+            Console.WriteLine(Messages.InfoStartingInstallation);
+            Console.WriteLine(Dictionary.StartTime + @": " + DateTime.Now);
 
-            Console.WriteLine(@"Kurulum başlatılıyor...");
-            Console.WriteLine(@"Başlama Zamanı: " + DateTime.Now);
-
-            Console.WriteLine(@"Veritabanı Türü: " + Configuration["DefaultConnectionString"].Replace("Connection", ""));
-            Console.WriteLine(@"Veritabanı Sunucusu: " + dbServer);
-            Console.WriteLine(@"Veritabanı Adı: " + dbName);
+            Console.WriteLine(Dictionary.DatabaseType + @": " + Configuration["DefaultConnectionString"].Replace("Connection", ""));
+            Console.WriteLine(Dictionary.Server + @": " + dbServer);
+            Console.WriteLine(Dictionary.Database + @": " + dbName);
             Console.WriteLine(@"");
-            Console.WriteLine(@"Mevcut veritabanı kaldırılıyor...");
+            Console.WriteLine(Messages.InfoExistingDatabaseRemoving);
 
             if (unitOfWork.Context.Database.GetService<IRelationalDatabaseCreator>().Exists())
             {
                 if (unitOfWork.Context.Database.EnsureDeleted())
                 {
-                    Console.WriteLine(@"Mevcut veritabanı kaldırıldı.");
+                    Console.WriteLine(Messages.InfoExistingDatabaseRemoved);
                     Console.WriteLine(@"");
                 }
                 else
                 {
-                    Console.WriteLine(@"Hata: Mevcut veritabanı kaldırılamadı!");
+                    Console.WriteLine(Messages.DangerExistingDatabaseNotRemoved);
                     Console.WriteLine(@"");
                     return;
                 }
             }
 
-            Console.WriteLine(@"Yeni veritabanı oluşturuluyor...");
+            Console.WriteLine(Messages.InfoNewDatabaseCreating);
 
             if (unitOfWork.Context.Database.EnsureCreated())
             {
 
-                Console.WriteLine(@"Yeni veritabanı oluşturuldu.");
+                Console.WriteLine(Messages.InfoNewDatabaseCreated);
                 Console.WriteLine(@"");
 
                 try
                 {
                     CategoryInstallation.Install(provider);
-                    Console.WriteLine(@"Category installed.");
-                    Console.WriteLine(@"");
-
-
+                  
                     ProductInstallation.Install(provider);
-                    Console.WriteLine(@"Product installed.");
-                    Console.WriteLine(@"");
 
-                    Console.WriteLine(@"Kurulum Tamamlandı.");
-                    Console.WriteLine(@"Bitiş Zamanı: " + DateTime.Now);
-                    Console.WriteLine(@"Programı kapatabilirsiniz.");
+                    Console.WriteLine(Messages.SuccessInstallationOk);
+                    Console.WriteLine(Dictionary.EndTime + @": " + DateTime.Now);
+                    Console.WriteLine(Messages.InfoCanCloseWindow);
                     Console.WriteLine(@"--------------------------");
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                     Console.WriteLine(@"");
-                    Console.WriteLine(@"Hata oluştu.");
+                    Console.WriteLine(Dictionary.Error);
                     Console.WriteLine(@"--------------------------");
                 }
 
             }
             else
             {
-                Console.WriteLine(@"Hata: Yeni veritabanı oluşturulamadı!");
+                Console.WriteLine(Messages.DangerNewDatabaseNotCreated);
                 Console.WriteLine(@"");
             }
 

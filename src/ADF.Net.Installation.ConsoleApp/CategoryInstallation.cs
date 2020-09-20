@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ADF.Net.Core.Globalization;
 using ADF.Net.Core.Helpers;
 using ADF.Net.Data;
 using ADF.Net.Data.DataAccess.EF;
@@ -48,6 +49,9 @@ namespace ADF.Net.Installation.ConsoleApp
 
             unitOfWork.Context.AddRange(listCategory);
             unitOfWork.Context.SaveChanges();
+
+            Console.WriteLine(Messages.SuccessItemOk, Dictionary.Category);
+            Console.WriteLine(@"");
         }
     }
 }
