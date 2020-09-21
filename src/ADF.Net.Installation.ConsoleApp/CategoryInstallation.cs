@@ -11,11 +11,11 @@ namespace ADF.Net.Installation.ConsoleApp
 {
     public static class CategoryInstallation
     {
-        private static readonly List<Tuple<string, string>> Items = new List<Tuple<string, string>>
+        private static readonly List<Tuple<string, string, bool>> Items = new List<Tuple<string, string, bool>>
         {
-            Tuple.Create("Category1", "Category 1"),
-            Tuple.Create("Category2", "Category 2"),
-            Tuple.Create("Category3", "Category 3")
+            Tuple.Create("Category1", "Category 1", true),
+            Tuple.Create("Category2", "Category 2", false),
+            Tuple.Create("Category3", "Category 3", true)
         };
 
         public static void Install(IServiceProvider provider)
@@ -27,7 +27,7 @@ namespace ADF.Net.Installation.ConsoleApp
             var counterCategory = 1;
             var itemsCount = Items.Count;
 
-            foreach (var (item1, item2) in Items)
+            foreach (var (item1, item2, item3) in Items)
             {
                 var itemCategory = new Category
                 {
@@ -38,7 +38,7 @@ namespace ADF.Net.Installation.ConsoleApp
                     LastModificationTime = DateTime.Now,
                     DisplayOrder = counterCategory,
                     Version = 1,
-                    IsApproved = true
+                    IsApproved = item3
                 };
 
                 listCategory.Add(itemCategory);

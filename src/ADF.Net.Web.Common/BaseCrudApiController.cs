@@ -1,5 +1,4 @@
 ﻿using System;
-using ADF.Net.Core.Enums;
 using ADF.Net.Core.Exceptions;
 using ADF.Net.Core.Globalization;
 using ADF.Net.Service;
@@ -13,30 +12,44 @@ namespace ADF.Net.Web.Common
     [ApiController]
     public class BaseCrudApiController<T> : ControllerBase where T : class, IServiceModel, new()
     {
+        private readonly IMainService _serviceMain;
 
         private readonly ICrudService<T> _service;
 
-        public BaseCrudApiController(ICrudService<T> service)
+        public BaseCrudApiController(IMainService serviceMain, ICrudService<T> service)
         {
+            _serviceMain = serviceMain;
             _service = service;
         }
 
         [HttpGet]
-
-        public ActionResult<ListModel<T>> Get()
+        
+        public ActionResult<ListModel<T>> Get([FromQuery] FilterModel filterModel)
         {
 
-            try
+            if (filterModel.StartDate == default)
             {
-                var filterModel = new FilterModel
-                {
-                    StartDate = DateTime.Now.AddYears(-2),
-                    EndDate = DateTime.Now,
-                    Status = StatusOption.All.GetHashCode(),
-                    PageNumber = 1,
-                    PageSize = 10,
-                    Searched = string.Empty
-                };
+                filterModel.StartDate = DateTime.Now.AddYears(-2);
+            }
+
+            if (filterModel.EndDate == default)
+            {
+                filterModel.EndDate = DateTime.Now;
+            }
+
+            if (filterModel.PageNumber == default)
+            {
+                filterModel.PageNumber = 1;
+            }
+
+            if (filterModel.PageSize == default)
+            {
+                filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
+            }
+
+            try
+            
+            {
                 return Ok(_service.List(filterModel));
             }
 

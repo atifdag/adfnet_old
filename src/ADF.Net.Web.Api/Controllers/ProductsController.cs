@@ -7,10 +7,8 @@ namespace ADF.Net.Web.Api.Controllers
 
     public class ProductsController : BaseCrudApiController<ProductModel>
     {
-        public ProductsController(IProductService service) : base(service)
+        public ProductsController(IMainService serviceMain, IProductService serviceProduct) : base(serviceMain, serviceProduct)
         {
         }
-
-       
     }
 }

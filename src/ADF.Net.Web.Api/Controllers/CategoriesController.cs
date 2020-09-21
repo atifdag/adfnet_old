@@ -7,10 +7,8 @@ namespace ADF.Net.Web.Api.Controllers
 
     public class CategoriesController : BaseCrudApiController<CategoryModel>
     {
-        public CategoriesController(ICategoryService service) : base(service)
+        public CategoriesController(IMainService serviceMain, ICategoryService serviceCategory) : base(serviceMain, serviceCategory)
         {
         }
-
-       
     }
 }
