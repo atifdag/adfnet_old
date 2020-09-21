@@ -20,6 +20,7 @@ namespace ADF.Net.Service.Implementations
     {
 
         private readonly IMainService _serviceMain;
+
         private readonly IRepository<Category> _repositoryCategory;
 
         public CategoryService(IMainService serviceMain, IRepository<Category> repositoryCategory)
@@ -30,13 +31,17 @@ namespace ADF.Net.Service.Implementations
 
         public ListModel<CategoryModel> List(FilterModel filterModel)
         {
+
             var startDate = filterModel.StartDate.ResetTimeToStartOfDay();
+
             var endDate = filterModel.EndDate.ResetTimeToEndOfDay();
+
             Expression<Func<Category, bool>> expression;
 
             if (filterModel.Status != -1)
             {
                 var status = filterModel.Status.ToString().ToBoolean();
+
                 if (filterModel.Searched != null)
                 {
                     if (status)
@@ -75,94 +80,108 @@ namespace ADF.Net.Service.Implementations
 
             expression = expression.And(e => e.CreationTime >= startDate && e.CreationTime <= endDate);
 
-            var model = filterModel.CreateMapped<FilterModel, ListModel<CategoryModel>>();
+            var listModel = filterModel.CreateMapped<FilterModel, ListModel<CategoryModel>>();
 
-            model.Paging ??= new Paging
+            listModel.Paging ??= new Paging
             {
                 PageSize = filterModel.PageSize,
                 PageNumber = filterModel.PageNumber
             };
 
             var sortHelper = new SortHelper<Category>();
+
             sortHelper.OrderBy(x => x.DisplayOrder);
 
             var query = (IOrderedQueryable<Category>)_repositoryCategory.Get().Where(expression);
 
             query = sortHelper.GenerateOrderedQuery(query);
 
-            model.Paging.TotalItemCount = query.Count();
-            var items = model.Paging.PageSize > 0 ? query.Skip((model.Paging.PageNumber - 1) * model.Paging.PageSize).Take(model.Paging.PageSize) : query;
+            listModel.Paging.TotalItemCount = query.Count();
+
+            var items = listModel.Paging.PageSize > 0 ? query.Skip((listModel.Paging.PageNumber - 1) * listModel.Paging.PageSize).Take(listModel.Paging.PageSize) : query;
+
             var modelItems = new HashSet<CategoryModel>();
+
             foreach (var item in items)
             {
                 var modelItem = item.CreateMapped<Category, CategoryModel>();
                 modelItems.Add(modelItem);
             }
-            model.Items = modelItems.ToList();
+
+            listModel.Items = modelItems.ToList();
+
             var pageSizeDescription = _serviceMain.ApplicationSettings.PageSizeList;
+
             var pageSizes = pageSizeDescription.Split(',').Select(s => new KeyValuePair<int, string>(s.ToInt(), s)).ToList();
+
             pageSizes.Insert(0, new KeyValuePair<int, string>(-1, "[" + Dictionary.All + "]"));
-            model.Paging.PageSizes = pageSizes;
-            model.Paging.PageCount = (int)Math.Ceiling((float)model.Paging.TotalItemCount / model.Paging.PageSize);
-            if (model.Paging.TotalItemCount > model.Items.Count)
+
+            listModel.Paging.PageSizes = pageSizes;
+
+            listModel.Paging.PageCount = (int)Math.Ceiling((float)listModel.Paging.TotalItemCount / listModel.Paging.PageSize);
+
+            if (listModel.Paging.TotalItemCount > listModel.Items.Count)
             {
-                model.Paging.HasNextPage = true;
+                listModel.Paging.HasNextPage = true;
             }
 
-
-            if (model.Paging.PageNumber == 1)
+            if (listModel.Paging.PageNumber == 1)
             {
-                if (model.Paging.TotalItemCount > 0)
+                if (listModel.Paging.TotalItemCount > 0)
                 {
-                    model.Paging.IsFirstPage = true;
+                    listModel.Paging.IsFirstPage = true;
                 }
 
 
-                if (model.Paging.PageCount == 1)
+                if (listModel.Paging.PageCount == 1)
                 {
-                    model.Paging.IsLastPage = true;
+                    listModel.Paging.IsLastPage = true;
                 }
 
             }
 
-            else if (model.Paging.PageNumber == model.Paging.PageCount)
+            else if (listModel.Paging.PageNumber == listModel.Paging.PageCount)
             {
-                model.Paging.HasNextPage = false;
+                listModel.Paging.HasNextPage = false;
 
-                if (model.Paging.PageCount > 1)
+                if (listModel.Paging.PageCount > 1)
                 {
-                    model.Paging.IsLastPage = true;
-                    model.Paging.HasPreviousPage = true;
+                    listModel.Paging.IsLastPage = true;
+                    listModel.Paging.HasPreviousPage = true;
                 }
             }
 
             else
             {
-                model.Paging.HasNextPage = true;
-                model.Paging.HasPreviousPage = true;
+                listModel.Paging.HasNextPage = true;
+                listModel.Paging.HasPreviousPage = true;
             }
 
-            if (model.Paging.TotalItemCount > model.Items.Count && model.Items.Count <= 0)
+            if (listModel.Paging.TotalItemCount > listModel.Items.Count && listModel.Items.Count <= 0)
             {
-                model.Message = Messages.DangerRecordNotFoundInPage;
+                listModel.Message = Messages.DangerRecordNotFoundInPage;
             }
 
-            if (model.Paging.TotalItemCount == 0)
+            if (listModel.Paging.TotalItemCount == 0)
             {
-                model.Message = Messages.DangerRecordNotFound;
+                listModel.Message = Messages.DangerRecordNotFound;
             }
-            return model;
+
+            return listModel;
         }
 
         public DetailModel<CategoryModel> Detail(Guid id)
         {
+
             var item = _repositoryCategory.Get().FirstOrDefault(x => x.Id == id);
+
             if (item == null)
             {
                 throw new NotFoundException();
             }
 
             var modelItem = item.CreateMapped<Category, CategoryModel>();
+
             return new DetailModel<CategoryModel>
             {
                 Item = modelItem
@@ -173,7 +192,9 @@ namespace ADF.Net.Service.Implementations
         {
 
             var validator = new FluentValidator<CategoryModel, CategoryValidationRules>(addModel.Item);
+
             var validationResults = validator.Validate();
+
             if (!validator.IsValid)
             {
                 throw new ValidationException(Messages.DangerInvalidEntitiy)
@@ -188,19 +209,26 @@ namespace ADF.Net.Service.Implementations
             {
                 throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
             }
+
             item.Id = GuidHelper.NewGuid();
+
             item.Version = 1;
+
             item.CreationTime = DateTime.Now;
+
             item.LastModificationTime = DateTime.Now;
+
             item.DisplayOrder = 1;
 
             _repositoryCategory.Add(item, true);
+
             var maxDisplayOrder = _repositoryCategory.Get().Max(e => e.DisplayOrder);
+
             item.DisplayOrder = maxDisplayOrder + 1;
+
             var affectedItem = _repositoryCategory.Update(item, true);
 
             addModel.Item = affectedItem.CreateMapped<Category, CategoryModel>();
-
 
             return addModel;
         }
@@ -208,6 +236,7 @@ namespace ADF.Net.Service.Implementations
 
         public UpdateModel<CategoryModel> Update(UpdateModel<CategoryModel> updateModel)
         {
+
             IValidator validator = new FluentValidator<CategoryModel, CategoryValidationRules>(updateModel.Item);
 
             var validationResults = validator.Validate();
@@ -235,16 +264,22 @@ namespace ADF.Net.Service.Implementations
                 }
             }
 
-
+            var version = item.Version;
 
             item.Code = updateModel.Item.Code;
+
             item.Name = updateModel.Item.Name;
+
             item.Description = updateModel.Item.Description;
+
             item.IsApproved = updateModel.Item.IsApproved;
+
             item.LastModificationTime = DateTime.Now;
-            var version = item.Version;
+            
             item.Version = version + 1;
+
             var affectedItem = _repositoryCategory.Update(item, true);
+
             updateModel.Item = affectedItem.CreateMapped<Category, CategoryModel>();
 
             return updateModel;
@@ -252,9 +287,8 @@ namespace ADF.Net.Service.Implementations
 
         public void Delete(Guid id)
         {
-
-
             var item = _repositoryCategory.Get().FirstOrDefault(x => x.Id == id);
+
             if (item == null)
             {
                 throw new NotFoundException();

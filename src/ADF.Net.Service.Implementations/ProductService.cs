@@ -20,8 +20,11 @@ namespace ADF.Net.Service.Implementations
     {
 
         private readonly IMainService _serviceMain;
+
         private readonly IRepository<Product> _repositoryProduct;
+
         private readonly IRepository<Category> _repositoryCategory;
+
         public ProductService(IMainService serviceMain, IRepository<Product> repositoryProduct, IRepository<Category> repositoryCategory)
         {
             _serviceMain = serviceMain;
@@ -31,13 +34,17 @@ namespace ADF.Net.Service.Implementations
 
         public ListModel<ProductModel> List(FilterModel filterModel)
         {
+
             var startDate = filterModel.StartDate.ResetTimeToStartOfDay();
+
             var endDate = filterModel.EndDate.ResetTimeToEndOfDay();
+
             Expression<Func<Product, bool>> expression;
 
             if (filterModel.Status != -1)
             {
                 var status = filterModel.Status.ToString().ToBoolean();
+
                 if (filterModel.Searched != null)
                 {
                     if (status)
@@ -85,6 +92,7 @@ namespace ADF.Net.Service.Implementations
             };
 
             var sortHelper = new SortHelper<Product>();
+
             sortHelper.OrderBy(x => x.DisplayOrder);
 
             var query = (IOrderedQueryable<Product>)_repositoryProduct
@@ -94,25 +102,34 @@ namespace ADF.Net.Service.Implementations
             query = sortHelper.GenerateOrderedQuery(query);
 
             listModel.Paging.TotalItemCount = query.Count();
+
             var items = listModel.Paging.PageSize > 0 ? query.Skip((listModel.Paging.PageNumber - 1) * listModel.Paging.PageSize).Take(listModel.Paging.PageSize) : query;
+
             var modelItems = new HashSet<ProductModel>();
+
             foreach (var item in items)
             {
                 var modelItem = item.CreateMapped<Product, ProductModel>();
                 modelItem.Category = new Tuple<Guid, string, string>(item.Category.Id, item.Category.Code, item.Category.Name);
                 modelItems.Add(modelItem);
             }
+
             listModel.Items = modelItems.ToList();
+
             var pageSizeDescription = _serviceMain.ApplicationSettings.PageSizeList;
+
             var pageSizes = pageSizeDescription.Split(',').Select(s => new KeyValuePair<int, string>(s.ToInt(), s)).ToList();
+
             pageSizes.Insert(0, new KeyValuePair<int, string>(-1, "[" + Dictionary.All + "]"));
+
             listModel.Paging.PageSizes = pageSizes;
+
             listModel.Paging.PageCount = (int)Math.Ceiling((float)listModel.Paging.TotalItemCount / listModel.Paging.PageSize);
+
             if (listModel.Paging.TotalItemCount > listModel.Items.Count)
             {
                 listModel.Paging.HasNextPage = true;
             }
-
 
             if (listModel.Paging.PageNumber == 1)
             {
@@ -155,24 +172,28 @@ namespace ADF.Net.Service.Implementations
             {
                 listModel.Message = Messages.DangerRecordNotFound;
             }
+
             return listModel;
         }
 
         public DetailModel<ProductModel> Detail(Guid id)
         {
+
             var item = _repositoryProduct
                 .Join(x => x.Category)
                 .FirstOrDefault(x => x.Id == id);
+
             if (item == null)
             {
                 throw new NotFoundException();
             }
 
             var modelItem = item.CreateMapped<Product, ProductModel>();
+
             modelItem.Category = new Tuple<Guid, string, string>(item.Category.Id, item.Category.Code, item.Category.Name);
+
             return new DetailModel<ProductModel>
             {
-
                 Item = modelItem
             };
         }
@@ -181,7 +202,9 @@ namespace ADF.Net.Service.Implementations
         {
             
             var validator = new FluentValidator<ProductModel, ProductValidationRules>(addModel.Item);
+
             var validationResults = validator.Validate();
+
             if (!validator.IsValid)
             {
                 throw new ValidationException(Messages.DangerInvalidEntitiy)
@@ -203,19 +226,29 @@ namespace ADF.Net.Service.Implementations
             {
                 throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
             }
+
             item.Id = GuidHelper.NewGuid();
+
             item.Version = 1;
+
             item.CreationTime = DateTime.Now;
+
             item.LastModificationTime = DateTime.Now;
+
             item.Category = parent;
+
             item.DisplayOrder = 1;
 
             _repositoryProduct.Add(item, true);
+
             var maxDisplayOrder = _repositoryProduct.Get().Max(e => e.DisplayOrder);
+
             item.DisplayOrder = maxDisplayOrder + 1;
+
             var affectedItem = _repositoryProduct.Update(item, true);
 
             addModel.Item = affectedItem.CreateMapped<Product, ProductModel>();
+
             addModel.Item.Category = new Tuple<Guid, string, string>(parent.Id, parent.Code, parent.Name);
 
             return addModel;
@@ -224,6 +257,7 @@ namespace ADF.Net.Service.Implementations
 
         public UpdateModel<ProductModel> Update(UpdateModel<ProductModel> updateModel)
         {
+
             IValidator validator = new FluentValidator<ProductModel, ProductValidationRules>(updateModel.Item);
 
             var validationResults = validator.Validate();
@@ -260,23 +294,36 @@ namespace ADF.Net.Service.Implementations
                 }
             }
 
-            item.Code = updateModel.Item.Code;
-            item.Name = updateModel.Item.Name;
-            item.Description = updateModel.Item.Description;
-            item.IsApproved = updateModel.Item.IsApproved;
-            item.LastModificationTime = DateTime.Now;
-            item.Category = parent;
             var version = item.Version;
+
+            item.Code = updateModel.Item.Code;
+
+            item.Name = updateModel.Item.Name;
+
+            item.Description = updateModel.Item.Description;
+
+            item.IsApproved = updateModel.Item.IsApproved;
+
+            item.LastModificationTime = DateTime.Now;
+
+            item.Category = parent;
+
             item.Version = version + 1;
+
             var affectedItem = _repositoryProduct.Update(item, true);
+
             updateModel.Item = affectedItem.CreateMapped<Product, ProductModel>();
+
             updateModel.Item.Category = new Tuple<Guid, string, string>(parent.Id, parent.Code, parent.Name);
+
             return updateModel;
         }
 
         public void Delete(Guid id)
         {
+
             var item = _repositoryProduct.Get(x => x.Id == id);
+
             if (item == null)
             {
                 throw new NotFoundException();

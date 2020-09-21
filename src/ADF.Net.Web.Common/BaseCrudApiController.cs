@@ -25,6 +25,7 @@ namespace ADF.Net.Web.Common
 
         public ActionResult<ListModel<T>> Get()
         {
+
             try
             {
                 var filterModel = new FilterModel
@@ -49,6 +50,7 @@ namespace ADF.Net.Web.Common
         [HttpGet("{id}")]
         public ActionResult<DetailModel<T>> Get(Guid id)
         {
+
             try
             {
                 return Ok(_service.Detail(id));
@@ -70,6 +72,7 @@ namespace ADF.Net.Web.Common
         [HttpPost]
         public ActionResult Post([FromBody] AddModel<T> addModel)
         {
+
             try
             {
                 var affectedModel = _service.Add(addModel);
@@ -97,6 +100,7 @@ namespace ADF.Net.Web.Common
         [HttpPut]
         public ActionResult Put([FromBody] UpdateModel<T> updateModel)
         {
+
             try
             {
                 return Ok(_service.Update(updateModel));
