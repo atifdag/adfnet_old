@@ -11,6 +11,9 @@ namespace ADF.Net.Data.DataAccess.EF
     internal class IncludableJoin<TEntity, TPreviousProperty> : IIncludableJoin<TEntity, TPreviousProperty> where TEntity : class, IEntity, new()
     {
         private readonly IIncludableQueryable<TEntity, TPreviousProperty> _query;
+        public Expression Expression => _query.Expression;
+        public Type ElementType => _query.ElementType;
+        public IQueryProvider Provider => _query.Provider;
 
         public IncludableJoin(IIncludableQueryable<TEntity, TPreviousProperty> query)
         {
@@ -26,10 +29,6 @@ namespace ADF.Net.Data.DataAccess.EF
         {
             return _query.GetEnumerator();
         }
-
-        public Expression Expression => _query.Expression;
-        public Type ElementType => _query.ElementType;
-        public IQueryProvider Provider => _query.Provider;
 
         internal IIncludableQueryable<TEntity, TPreviousProperty> GetQuery()
         {

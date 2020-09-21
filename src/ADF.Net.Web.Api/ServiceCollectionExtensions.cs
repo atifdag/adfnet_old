@@ -15,7 +15,7 @@ namespace ADF.Net.Web.Api
         public static void ResolveDependency(this IServiceCollection services, IConfiguration configuration)
         {
            
-            Init(services,configuration);
+            Init(services);
 
             var dependencies = Assembly.GetAssembly(typeof(MainService))?.GetTypes().Where(t => t.GetInterfaces().Select(x => x.Name).Contains(nameof(ITransientDependency)));
 
@@ -30,11 +30,14 @@ namespace ADF.Net.Web.Api
 
         }
 
-        private static void Init(this IServiceCollection services, IConfiguration configuration)
+        private static void Init(this IServiceCollection services)
         {
             services.AddScoped<IDbContext>(provider => provider.GetService<EfDbContext>());
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
             services.AddHttpContextAccessor();
+
             services.AddTransient<IMainService, MainService>();
 
         }

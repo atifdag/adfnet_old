@@ -8,18 +8,25 @@ namespace ADF.Net.Data.DataAccess.EF.Configurations
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+
             builder.ToTable("Categories");
 
             builder.HasKey(x => x.Id);
+
             builder.Property(x => x.Id).IsRequired();
 
             builder.Property(x => x.Code).IsRequired().HasColumnType("varchar(512)");
+
             builder.HasIndex(x => x.Code).IsUnique().HasName("UK_CategoryCode");
+
             builder.Property(x => x.Name).IsRequired().HasColumnType("varchar(512)");
+
             builder.Property(x => x.Description).HasColumnType("varchar(512)");
 
             builder.Property(x => x.CreationTime).IsRequired();
+
             builder.Property(x => x.LastModificationTime).IsRequired();
+
         }
     }
 }

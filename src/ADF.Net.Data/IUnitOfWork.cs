@@ -5,6 +5,7 @@ namespace ADF.Net.Data
     
     public interface IUnitOfWork<TContext> : IDisposable where TContext : IDbContext
     {
+        TContext Context { get; set; }
 
         void BeginTransaction();
 
@@ -12,6 +13,6 @@ namespace ADF.Net.Data
 
         void Rollback();
 
-        TContext Context { get; set; }
+       
     }
 }
