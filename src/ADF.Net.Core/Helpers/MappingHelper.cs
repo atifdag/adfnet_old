@@ -10,6 +10,7 @@ namespace ADF.Net.Core.Helpers
 
         public static TTarget MapTo<TSource, TTarget>(this TSource source, TTarget target)
         {
+
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
 
             var sourceProperties = typeof(TSource).GetProperties(bindingFlags).Where(propertyInfo => propertyInfo.CanRead).Select(propertyInfo => new
@@ -32,12 +33,16 @@ namespace ADF.Net.Core.Helpers
                 var propertyInfos = target.GetType().GetProperty(property.Name);
                 if (propertyInfos != null) propertyInfos.SetValue(target, value, null);
             }
+
             return target;
+
         }
 
         public static TTarget CreateMapped<TSource, TTarget>(this TSource source) where TTarget : new()
         {
+
             return source.MapTo(new TTarget());
+
         }
     }
 }

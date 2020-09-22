@@ -20,10 +20,14 @@ namespace ADF.Net.Core.Helpers
 
         public IOrderedQueryable<T> GenerateOrderedQuery(IOrderedQueryable<T> query)
         {
+
             foreach (var sortColumn in SortingExpressionList)
             {
+
                 var sortObj = sortColumn.Values.First();
+
                 var sortExpression = sortColumn.Keys.First();
+
                 if (sortObj.IsThenBy)
                 {
                     query = sortObj.IsDescending ? Queryable.ThenByDescending(query, (dynamic)sortExpression) : Queryable.ThenBy(query, (dynamic)sortExpression);
@@ -32,23 +36,31 @@ namespace ADF.Net.Core.Helpers
                 {
                     query = sortObj.IsDescending ? Queryable.OrderByDescending(query, (dynamic)sortExpression) : Queryable.OrderBy(query, (dynamic)sortExpression);
                 }
+
             }
+
             return query;
+
         }
 
         public SortHelper<T> OrderBy<TOrderType>(Expression<Func<T, TOrderType>> orderExpression)
         {
+
             var sortObject = new SortObject
             {
                 IsThenBy = false,
                 IsDescending = false
             };
+
             AddSortStatement(orderExpression, sortObject);
+
             return this;
+
         }
 
         public SortHelper<T> OrderByDescending<TOrderType>(Expression<Func<T, TOrderType>> orderExpression)
         {
+
             var sortObject = new SortObject
             {
                 IsThenBy = false,
@@ -56,33 +68,44 @@ namespace ADF.Net.Core.Helpers
             };
 
             AddSortStatement(orderExpression, sortObject);
+
             return this;
+
         }
 
         public SortHelper<T> ThenBy<TOrderType>(Expression<Func<T, TOrderType>> orderExpression)
         {
+
             var sortObject = new SortObject
             {
                 IsThenBy = true,
                 IsDescending = false
             };
+
             AddSortStatement(orderExpression, sortObject);
+
             return this;
+
         }
 
         public SortHelper<T> ThenByDescending<TOrderType>(Expression<Func<T, TOrderType>> orderExpression)
         {
+
             var sortObject = new SortObject
             {
                 IsThenBy = true,
                 IsDescending = true
             };
+
             AddSortStatement(orderExpression, sortObject);
+
             return this;
+
         }
 
         private void AddSortStatement<TOrderType>(Expression<Func<T, TOrderType>> orderExpression, SortObject sortObject)
         {
+
             var sortMap = new Dictionary<LambdaExpression, SortObject>
             {
                 {
@@ -90,7 +113,9 @@ namespace ADF.Net.Core.Helpers
                     sortObject
                 }
             };
+
             SortingExpressionList.Add(sortMap);
+
         }
     }
 }
