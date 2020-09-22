@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using ADF.Net.Service;
+﻿using ADF.Net.Service;
 using ADF.Net.Service.GenericCrudModels;
-using ADF.Net.Service.Models;
 
 namespace ADF.Net.Desktop.WindowsFormApp
 {
     partial class CategoryForm
     {
-        private static ICategoryService _serviceCategory;
         /// <summary>
         /// Required designer variable.
         /// </summary>

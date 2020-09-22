@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using ADF.Net.Service;
+﻿using ADF.Net.Service;
 using ADF.Net.Service.GenericCrudModels;
-using ADF.Net.Service.Models;
 
 namespace ADF.Net.Desktop.WindowsFormApp
 {
