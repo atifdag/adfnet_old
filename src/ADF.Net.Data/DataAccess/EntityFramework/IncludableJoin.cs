@@ -10,6 +10,7 @@ namespace ADF.Net.Data.DataAccess.EntityFramework
 {
     public class IncludableJoin<TEntity, TPreviousProperty> : IIncludableJoin<TEntity, TPreviousProperty> where TEntity : class, IEntity, new()
     {
+
         private readonly IIncludableQueryable<TEntity, TPreviousProperty> _query;
         public Expression Expression => _query.Expression;
         public Type ElementType => _query.ElementType;
@@ -34,5 +35,6 @@ namespace ADF.Net.Data.DataAccess.EntityFramework
         {
             return _query;
         }
+
     }
 }

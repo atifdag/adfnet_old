@@ -12,6 +12,7 @@ namespace ADF.Net.Data.DataAccess.EntityFramework
 
         public EfDbContext(DbContextOptions options) : base(options)
         {
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,6 +26,7 @@ namespace ADF.Net.Data.DataAccess.EntityFramework
                 dynamic configurationInstance = Activator.CreateInstance(entityTypeConfiguration);
 
                 modelBuilder.ApplyConfiguration(configurationInstance);
+
             }
 
             base.OnModelCreating(modelBuilder);

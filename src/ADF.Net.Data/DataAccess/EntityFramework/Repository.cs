@@ -9,8 +9,11 @@ namespace ADF.Net.Data.DataAccess.EntityFramework
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, new()
     {
+
         private bool _disposed;
+
         private readonly EfDbContext _context;
+
         private readonly DbSet<TEntity> _dbSet;
 
         public Repository(EfDbContext context)
