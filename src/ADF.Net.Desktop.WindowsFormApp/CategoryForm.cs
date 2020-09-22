@@ -15,8 +15,7 @@ namespace ADF.Net.Desktop.WindowsFormApp
 
         public CategoryForm(ICategoryService serviceCategory)
         {
-            var items = serviceCategory.List(new FilterModel()).Items;
-            InitializeComponent(items);
+            InitializeComponent(serviceCategory);
         }
     }
 }

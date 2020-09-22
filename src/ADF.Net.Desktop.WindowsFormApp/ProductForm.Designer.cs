@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using ADF.Net.Service;
+using ADF.Net.Service.GenericCrudModels;
 using ADF.Net.Service.Models;
 
 namespace ADF.Net.Desktop.WindowsFormApp
@@ -29,7 +31,7 @@ namespace ADF.Net.Desktop.WindowsFormApp
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent(List<ProductModel> items)
+        private void InitializeComponent(IProductService service)
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -43,15 +45,19 @@ namespace ADF.Net.Desktop.WindowsFormApp
             this.dataGridView1.Size = new System.Drawing.Size(240, 150);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.Text = "dataGridView1";
-            this.dataGridView1.DataSource = items;
+            this.dataGridView1.DataSource = service.List(new FilterModel()).Items;
             dataGridView1.AutoSize = true;
+
             // 
             // ProductForm
             // 
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 450);
+
             this.Controls.Add(this.dataGridView1);
+
             this.Name = "ProductForm";
             this.Text = "Ürünler";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

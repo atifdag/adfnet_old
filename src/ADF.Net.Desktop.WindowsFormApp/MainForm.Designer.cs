@@ -34,9 +34,9 @@
             // 
             // BtnCategory
             // 
-            this.BtnCategory.Location = new System.Drawing.Point(29, 43);
+            this.BtnCategory.Location = new System.Drawing.Point(335, 167);
             this.BtnCategory.Name = "BtnCategory";
-            this.BtnCategory.Size = new System.Drawing.Size(89, 23);
+            this.BtnCategory.Size = new System.Drawing.Size(131, 79);
             this.BtnCategory.TabIndex = 0;
             this.BtnCategory.Text = "Kategoriler";
             this.BtnCategory.UseVisualStyleBackColor = true;
@@ -44,9 +44,9 @@
             // 
             // BtnProduct
             // 
-            this.BtnProduct.Location = new System.Drawing.Point(158, 43);
+            this.BtnProduct.Location = new System.Drawing.Point(532, 167);
             this.BtnProduct.Name = "BtnProduct";
-            this.BtnProduct.Size = new System.Drawing.Size(75, 23);
+            this.BtnProduct.Size = new System.Drawing.Size(130, 79);
             this.BtnProduct.TabIndex = 1;
             this.BtnProduct.Text = "Ürünler";
             this.BtnProduct.UseVisualStyleBackColor = true;
@@ -56,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1280, 450);
+            this.ClientSize = new System.Drawing.Size(1370, 450);
             this.Controls.Add(this.BtnProduct);
             this.Controls.Add(this.BtnCategory);
             this.Name = "MainForm";

@@ -15,8 +15,7 @@ namespace ADF.Net.Desktop.WindowsFormApp
 
         public ProductForm(IProductService serviceProduct)
         {
-            var items = serviceProduct.List(new FilterModel()).Items;
-            InitializeComponent(items);
+            InitializeComponent(serviceProduct);
         }
     }
 }
