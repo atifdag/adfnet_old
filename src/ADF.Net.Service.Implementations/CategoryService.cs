@@ -125,6 +125,7 @@ namespace ADF.Net.Service.Implementations
             foreach (var item in items)
             {
                 var modelItem = item.CreateMapped<Category, CategoryModel>();
+
                 modelItems.Add(modelItem);
             }
 

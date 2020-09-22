@@ -12,13 +12,10 @@ namespace ADF.Net.Web.Common
     [ApiController]
     public class BaseCrudApiController<T> : ControllerBase where T : class, IServiceModel, new()
     {
-        private readonly IMainService _serviceMain;
-
         private readonly ICrudService<T> _service;
 
-        public BaseCrudApiController(IMainService serviceMain, ICrudService<T> service)
+        public BaseCrudApiController(ICrudService<T> service)
         {
-            _serviceMain = serviceMain;
             _service = service;
         }
 

@@ -130,7 +130,9 @@ namespace ADF.Net.Service.Implementations
             foreach (var item in items)
             {
                 var modelItem = item.CreateMapped<Product, ProductModel>();
+
                 modelItem.Category = new Tuple<Guid, string, string>(item.Category.Id, item.Category.Code, item.Category.Name);
+
                 modelItems.Add(modelItem);
             }
 
