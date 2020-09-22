@@ -20,6 +20,7 @@ namespace ADF.Net.Web.Api.Tests
 
         public ProductTests()
         {
+
             var dbContext = new EfDbContext(new DbContextOptions<EfDbContext>());
 
             var fakeCategoryRepository = new FakeCategoryRepository(dbContext);
@@ -29,11 +30,13 @@ namespace ADF.Net.Web.Api.Tests
             IProductService serviceProduct = new ProductService(new MainService(), fakeProductRepository, fakeCategoryRepository);
 
             _controller = new ProductsController(serviceProduct);
+
         }
 
         [Fact]
         public void Get_WhenCalled_ReturnsOkResult()
         {
+
             // Act
             var okResult = _controller.Get(new FilterModel { Status = StatusOption.All.GetHashCode() }).Result;
 

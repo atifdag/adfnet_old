@@ -20,6 +20,7 @@ namespace ADF.Net.Web.Api.Tests
 
         public CategoryTests()
         {
+
             var dbContext = new EfDbContext(new DbContextOptions<EfDbContext>());
 
             var fakeCategoryRepository = new FakeCategoryRepository(dbContext);
@@ -97,6 +98,7 @@ namespace ADF.Net.Web.Api.Tests
 
             // Assert
             Assert.IsType<NotFoundObjectResult>(notFoundResult);
+
         }
 
 
@@ -118,6 +120,7 @@ namespace ADF.Net.Web.Api.Tests
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(badResponse);
+
         }
 
 
@@ -140,6 +143,7 @@ namespace ADF.Net.Web.Api.Tests
 
             // Assert
             Assert.IsType<CreatedAtActionResult>(createdResponse);
+
         }
 
 
