@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace ADF.Net.Data.DataAccess.EF
 {
-    internal class IncludableJoin<TEntity, TPreviousProperty> : IIncludableJoin<TEntity, TPreviousProperty> where TEntity : class, IEntity, new()
+    public class IncludableJoin<TEntity, TPreviousProperty> : IIncludableJoin<TEntity, TPreviousProperty> where TEntity : class, IEntity, new()
     {
         private readonly IIncludableQueryable<TEntity, TPreviousProperty> _query;
         public Expression Expression => _query.Expression;

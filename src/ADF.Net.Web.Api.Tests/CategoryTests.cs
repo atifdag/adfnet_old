@@ -1,4 +1,5 @@
 using System;
+using ADF.Net.Core.Enums;
 using ADF.Net.Data.DataAccess.EF;
 using ADF.Net.Service;
 using ADF.Net.Service.GenericCrudModels;
@@ -21,15 +22,16 @@ namespace ADF.Net.Web.Api.Tests
         {
             var dbContext = new EfDbContext(new DbContextOptions<EfDbContext>());
             var fakeCategoryRepository = new FakeCategoryRepository(dbContext);
-            ICategoryService service = new CategoryService(new MainService(), fakeCategoryRepository);
-            _controller = new CategoriesController(service);
+            IMainService serviceMain = new MainService();
+            ICategoryService serviceCategory = new CategoryService(new MainService(), fakeCategoryRepository);
+            _controller = new CategoriesController(serviceMain, serviceCategory);
         }
 
         [Fact]
         public void Get_WhenCalled_ReturnsOkResult()
         {
             // Act
-            var okResult = _controller.Get().Result;
+            var okResult = _controller.Get(new FilterModel { Status = StatusOption.All.GetHashCode() }).Result;
 
             // Assert
             Assert.IsType<OkObjectResult>(okResult);
@@ -39,7 +41,7 @@ namespace ADF.Net.Web.Api.Tests
         [Fact]
         public void Get_WhenCalled_ReturnsAllItems()
         {
-            var okResult = _controller.Get().Result as OkObjectResult;
+            var okResult = _controller.Get(new FilterModel{Status = StatusOption.All.GetHashCode()}).Result as OkObjectResult;
             // Assert
             var model = Assert.IsType<ListModel<CategoryModel>>(okResult?.Value);
             Assert.Equal(3, model.Items.Count);

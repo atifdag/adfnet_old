@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ADF.Net.Data.DataAccess.EF
 {
-    internal static class RepositoryExtensions
+    public static class RepositoryExtensions
     {
         public static IIncludableJoin<TEntity, TProperty> Join<TEntity, TProperty>(this IQueryable<TEntity> query, Expression<Func<TEntity, TProperty>> propToExpand) where TEntity : class, IEntity, new()
         {
