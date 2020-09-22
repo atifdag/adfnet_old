@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADF.Net.Data", "ADF.Net.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADF.Net.Installation.ConsoleApp", "ADF.Net.Installation.ConsoleApp\ADF.Net.Installation.ConsoleApp.csproj", "{44F160FA-44CF-42BE-B117-6C47EE554304}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADF.Net.Desktop.WindowsFormApp", "ADF.Net.Desktop.WindowsFormApp\ADF.Net.Desktop.WindowsFormApp.csproj", "{78DF8463-5357-41DA-A0CB-C38180BA3732}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,18 @@ Global
 		{44F160FA-44CF-42BE-B117-6C47EE554304}.Release|x64.Build.0 = Release|Any CPU
 		{44F160FA-44CF-42BE-B117-6C47EE554304}.Release|x86.ActiveCfg = Release|Any CPU
 		{44F160FA-44CF-42BE-B117-6C47EE554304}.Release|x86.Build.0 = Release|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Debug|x64.Build.0 = Debug|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Debug|x86.Build.0 = Debug|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Release|x64.ActiveCfg = Release|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Release|x64.Build.0 = Release|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Release|x86.ActiveCfg = Release|Any CPU
+		{78DF8463-5357-41DA-A0CB-C38180BA3732}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

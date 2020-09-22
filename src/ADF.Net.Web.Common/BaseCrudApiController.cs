@@ -27,26 +27,6 @@ namespace ADF.Net.Web.Common
         public ActionResult<ListModel<T>> Get([FromQuery] FilterModel filterModel)
         {
 
-            if (filterModel.StartDate == default)
-            {
-                filterModel.StartDate = DateTime.Now.AddYears(-2);
-            }
-
-            if (filterModel.EndDate == default)
-            {
-                filterModel.EndDate = DateTime.Now;
-            }
-
-            if (filterModel.PageNumber == default)
-            {
-                filterModel.PageNumber = 1;
-            }
-
-            if (filterModel.PageSize == default)
-            {
-                filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
-            }
-
             try
             
             {
