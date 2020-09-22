@@ -7,6 +7,8 @@ namespace ADF.Net.Data.BaseEntities
     {
         public Guid Id { get; set; }
 
+        public string Code { get; set; }
+
         public int DisplayOrder { get; set; }
 
         public bool IsApproved { get; set; }

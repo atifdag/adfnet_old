@@ -17,7 +17,7 @@ namespace ADF.Net.Data.DataAccess.EntityFramework.Configurations
 
             builder.Property(x => x.Code).IsRequired().HasColumnType("varchar(512)");
 
-            builder.HasIndex(x => x.Code).IsUnique().HasName("UK_CategoryCode");
+            builder.HasIndex(x => x.Code).IsUnique().HasName($"UK_{nameof(Category)}Code");
 
             builder.Property(x => x.Name).IsRequired().HasColumnType("varchar(512)");
 

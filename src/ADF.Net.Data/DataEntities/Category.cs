@@ -5,7 +5,6 @@ namespace ADF.Net.Data.DataEntities
 {
     public class Category : BaseEntity
     {
-        public string Code { get; set; }
 
         public string Name { get; set; }
 
