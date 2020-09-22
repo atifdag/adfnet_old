@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using ADF.Net.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace ADF.Net.Data.DataAccess.EF
+namespace ADF.Net.Data.DataAccess.EntityFramework
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity, new()
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace ADF.Net.Data.DataAccess.EF
+namespace ADF.Net.Data.DataAccess.EntityFramework
 {
     public class UnitOfWork : IUnitOfWork<EfDbContext>
     {

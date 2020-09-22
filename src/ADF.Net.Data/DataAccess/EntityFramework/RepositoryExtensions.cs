@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using ADF.Net.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace ADF.Net.Data.DataAccess.EF
+namespace ADF.Net.Data.DataAccess.EntityFramework
 {
     public static class RepositoryExtensions
     {

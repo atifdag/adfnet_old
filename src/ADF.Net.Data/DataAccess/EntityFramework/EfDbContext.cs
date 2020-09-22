@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
-namespace ADF.Net.Data.DataAccess.EF
+namespace ADF.Net.Data.DataAccess.EntityFramework
 {
     public class EfDbContext : DbContext, IDbContext
     {

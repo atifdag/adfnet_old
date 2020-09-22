@@ -1,6 +1,6 @@
 using System;
 using ADF.Net.Core.Enums;
-using ADF.Net.Data.DataAccess.EF;
+using ADF.Net.Data.DataAccess.EntityFramework;
 using ADF.Net.Service;
 using ADF.Net.Service.GenericCrudModels;
 using ADF.Net.Service.Implementations;

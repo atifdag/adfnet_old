@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using ADF.Net.Data.DataAccess.EF;
+using ADF.Net.Data.DataAccess.EntityFramework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

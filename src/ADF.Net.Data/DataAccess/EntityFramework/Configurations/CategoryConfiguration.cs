@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ADF.Net.Data.DataAccess.EF.Configurations
+namespace ADF.Net.Data.DataAccess.EntityFramework.Configurations
 {
-    internal class ProductConfiguration : IEntityTypeConfiguration<Product>
+    internal class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
 
-            builder.ToTable("Products");
+            builder.ToTable("Categories");
 
             builder.HasKey(x => x.Id);
 
@@ -17,19 +17,15 @@ namespace ADF.Net.Data.DataAccess.EF.Configurations
 
             builder.Property(x => x.Code).IsRequired().HasColumnType("varchar(512)");
 
-            builder.HasIndex(x => x.Code).IsUnique().HasName("UK_ProductCode");
+            builder.HasIndex(x => x.Code).IsUnique().HasName("UK_CategoryCode");
 
             builder.Property(x => x.Name).IsRequired().HasColumnType("varchar(512)");
 
             builder.Property(x => x.Description).HasColumnType("varchar(512)");
 
-            builder.Property(x => x.UnitPrice).IsRequired();
-
             builder.Property(x => x.CreationTime).IsRequired();
 
             builder.Property(x => x.LastModificationTime).IsRequired();
-
-            builder.HasOne(x => x.Category).WithMany(y => y.Products).IsRequired().OnDelete(DeleteBehavior.Restrict);
 
         }
     }

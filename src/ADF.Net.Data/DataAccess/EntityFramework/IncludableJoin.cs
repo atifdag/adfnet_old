@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using ADF.Net.Core;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace ADF.Net.Data.DataAccess.EF
+namespace ADF.Net.Data.DataAccess.EntityFramework
 {
     public class IncludableJoin<TEntity, TPreviousProperty> : IIncludableJoin<TEntity, TPreviousProperty> where TEntity : class, IEntity, new()
     {
