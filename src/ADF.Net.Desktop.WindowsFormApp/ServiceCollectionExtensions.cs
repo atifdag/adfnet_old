@@ -1,9 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using ADF.Net.Core;
-using ADF.Net.Data;
 using ADF.Net.Data.DataAccess.EntityFramework;
-using ADF.Net.Service;
 using ADF.Net.Service.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -1,8 +1,8 @@
 ﻿using System;
+using ADF.Net.Core;
 using ADF.Net.Core.Exceptions;
+using ADF.Net.Core.GenericCrudModels;
 using ADF.Net.Core.Globalization;
-using ADF.Net.Service;
-using ADF.Net.Service.GenericCrudModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ADF.Net.Web.Common

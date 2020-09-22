@@ -1,4 +1,5 @@
 ﻿using System;
+using ADF.Net.Core;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ADF.Net.Data.DataAccess.EntityFramework

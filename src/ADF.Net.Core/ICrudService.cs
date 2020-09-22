@@ -1,8 +1,7 @@
 ﻿using System;
-using ADF.Net.Core;
-using ADF.Net.Service.GenericCrudModels;
+using ADF.Net.Core.GenericCrudModels;
 
-namespace ADF.Net.Service
+namespace ADF.Net.Core
 {
     public interface ICrudService<T> : ITransientDependency where T : class, IServiceModel, new()
     {

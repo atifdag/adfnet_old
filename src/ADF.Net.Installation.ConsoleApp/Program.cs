@@ -1,6 +1,6 @@
 ﻿using System;
+using ADF.Net.Core;
 using ADF.Net.Core.Globalization;
-using ADF.Net.Data;
 using ADF.Net.Data.DataAccess.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ADF.Net.Data
+namespace ADF.Net.Core
 {
     
     public interface IUnitOfWork<TContext> : IDisposable where TContext : IDbContext

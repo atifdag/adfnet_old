@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ADF.Net.Core;
 using ADF.Net.Core.Globalization;
 using ADF.Net.Core.Helpers;
-using ADF.Net.Data;
 using ADF.Net.Data.DataAccess.EntityFramework;
 using ADF.Net.Data.DataEntities;
 using Microsoft.Extensions.DependencyInjection;

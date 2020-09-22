@@ -1,4 +1,4 @@
-﻿namespace ADF.Net.Service.GenericCrudModels
+﻿namespace ADF.Net.Core.GenericCrudModels
 {
 
     public class UpdateModel<T> where T : class, IServiceModel, new()

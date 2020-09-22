@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ADF.Net.Service.GenericCrudModels
+namespace ADF.Net.Core.GenericCrudModels
 {
     public class FilterModel
     {

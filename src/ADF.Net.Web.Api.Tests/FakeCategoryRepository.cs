@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using ADF.Net.Data;
+using ADF.Net.Core;
 using ADF.Net.Data.DataAccess.EntityFramework;
 using ADF.Net.Data.DataEntities;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,5 @@
-﻿using ADF.Net.Service;
-using ADF.Net.Service.GenericCrudModels;
+﻿using ADF.Net.Core.GenericCrudModels;
+using ADF.Net.Service;
 
 namespace ADF.Net.Desktop.WindowsFormApp
 {

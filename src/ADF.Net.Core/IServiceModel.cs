@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ADF.Net.Service
+namespace ADF.Net.Core
 {
     public interface IServiceModel
     {

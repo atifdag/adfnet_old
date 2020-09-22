@@ -2,9 +2,8 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using ADF.Net.Core;
 
-namespace ADF.Net.Data
+namespace ADF.Net.Core
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class, IEntity, new()
     {

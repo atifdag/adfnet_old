@@ -1,6 +1,6 @@
 ﻿using ADF.Net.Core.ValueObjects;
 
-namespace ADF.Net.Service
+namespace ADF.Net.Core
 {
     public interface IMainService
     {

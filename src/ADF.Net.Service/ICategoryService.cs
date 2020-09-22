@@ -1,4 +1,5 @@
-﻿using ADF.Net.Service.Models;
+﻿using ADF.Net.Core;
+using ADF.Net.Service.Models;
 
 namespace ADF.Net.Service
 {

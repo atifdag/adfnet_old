@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using ADF.Net.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace ADF.Net.Data.DataAccess.EntityFramework

@@ -4,13 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using ADF.Net.Core;
 using ADF.Net.Core.Exceptions;
+using ADF.Net.Core.GenericCrudModels;
 using ADF.Net.Core.Globalization;
 using ADF.Net.Core.Helpers;
 using ADF.Net.Core.Validation.FluentValidation;
 using ADF.Net.Core.ValueObjects;
-using ADF.Net.Data;
 using ADF.Net.Data.DataEntities;
-using ADF.Net.Service.GenericCrudModels;
 using ADF.Net.Service.Implementations.ValidationRules.FluentValidation;
 using ADF.Net.Service.Models;
 
