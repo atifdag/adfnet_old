@@ -44,7 +44,9 @@ namespace ADF.Net.Data.DataAccess.EntityFramework
 
                 if (disposing)
                 {
+
                     Context.Dispose();
+
                 }
 
             }
