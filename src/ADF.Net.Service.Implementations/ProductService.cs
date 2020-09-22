@@ -33,6 +33,7 @@ namespace ADF.Net.Service.Implementations
 
         public ListModel<ProductModel> List(FilterModel filterModel)
         {
+
             if (filterModel.StartDate == default)
             {
                 filterModel.StartDate = DateTime.Now.AddYears(-2);
@@ -195,6 +196,7 @@ namespace ADF.Net.Service.Implementations
             }
 
             return listModel;
+
         }
 
         public DetailModel<ProductModel> Detail(Guid id)
@@ -217,6 +219,7 @@ namespace ADF.Net.Service.Implementations
             {
                 Item = modelItem
             };
+
         }
 
         public AddModel<ProductModel> Add(AddModel<ProductModel> addModel)
@@ -273,6 +276,7 @@ namespace ADF.Net.Service.Implementations
             addModel.Item.Category = new Tuple<Guid, string, string>(parent.Id, parent.Code, parent.Name);
 
             return addModel;
+
         }
 
 
@@ -338,6 +342,7 @@ namespace ADF.Net.Service.Implementations
             updateModel.Item.Category = new Tuple<Guid, string, string>(parent.Id, parent.Code, parent.Name);
 
             return updateModel;
+
         }
 
         public void Delete(Guid id)

@@ -30,6 +30,7 @@ namespace ADF.Net.Service.Implementations
 
         public ListModel<CategoryModel> List(FilterModel filterModel)
         {
+
             if (filterModel.StartDate == default)
             {
                 filterModel.StartDate = DateTime.Now.AddYears(-2);
@@ -188,6 +189,7 @@ namespace ADF.Net.Service.Implementations
             }
 
             return listModel;
+
         }
 
         public DetailModel<CategoryModel> Detail(Guid id)
@@ -206,6 +208,7 @@ namespace ADF.Net.Service.Implementations
             {
                 Item = modelItem
             };
+
         }
 
         public AddModel<CategoryModel> Add(AddModel<CategoryModel> addModel)
@@ -251,6 +254,7 @@ namespace ADF.Net.Service.Implementations
             addModel.Item = affectedItem.CreateMapped<Category, CategoryModel>();
 
             return addModel;
+
         }
 
 
@@ -303,10 +307,12 @@ namespace ADF.Net.Service.Implementations
             updateModel.Item = affectedItem.CreateMapped<Category, CategoryModel>();
 
             return updateModel;
+
         }
 
         public void Delete(Guid id)
         {
+
             var item = _repositoryCategory.Get().FirstOrDefault(x => x.Id == id);
 
             if (item == null)
@@ -315,6 +321,7 @@ namespace ADF.Net.Service.Implementations
             }
 
             _repositoryCategory.Delete(item, true);
+
         }
     }
 }
