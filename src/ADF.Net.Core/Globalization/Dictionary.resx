@@ -125,6 +125,14 @@
     <value>Kategori</value>
     <comment>Kategori</comment>
   </data>
+  <data name="Client" xml:space="preserve">
+    <value>Cari Hesap</value>
+    <comment>Cari Hesap</comment>
+  </data>
+  <data name="ClientType" xml:space="preserve">
+    <value>Cari Hesap Tipi</value>
+    <comment>Cari Hesap Tipi</comment>
+  </data>
   <data name="Code" xml:space="preserve">
     <value>Kod</value>
     <comment>Kod</comment>

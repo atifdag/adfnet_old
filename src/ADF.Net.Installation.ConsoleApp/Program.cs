@@ -143,9 +143,9 @@ namespace ADF.Net.Installation.ConsoleApp
                 try
                 {
                     CategoryInstallation.Install(provider);
-                  
+                    ClientTypeInstallation.Install(provider);
                     ProductInstallation.Install(provider);
-
+                    ClientInstallation.Install(provider);
                     Console.WriteLine(Messages.SuccessInstallationOk);
                     Console.WriteLine(Dictionary.EndTime + @": " + DateTime.Now);
                     Console.WriteLine(Messages.InfoCanCloseWindow);
