@@ -1,0 +1,13 @@
+<mat-toolbar color="primary" class="app-header">
+  <div><a  routerLink="/" class="logo">ADF.Net</a></div>
+  <button mat-button class="menu-button">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="nav-tool-items">
+    <a mat-button routerLink="/Authentication/SignIn" routerLinkActive="active">Sign In</a>
+    <a mat-button routerLink="/Authentication/SignUp" routerLinkActive="active">Sign Up</a>
+  </span>
+</mat-toolbar>
+<div class="public-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <router-outlet></router-outlet>
+</div>

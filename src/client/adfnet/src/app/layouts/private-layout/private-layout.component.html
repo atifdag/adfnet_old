@@ -1,0 +1,41 @@
+<div class="private-container" [class.private-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="private-toolbar">
+    <a routerLink="/" class="logo">ADF.Net</a>
+    <button mat-icon-button class="menu-button" (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="nav-tool-items">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+        Atıf DAĞ
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Bilgilerimi Güncelle</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Çıkış Yap</span>
+        </button>
+      </mat-menu>
+    </span>
+  </mat-toolbar>
+  <mat-sidenav-container class="private-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="!mobileQuery.matches">
+
+      <mat-nav-list class="private-sidenav-list">
+        <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>
+      </mat-nav-list>
+
+
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
