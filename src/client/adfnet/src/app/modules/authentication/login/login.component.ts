@@ -16,6 +16,6 @@ export class LoginComponent implements OnInit {
   }
 
   submit(): void{
-    this.router.navigate(['/']);
+    this.router.navigate(['/Home']);
   }
 }

@@ -109,3 +109,6 @@ body {
   margin: 0;
 }
 
+.box mat-card-actions {
+  text-align: center;
+}

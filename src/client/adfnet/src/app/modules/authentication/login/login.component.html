@@ -1,18 +1,23 @@
- <mat-card class="box">
+<mat-card class="box">
   <mat-card-header>
     <mat-card-title>
       <p style="text-align: center;"><img src="assets/images/logo2.png"></p>
-     Login</mat-card-title>
+      Giriş Yap
+    </mat-card-title>
   </mat-card-header>
-  <form class="box-form">
-    <mat-card-content>
+  <mat-card-content>
+    <form class="box-form">
       <mat-form-field class="box-full-width">
-        <input matInput placeholder="Username">
+        <input matInput placeholder="Telefon, e-posta veya kullanıcı adı">
       </mat-form-field>
       <mat-form-field class="box-full-width">
-        <input matInput placeholder="Password">
+        <input matInput placeholder="Parola">
       </mat-form-field>
-    </mat-card-content>
-    <button mat-raised-button color="accent" class="btn-block" (click)="submit()">Submit</button>
-  </form>
+      <button mat-raised-button color="accent" class="btn-block" (click)="submit()">Giriş yap</button>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button [routerLink]="'/Authentication/Register'">Kaydol</button>
+    <button mat-button [routerLink]="'/Authentication/ForgotPassword'">Şifremi Unuttum</button>
+  </mat-card-actions>
 </mat-card>
