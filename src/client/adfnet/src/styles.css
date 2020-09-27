@@ -28,8 +28,12 @@ body {
   z-index: 2;
 }
 
+.layout-wrapper .layout-header .menu-toggle-button {
+  position: relative;
+}
+
 .layout-wrapper .layout-header .logo {
-  position: absolute;
+  position: relative;
   text-decoration: none;
   color: #ffffff;
   left: 0px;
@@ -43,23 +47,12 @@ body {
 }
 
 .layout-is-mobile .layout-header .logo {
-  position: absolute;
-  left: 33%;
   line-height: 56px;
   padding-left: 56px;
   height: 56px;
   background-position: 4px 4px;
 }
 
-.layout-wrapper .layout-header .menu-toggle-button {
-  position: relative;
-  left: 250px;
-}
-
-.layout-is-mobile .layout-header .menu-toggle-button {
-  position: relative;
-  left: 0;
-}
 
 .layout-wrapper .layout-header .layout-header-items {
   position: absolute;
@@ -93,22 +86,6 @@ body {
   -ms-transform: scale(1);
   z-index: 5;
 }
-
-.box:before {
-  content: "";
-  width: 100%;
-  height: 30px;
-  border-radius: 10px;
-  position: absolute;
-  top: -10px;
-  background: rgba(255, 255, 255, .6);
-  left: 0;
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
-  z-index: -1;
-}
-
 
 .box-form {
   min-width: 100%;

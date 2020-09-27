@@ -30,6 +30,6 @@ export class PrivateLayoutComponent implements OnInit, OnDestroy {
   }
 
   exit(): void{
-    this.router.navigate(['/Authentication/SignIn']);
+    this.router.navigate(['/Authentication/Login']);
   }
 }

@@ -1,12 +1,5 @@
 <div class="layout-wrapper" [class.layout-is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="layout-header">
-    <a routerLink="/" class="logo">DomurTek</a>
-    <span class="layout-header-items">
-      <a mat-button routerLink="/Authentication/SignIn" routerLinkActive="active">Sign In</a>
-      <a mat-button routerLink="/Authentication/SignUp" routerLinkActive="active">Sign Up</a>
-    </span>
-  </mat-toolbar>
-  <div class="layout-container" fxLayout="row" fxLayoutAlign="center center">
-    <router-outlet></router-outlet>
+  <div class="layout-container" style="margin-top: 0;" fxLayout="row" fxLayoutAlign="center center">
+        <router-outlet></router-outlet>
   </div>
 </div>
