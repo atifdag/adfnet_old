@@ -1,15 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
-
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-height: 100vh;
+  background: #e2e2e2;
 }
 
-.private-container {
+.layout-wrapper {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -17,98 +18,73 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-}
-
-.private-is-mobile .private-toolbar {
-  position: fixed;
-  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
-  z-index: 2;
-}
-
-.logo {
-  position: relative;
-  text-decoration: none;
-  color: #ffffff;
-  width: 220px;
-  left: 0px;
-}
-
-.menu-button {
-  position: absolute;
-  left: 0px;
-}
-
-.nav-tool-items {
-  position: absolute;
-  right: 0;
-}
-
-.private-sidenav-container {
-  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-  flex: 1;
-}
-
-.private-is-mobile .private-sidenav-container {
-  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
-     `<body>` to be our scrolling element for mobile layouts. */
-  flex: 1 0 auto;
-}
-
-.private-sidenav-list {
-  width: 250px;
-}
-
-@media screen and (max-width: 600px) {
-  .menu-button {
-    position: absolute;
-    left: 0px;
-  }
-
-  .logo {
-    position: absolute;
-    left: 220px;
-  }
-}
-
-/*
-.app-header {
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
-    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
-}
-
-.private-container{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #eee;
-}
-
-
-.public-wrapper {
   height: 100%;
 }
 
-.private-container {
+.layout-wrapper .layout-header {
   position: fixed;
-  top: 60px;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+
+.layout-wrapper .layout-header .logo {
+  position: absolute;
+  text-decoration: none;
+  color: #ffffff;
+  left: 0px;
+  display: block;
+  width: 250px;
+  text-align: left;
+  line-height: 64px;
+  padding-left: 64px;
+  height: 64px;
+  background: url(assets/images/dtlogo.png) no-repeat 8px 8px;
+}
+
+.layout-is-mobile .layout-header .logo {
+  position: absolute;
+  left: 33%;
+  line-height: 56px;
+  padding-left: 56px;
+  height: 56px;
+  background-position: 4px 4px;
+}
+
+.layout-wrapper .layout-header .menu-toggle-button {
+  position: relative;
+  left: 250px;
+}
+
+.layout-is-mobile .layout-header .menu-toggle-button {
+  position: relative;
   left: 0;
+}
+
+.layout-wrapper .layout-header .layout-header-items {
+  position: absolute;
   right: 0;
 }
 
+.layout-wrapper .layout-container {
+  flex: 1 0 auto;
+  margin-top: 64px;
+}
+
+.layout-is-mobile .layout-container {
+  flex: 1 0 auto;
+  margin-top: 56px;
+}
+
+.layout-wrapper .layout-container .sidenav-list {
+  width: 250px;
+}
+
+.layout-is-mobile .layout-container .sidenav-list {
+  margin-top: 56px;
+}
+
 .box {
-  position: relative;
-  top: 0;
-  opacity: 1;
-  float: left;
   padding: 60px 50px 40px 50px;
   width: 100%;
   background: #fff;
@@ -144,39 +120,25 @@ body {
   z-index: -1;
 }
 
-.public-wrapper .box-form {
+.box-form {
   min-width: 100%;
   max-width: 300px;
   width: 100%;
 }
 
-.public-wrapper .box-full-width,
-.public-wrapper .btn-block {
+.box .box-full-width,
+.box .btn-block {
   width: 100%;
 }
 
-.public-wrapper .mat-card-header {
+.box mat-card-header {
   text-align: center;
   width: 100%;
   display: block;
   font-weight: 700;
 }
 
-.public-wrapper .mat-card-header .mat-card-title {
+.box mat-card-header mat-card-title {
   font-size: 30px;
   margin: 0;
 }
-
-.public-wrapper .mat-card {
-  padding: 40px 70px 50px;
-}
-
-.public-wrapper .mat-stroked-button {
-  border: 1px solid currentColor;
-  line-height: 54px;
-  background: #fff7fa;
-}
-
-.public-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
-  padding: 0.8375em 0;
-} */

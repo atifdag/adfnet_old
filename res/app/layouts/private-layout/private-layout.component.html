@@ -1,10 +1,10 @@
 <div class="layout-wrapper" [class.layout-is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="layout-header">
+  <mat-toolbar color="primary" class="layout-toolbar">
     <a routerLink="/" class="logo">DomurTek</a>
-    <button mat-icon-button class="menu-toggle-button" (click)="snav.toggle()">
+    <button mat-icon-button class="menu-button" (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span class="layout-header-items">
+    <span class="nav-tool-items">
       <button mat-button [matMenuTriggerFor]="menu">
         <mat-icon>account_circle</mat-icon>
         Atıf DAĞ
@@ -21,9 +21,9 @@
       </mat-menu>
     </span>
   </mat-toolbar>
-  <mat-sidenav-container class="layout-container">
+  <mat-sidenav-container class="private-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
-      [opened]="!mobileQuery.matches">
+      fixedTopGap="56" [opened]="!mobileQuery.matches">
       <mat-nav-list class="sidenav-list">
         <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>
       </mat-nav-list>
