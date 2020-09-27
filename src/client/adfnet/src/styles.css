@@ -39,7 +39,7 @@ body {
   line-height: 64px;
   padding-left: 64px;
   height: 64px;
-  background: url(assets/images/dtlogo.png) no-repeat 8px 8px;
+  background: url(assets/images/logo.png) no-repeat 8px 8px;
 }
 
 .layout-is-mobile .layout-header .logo {
@@ -85,24 +85,13 @@ body {
 }
 
 .box {
-  padding: 60px 50px 40px 50px;
-  width: 100%;
+  width: 330px;
   background: #fff;
   border-radius: 10px;
   transform: scale(1);
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
   z-index: 5;
-  max-width: 330px;
-}
-
-.box.back {
-  transform: scale(0.95);
-  -webkit-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  top: -20px;
-  opacity: 0.8;
-  z-index: -1;
 }
 
 .box:before {
@@ -112,13 +101,14 @@ body {
   border-radius: 10px;
   position: absolute;
   top: -10px;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, .6);
   left: 0;
-  transform: scale(0.95);
-  -webkit-transform: scale(0.95);
-  -ms-transform: scale(0.95);
+  transform: scale(.95);
+  -webkit-transform: scale(.95);
+  -ms-transform: scale(.95);
   z-index: -1;
 }
+
 
 .box-form {
   min-width: 100%;
@@ -126,8 +116,7 @@ body {
   width: 100%;
 }
 
-.box .box-full-width,
-.box .btn-block {
+.box-form .box-full-width, .box-form .btn-block {
   width: 100%;
 }
 
@@ -142,3 +131,4 @@ body {
   font-size: 30px;
   margin: 0;
 }
+
