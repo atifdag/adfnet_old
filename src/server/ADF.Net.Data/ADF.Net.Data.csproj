@@ -17,7 +17,7 @@
     </PackageReference>
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.21" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ADF.Net.Core\ADF.Net.Core.csproj" />
