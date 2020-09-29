@@ -25,6 +25,10 @@ const routes: Routes = [
         path: 'ClientType',
         loadChildren: () => import('./modules/client-type/client-type.module').then(m => m.ClientTypeModule)
       },
+      {
+        path: 'Client',
+        loadChildren: () => import('./modules/client/client.module').then(m => m.ClientModule)
+      },
     ]
   },
   {
@@ -36,7 +40,7 @@ const routes: Routes = [
         loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule)
       },
     ]
-  }
+  },
 ];
 
 @NgModule({
