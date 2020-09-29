@@ -27,10 +27,15 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
       [opened]="!mobileQuery.matches">
       <mat-nav-list class="sidenav-list">
-        <a mat-list-item routerLink="/" *ngFor="let nav of fillerNav">{{nav}}</a>
+        <a mat-list-item routerLink="/ClientType">
+          <mat-icon>supervised_user_circle</mat-icon>&nbsp;Cari Hesap Türleri
+        </a>
+        <a mat-list-item routerLink="/">
+          <mat-icon>account_circle</mat-icon>&nbsp;Cari Hesaplar
+        </a>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content class="layout-sidenav-content">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

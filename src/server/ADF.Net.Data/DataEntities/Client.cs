@@ -1,5 +1,4 @@
 ﻿using ADF.Net.Data.BaseEntities;
-using System.Security.Principal;
 
 namespace ADF.Net.Data.DataEntities
 {

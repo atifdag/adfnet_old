@@ -22,7 +22,7 @@ import { PrivateLayoutComponent } from './layouts/private-layout/private-layout.
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

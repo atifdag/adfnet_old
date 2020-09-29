@@ -11,8 +11,6 @@ export class PrivateLayoutComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
-
-  fillerNav = Array.from({ length: 10 }, (_, i) => `Nav Item ${i + 1}`);
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     private router: Router,

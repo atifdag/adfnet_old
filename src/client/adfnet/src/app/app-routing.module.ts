@@ -21,6 +21,10 @@ const routes: Routes = [
         path: 'Category',
         loadChildren: () => import('./modules/category/category.module').then(m => m.CategoryModule)
       },
+      {
+        path: 'ClientType',
+        loadChildren: () => import('./modules/client-type/client-type.module').then(m => m.ClientTypeModule)
+      },
     ]
   },
   {
