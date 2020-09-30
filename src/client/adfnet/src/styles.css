@@ -7,7 +7,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-height: 100vh;
-  background: #e2e2e2;
+
 }
 
 .layout-wrapper {
@@ -96,8 +96,11 @@ body {
   width: 100%;
 }
 
-.box-form .box-full-width,
-.box-form .btn-block {
+.full-width {
+  width: 100%;
+}
+
+.btn-block {
   width: 100%;
 }
 
@@ -115,4 +118,16 @@ body {
 
 .box mat-card-actions {
   text-align: center;
+}
+
+.content-card{
+  max-width: 1320px;
+}
+
+.content-card .mat-card-header-text{
+  margin: 0;
+}
+
+.mat-multiline{
+  white-space: normal;
 }
