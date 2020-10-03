@@ -7,7 +7,6 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-height: 100vh;
-
 }
 
 .layout-wrapper {
@@ -120,14 +119,18 @@ body {
   text-align: center;
 }
 
-.content-card{
+.content-card {
   max-width: 1320px;
 }
 
-.content-card .mat-card-header-text{
+.content-card .mat-card-header-text {
   margin: 0;
 }
 
-.mat-multiline{
+.mat-multiline {
   white-space: normal;
+}
+
+.mat-data-table{
+  width: 100%;
 }
