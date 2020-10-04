@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PublicLayoutComponent } from './layouts/public-layout/public-layout.component';
 import { PrivateLayoutComponent } from './layouts/private-layout/private-layout.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getPaginatorIntl } from './paginator-intl';
 
 @NgModule({
   declarations: [
@@ -24,8 +26,11 @@ import { PrivateLayoutComponent } from './layouts/private-layout/private-layout.
     FormsModule,
     FlexLayoutModule,
   ],
-  providers: [],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: getPaginatorIntl() }
+  ],
   bootstrap: [AppComponent],
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
