@@ -1,5 +1,4 @@
 ﻿using System;
-using Adfnet.Core;
 
 namespace Adfnet.Data.BaseEntities
 {

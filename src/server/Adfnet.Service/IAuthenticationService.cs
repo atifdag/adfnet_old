@@ -1,6 +1,5 @@
 ﻿using Adfnet.Core.Enums;
 using Adfnet.Service.Models;
-using Adfnet.Service.Models;
 
 namespace Adfnet.Service
 {

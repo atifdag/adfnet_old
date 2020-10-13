@@ -467,17 +467,5 @@ namespace Adfnet.Service.Implementations
 
         }
 
-        public List<IdCodeName> List()
-        {
-            var identityUserMinRoleLevel = _serviceMain.IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
-
-            var list = _repositoryRole.Get().Where(x => x.IsApproved && x.Level > identityUserMinRoleLevel).OrderBy(x => x.DisplayOrder).Select(x => new IdCodeName(x.Id, x.Code, x.Name));
-            if (list.Any())
-            {
-                return list.ToList();
-            }
-
-            throw new NotFoundException();
-        }
     }
 }

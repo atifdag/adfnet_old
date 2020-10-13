@@ -16,22 +16,25 @@ using Adfnet.Service.Models;
 
 namespace Adfnet.Service.Implementations
 {
-    public class MenuService : IMenuService
+    public class ParameterService : IParameterService
     {
 
-        private readonly IRepository<Menu> _repositoryMenu;
-        private readonly IRepository<MenuHistory> _repositoryMenuHistory;
+        private readonly IRepository<Parameter> _repositoryParameter;
+        private readonly IRepository<ParameterHistory> _repositoryParameterHistory;
+        private readonly IRepository<ParameterGroup> _repositoryParameterGroup;
         private readonly IMainService _serviceMain;
 
 
-        public MenuService(IRepository<Menu> repositoryMenu, IRepository<MenuHistory> repositoryMenuHistory, IMainService serviceMain)
+
+        public ParameterService(IRepository<Parameter> repositoryParameter, IRepository<ParameterHistory> repositoryParameterHistory, IRepository<ParameterGroup> repositoryParameterGroup, IMainService serviceMain)
         {
-            _repositoryMenu = repositoryMenu;
-            _repositoryMenuHistory = repositoryMenuHistory;
+            _repositoryParameter = repositoryParameter;
+            _repositoryParameterHistory = repositoryParameterHistory;
+            _repositoryParameterGroup = repositoryParameterGroup;
             _serviceMain = serviceMain;
         }
 
-        public ListModel<MenuModel> List(FilterModel filterModel)
+        public ListModel<ParameterModel> List(FilterModel filterModel)
         {
 
             if (filterModel.StartDate == default)
@@ -53,11 +56,11 @@ namespace Adfnet.Service.Implementations
             {
                 filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
             }
-            var model = filterModel.CreateMapped<FilterModel, ListModel<MenuModel>>();
+            var model = filterModel.CreateMapped<FilterModel, ListModel<ParameterModel>>();
             return List(filterModel.StartDate, filterModel.EndDate, filterModel.PageNumber, filterModel.PageSize, filterModel.Status, filterModel.Searched, Guid.Empty, model);
         }
 
-        public ListModel<MenuModel> List(FilterModelWithParent filterModel)
+        public ListModel<ParameterModel> List(FilterModelWithParent filterModel)
         {
 
             if (filterModel.StartDate == default)
@@ -80,16 +83,16 @@ namespace Adfnet.Service.Implementations
                 filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
             }
 
-            var model = filterModel.CreateMapped<FilterModelWithParent, ListModel<MenuModel>>();
+            var model = filterModel.CreateMapped<FilterModelWithParent, ListModel<ParameterModel>>();
             return List(filterModel.StartDate, filterModel.EndDate, filterModel.PageNumber, filterModel.PageSize, filterModel.Status, filterModel.Searched, filterModel.Parent.Id, model);
         }
 
-        private ListModel<MenuModel> List(DateTime startDate, DateTime endDate, int pageNumber, int pageSize, int status, string searched, Guid parentId, ListModel<MenuModel> model)
+        private ListModel<ParameterModel> List(DateTime startDate, DateTime endDate, int pageNumber, int pageSize, int status, string searched, Guid parentId, ListModel<ParameterModel> model)
         {
             var resetedStartDate = startDate.ResetTimeToStartOfDay();
             var resetedEndDate = endDate.ResetTimeToEndOfDay();
 
-            Expression<Func<Menu, bool>> expression;
+            Expression<Func<Parameter, bool>> expression;
 
             if (model.Paging == null)
             {
@@ -107,11 +110,11 @@ namespace Adfnet.Service.Implementations
                 {
                     if (bStatus)
                     {
-                        expression = c => c.IsApproved && c.Name.Contains(searched);
+                        expression = c => c.IsApproved && c.Key.Contains(searched);
                     }
                     else
                     {
-                        expression = c => c.IsApproved == false && c.Name.Contains(searched);
+                        expression = c => c.IsApproved == false && c.Key.Contains(searched);
                     }
                 }
                 else
@@ -131,7 +134,7 @@ namespace Adfnet.Service.Implementations
             {
                 if (searched != null)
                 {
-                    expression = c => c.Name.Contains(searched);
+                    expression = c => c.Key.Contains(searched);
                 }
                 else
                 {
@@ -142,27 +145,27 @@ namespace Adfnet.Service.Implementations
             expression = expression.And(e => e.CreationTime >= resetedStartDate && e.CreationTime <= resetedEndDate);
             if (parentId != Guid.Empty)
             {
-                expression = expression.And(e => e.ParentMenu.Id == parentId);
+                expression = expression.And(e => e.ParameterGroup.Id == parentId);
             }
 
-            var sortHelper = new SortHelper<Menu>();
+            var sortHelper = new SortHelper<Parameter>();
             sortHelper.OrderBy(x => x.DisplayOrder);
-            var query = (IOrderedQueryable<Menu>)_repositoryMenu
+            var query = (IOrderedQueryable<Parameter>)_repositoryParameter
                 .Join(x => x.Creator.Person)
                 .Join(x => x.LastModifier.Person)
-                .Join(x => x.ParentMenu)
+                .Join(x => x.ParameterGroup)
                 .Where(expression);
             query = sortHelper.GenerateOrderedQuery(query);
 
             model.Paging.TotalItemCount = query.Count();
             var items = model.Paging.PageSize > 0 ? query.Skip((model.Paging.PageNumber - 1) * model.Paging.PageSize).Take(model.Paging.PageSize) : query;
-            var modelItems = new HashSet<MenuModel>();
+            var modelItems = new HashSet<ParameterModel>();
             foreach (var item in items)
             {
-                var modelItem = item.CreateMapped<Menu, MenuModel>();
+                var modelItem = item.CreateMapped<Parameter, ParameterModel>();
                 modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
                 modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
-                modelItem.ParentMenu = new IdCodeName(item.ParentMenu.Id, item.ParentMenu.Code, item.ParentMenu.Name);
+                modelItem.ParameterGroup = new IdCodeName(item.ParameterGroup.Id, item.ParameterGroup.Code, item.ParameterGroup.Name);
 
                 modelItems.Add(modelItem);
             }
@@ -228,46 +231,46 @@ namespace Adfnet.Service.Implementations
 
         }
 
-        public DetailModel<MenuModel> Detail(Guid id)
+        public DetailModel<ParameterModel> Detail(Guid id)
         {
 
-            var item = _repositoryMenu
+            var item = _repositoryParameter
                 .Join(x => x.Creator.Person)
                 .Join(x => x.LastModifier.Person)
-                .Join(x => x.ParentMenu)
+                .Join(x => x.ParameterGroup)
 
                 .FirstOrDefault(x => x.Id == id);
             if (item == null)
             {
                 throw new NotFoundException(Messages.DangerRecordNotFound);
             }
-            var modelItem = item.CreateMapped<Menu, MenuModel>();
+            var modelItem = item.CreateMapped<Parameter, ParameterModel>();
             modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
             modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
-            modelItem.ParentMenu = new IdCodeName(item.ParentMenu.Id, item.ParentMenu.Code, item.ParentMenu.Name);
+            modelItem.ParameterGroup = new IdCodeName(item.ParameterGroup.Id, item.ParameterGroup.Code, item.ParameterGroup.Name);
 
-            return new DetailModel<MenuModel>
+            return new DetailModel<ParameterModel>
             {
                 Item = modelItem
             };
 
         }
 
-        public AddModel<MenuModel> Add()
+        public AddModel<ParameterModel> Add()
         {
-            return new AddModel<MenuModel>
+            return new AddModel<ParameterModel>
             {
-                Item = new MenuModel
+                Item = new ParameterModel
                 {
                     IsApproved = false
                 }
             };
         }
 
-        public AddModel<MenuModel> Add(AddModel<MenuModel> addModel)
+        public AddModel<ParameterModel> Add(AddModel<ParameterModel> addModel)
         {
 
-            var validator = new FluentValidator<MenuModel, MenuValidationRules>(addModel.Item);
+            var validator = new FluentValidator<ParameterModel, ParameterValidationRules>(addModel.Item);
 
             var validationResults = validator.Validate();
 
@@ -279,18 +282,18 @@ namespace Adfnet.Service.Implementations
                 };
             }
 
-            var parent = _repositoryMenu.Get(e => e.Id == addModel.Item.ParentMenu.Id);
+            var parent = _repositoryParameterGroup.Get(e => e.Id == addModel.Item.ParameterGroup.Id);
 
             if (parent == null)
             {
                 throw new ParentNotFoundException();
             }
 
-            var item = addModel.Item.CreateMapped<MenuModel, Menu>();
+            var item = addModel.Item.CreateMapped<ParameterModel, Parameter>();
 
-            if (_repositoryMenu.Get().FirstOrDefault(e => e.Code == item.Code) != null)
+            if (_repositoryParameter.Get().FirstOrDefault(e => e.Key == item.Key) != null)
             {
-                throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
+                throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Key));
             }
 
             item.Id = GuidHelper.NewGuid();
@@ -301,43 +304,43 @@ namespace Adfnet.Service.Implementations
 
             item.LastModificationTime = DateTime.Now;
 
-            item.ParentMenu = parent;
+            item.ParameterGroup = parent;
 
             item.DisplayOrder = 1;
 
             item.Creator = _serviceMain.IdentityUser ?? throw new IdentityUserException(Messages.DangerIdentityUserNotFound);
             item.LastModifier = _serviceMain.IdentityUser;
 
-            _repositoryMenu.Add(item, true);
+            _repositoryParameter.Add(item, true);
 
-            var maxDisplayOrder = _repositoryMenu.Get().Max(e => e.DisplayOrder);
+            var maxDisplayOrder = _repositoryParameter.Get().Max(e => e.DisplayOrder);
 
             item.DisplayOrder = maxDisplayOrder + 1;
 
-            var affectedItem = _repositoryMenu.Update(item, true);
+            var affectedItem = _repositoryParameter.Update(item, true);
 
-            addModel.Item = affectedItem.CreateMapped<Menu, MenuModel>();
+            addModel.Item = affectedItem.CreateMapped<Parameter, ParameterModel>();
 
             addModel.Item.Creator = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
             addModel.Item.LastModifier = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
-            addModel.Item.ParentMenu = new IdCodeName(parent.Id, parent.Code, parent.Name);
+            addModel.Item.ParameterGroup = new IdCodeName(parent.Id, parent.Code, parent.Name);
             return addModel;
 
         }
 
-        public UpdateModel<MenuModel> Update(Guid id)
+        public UpdateModel<ParameterModel> Update(Guid id)
         {
-            return new UpdateModel<MenuModel>
+            return new UpdateModel<ParameterModel>
             {
                 Item = Detail(id).Item
             };
         }
 
 
-        public UpdateModel<MenuModel> Update(UpdateModel<MenuModel> updateModel)
+        public UpdateModel<ParameterModel> Update(UpdateModel<ParameterModel> updateModel)
         {
 
-            IValidator validator = new FluentValidator<MenuModel, MenuValidationRules>(updateModel.Item);
+            IValidator validator = new FluentValidator<ParameterModel, ParameterValidationRules>(updateModel.Item);
 
             var validationResults = validator.Validate();
 
@@ -350,15 +353,14 @@ namespace Adfnet.Service.Implementations
             }
 
 
-            var parent =
-                _repositoryMenu.Get(x => x.Id == updateModel.Item.ParentMenu.Id && x.IsApproved);
+            var parent = _repositoryParameterGroup.Get(e => e.Id == updateModel.Item.ParameterGroup.Id);
 
             if (parent == null)
             {
                 throw new ParentNotFoundException();
             }
 
-            var item = _repositoryMenu
+            var item = _repositoryParameter
                 .Join(x => x.Creator.Person)
                 .Join(x => x.LastModifier.Person).FirstOrDefault(e => e.Id == updateModel.Item.Id);
 
@@ -367,15 +369,15 @@ namespace Adfnet.Service.Implementations
                 throw new NotFoundException();
             }
 
-            if (updateModel.Item.Code != item.Code)
+            if (updateModel.Item.Key != item.Key)
             {
-                if (_repositoryMenu.Get().Any(p => p.Code == updateModel.Item.Code))
+                if (_repositoryParameter.Get().Any(p => p.Key == updateModel.Item.Key))
                 {
-                    throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
+                    throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Key));
                 }
             }
 
-            var itemHistory = item.CreateMapped<Menu, MenuHistory>();
+            var itemHistory = item.CreateMapped<Parameter, ParameterHistory>();
 
             itemHistory.Id = GuidHelper.NewGuid();
 
@@ -385,19 +387,14 @@ namespace Adfnet.Service.Implementations
 
             itemHistory.CreationTime = DateTime.Now;
 
-            _repositoryMenuHistory.Add(itemHistory, true);
+            _repositoryParameterHistory.Add(itemHistory, true);
 
             var version = item.Version;
 
-            item.Code = updateModel.Item.Code;
-
-            item.Name = updateModel.Item.Name;
-
+            item.Key = updateModel.Item.Key;
+            item.Value = updateModel.Item.Value;
+            item.Erasable = updateModel.Item.Erasable;
             item.Description = updateModel.Item.Description;
-
-            item.Address = updateModel.Item.Address;
-
-            item.Icon = updateModel.Item.Icon;
 
             item.IsApproved = updateModel.Item.IsApproved;
             
@@ -405,17 +402,17 @@ namespace Adfnet.Service.Implementations
             
             item.Version = version + 1;
 
-            item.ParentMenu = parent;
+            item.ParameterGroup = parent;
 
-            var affectedItem = _repositoryMenu.Update(item, true);
+            var affectedItem = _repositoryParameter.Update(item, true);
 
-            updateModel.Item = affectedItem.CreateMapped<Menu, MenuModel>();
+            updateModel.Item = affectedItem.CreateMapped<Parameter, ParameterModel>();
 
             updateModel.Item.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
 
             updateModel.Item.LastModifier = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
 
-            updateModel.Item.ParentMenu = new IdCodeName(parent.Id, parent.Code, parent.Name);
+            updateModel.Item.ParameterGroup = new IdCodeName(item.ParameterGroup.Id, item.ParameterGroup.Code, item.ParameterGroup.Name);
 
             return updateModel;
 
@@ -423,14 +420,14 @@ namespace Adfnet.Service.Implementations
 
         public void Delete(Guid id)
         {
-            var item = _repositoryMenu.Get().FirstOrDefault(x => x.Id == id);
+            var item = _repositoryParameter.Get().FirstOrDefault(x => x.Id == id);
 
             if (item == null)
             {
                 throw new NotFoundException();
             }
 
-            var itemHistory = item.CreateMapped<Menu, MenuHistory>();
+            var itemHistory = item.CreateMapped<Parameter, ParameterHistory>();
 
             itemHistory.Id = GuidHelper.NewGuid();
 
@@ -442,12 +439,11 @@ namespace Adfnet.Service.Implementations
 
             itemHistory.IsDeleted = true;
 
-            _repositoryMenuHistory.Add(itemHistory, true);
+            _repositoryParameterHistory.Add(itemHistory, true);
 
-            _repositoryMenu.Delete(item, true);
+            _repositoryParameter.Delete(item, true);
 
         }
 
-        
     }
 }

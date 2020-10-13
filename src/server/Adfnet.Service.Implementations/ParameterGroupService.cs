@@ -16,32 +16,26 @@ using Adfnet.Service.Models;
 
 namespace Adfnet.Service.Implementations
 {
-    public class PermissionService : IPermissionService
+    public class ParameterGroupService : IParameterGroupService
     {
 
-        private readonly IRepository<Permission> _repositoryPermission;
-        private readonly IRepository<PermissionHistory> _repositoryPermissionHistory;
-        private readonly IRepository<RolePermissionLine> _repositoryRolePermissionLine;
-        private readonly IRepository<PermissionMenuLine> _repositoryPermissionMenuLine;
-        private readonly IRepository<PermissionMenuLineHistory> _repositoryPermissionMenuLineHistory;
-        private readonly IRepository<Menu> _repositoryMenu;
+        private readonly IRepository<ParameterGroup> _repositoryParameterGroup;
+        private readonly IRepository<ParameterGroupHistory> _repositoryParameterGroupHistory;
+        private readonly IRepository<Parameter> _repositoryParameter;
         private readonly IMainService _serviceMain;
 
 
-
-        public PermissionService(IRepository<Permission> repositoryPermission, IRepository<PermissionHistory> repositoryPermissionHistory, IRepository<RolePermissionLine> repositoryRolePermissionLine, IRepository<PermissionMenuLine> repositoryPermissionMenuLine, IRepository<Menu> repositoryMenu, IRepository<PermissionMenuLineHistory> repositoryPermissionMenuLineHistory, IMainService serviceMain)
+        public ParameterGroupService(IRepository<ParameterGroup> repositoryParameterGroup, IRepository<ParameterGroupHistory> repositoryParameterGroupHistory, IRepository<Parameter> repositoryParameter, IMainService serviceMain)
         {
-            _repositoryPermission = repositoryPermission;
-            _repositoryPermissionHistory = repositoryPermissionHistory;
+            _repositoryParameterGroup = repositoryParameterGroup;
+            _repositoryParameterGroupHistory = repositoryParameterGroupHistory;
 
-            _repositoryRolePermissionLine = repositoryRolePermissionLine;
-            _repositoryPermissionMenuLine = repositoryPermissionMenuLine;
-            _repositoryMenu = repositoryMenu;
-            _repositoryPermissionMenuLineHistory = repositoryPermissionMenuLineHistory;
+            _repositoryParameter = repositoryParameter;
             _serviceMain = serviceMain;
         }
 
-        public ListModel<PermissionModel> List(FilterModel filterModel)
+
+        public ListModel<ParameterGroupModel> List(FilterModel filterModel)
         {
 
             if (filterModel.StartDate == default)
@@ -69,7 +63,7 @@ namespace Adfnet.Service.Implementations
 
             var endDate = filterModel.EndDate.ResetTimeToEndOfDay();
 
-            Expression<Func<Permission, bool>> expression;
+            Expression<Func<ParameterGroup, bool>> expression;
 
             if (filterModel.Status != -1)
             {
@@ -113,7 +107,7 @@ namespace Adfnet.Service.Implementations
 
             expression = expression.And(e => e.CreationTime >= startDate && e.CreationTime <= endDate);
 
-            var listModel = filterModel.CreateMapped<FilterModel, ListModel<PermissionModel>>();
+            var listModel = filterModel.CreateMapped<FilterModel, ListModel<ParameterGroupModel>>();
 
             listModel.Paging ??= new Paging
             {
@@ -121,11 +115,11 @@ namespace Adfnet.Service.Implementations
                 PageNumber = filterModel.PageNumber
             };
 
-            var sortHelper = new SortHelper<Permission>();
+            var sortHelper = new SortHelper<ParameterGroup>();
 
             sortHelper.OrderBy(x => x.DisplayOrder);
 
-            var query = (IOrderedQueryable<Permission>)_repositoryPermission
+            var query = (IOrderedQueryable<ParameterGroup>)_repositoryParameterGroup
                 .Join(x => x.Creator.Person)
                 .Join(x => x.LastModifier.Person).Where(expression);
 
@@ -135,11 +129,11 @@ namespace Adfnet.Service.Implementations
 
             var items = listModel.Paging.PageSize > 0 ? query.Skip((listModel.Paging.PageNumber - 1) * listModel.Paging.PageSize).Take(listModel.Paging.PageSize) : query;
 
-            var modelItems = new HashSet<PermissionModel>();
+            var modelItems = new HashSet<ParameterGroupModel>();
 
             foreach (var item in items)
             {
-                var modelItem = item.CreateMapped<Permission, PermissionModel>();
+                var modelItem = item.CreateMapped<ParameterGroup, ParameterGroupModel>();
                 modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
                 modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
 
@@ -209,54 +203,40 @@ namespace Adfnet.Service.Implementations
 
         }
 
-        public DetailModel<PermissionModel> Detail(Guid id)
+        public DetailModel<ParameterGroupModel> Detail(Guid id)
         {
 
-            var item = _repositoryPermission
-                .Join(x => x.Creator.Person)
-                .Join(x => x.LastModifier.Person)
-                .Join(x => x.PermissionMenuLines)
-                .FirstOrDefault(x => x.Id == id);
+            var item = _repositoryParameterGroup.Join(x => x.Creator.Person)
+                .Join(x => x.LastModifier.Person).FirstOrDefault(x => x.Id == id);
 
             if (item == null)
             {
                 throw new NotFoundException();
             }
-            var listMenu = new List<IdCodeNameSelected>();
-            var allMenu = _repositoryMenu.Get().Where(x => x.IsApproved).ToList();
 
-            var itemMenus = _repositoryPermissionMenuLine
-                .Join(x => x.Permission).Where(x => x.Permission.Id == item.Id).Select(x => x.Menu.Id);
+            var modelItem = item.CreateMapped<ParameterGroup, ParameterGroupModel>();
 
-            foreach (var itemMenu in allMenu)
-            {
-                listMenu.Add(itemMenus.Contains(itemMenu.Id) ? new IdCodeNameSelected(itemMenu.Id, itemMenu.Code, itemMenu.Name + " (Kod: " + itemMenu.Code + " | Adres: " + itemMenu.Address + ")", true) : new IdCodeNameSelected(itemMenu.Id, itemMenu.Code, itemMenu.Name + " (Kod: " + itemMenu.Code + " | Adres: " + itemMenu.Address + ")", false));
-            }
-
-
-            var modelItem = item.CreateMapped<Permission, PermissionModel>();
             modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
             modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
-            modelItem.Menus = listMenu;
-            return new DetailModel<PermissionModel>
+            return new DetailModel<ParameterGroupModel>
             {
                 Item = modelItem
             };
 
         }
 
-        public AddModel<PermissionModel> Add()
+        public AddModel<ParameterGroupModel> Add()
         {
-            return new AddModel<PermissionModel>
+            return new AddModel<ParameterGroupModel>
             {
-                Item = new PermissionModel()
+                Item = new ParameterGroupModel()
             };
         }
 
-        public AddModel<PermissionModel> Add(AddModel<PermissionModel> addModel)
+        public AddModel<ParameterGroupModel> Add(AddModel<ParameterGroupModel> addModel)
         {
 
-            var validator = new FluentValidator<PermissionModel, PermissionValidationRules>(addModel.Item);
+            var validator = new FluentValidator<ParameterGroupModel, ParameterGroupValidationRules>(addModel.Item);
 
             var validationResults = validator.Validate();
 
@@ -268,9 +248,9 @@ namespace Adfnet.Service.Implementations
                 };
             }
 
-            var item = addModel.Item.CreateMapped<PermissionModel, Permission>();
+            var item = addModel.Item.CreateMapped<ParameterGroupModel, ParameterGroup>();
 
-            if (_repositoryPermission.Get().FirstOrDefault(e => e.Code == item.Code) != null)
+            if (_repositoryParameterGroup.Get().FirstOrDefault(e => e.Code == item.Code) != null)
             {
                 throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
             }
@@ -288,15 +268,15 @@ namespace Adfnet.Service.Implementations
             item.Creator = _serviceMain.IdentityUser ?? throw new IdentityUserException(Messages.DangerIdentityUserNotFound);
             item.LastModifier = _serviceMain.IdentityUser;
 
-            _repositoryPermission.Add(item, true);
+            _repositoryParameterGroup.Add(item, true);
 
-            var maxDisplayOrder = _repositoryPermission.Get().Max(e => e.DisplayOrder);
+            var maxDisplayOrder = _repositoryParameterGroup.Get().Max(e => e.DisplayOrder);
 
             item.DisplayOrder = maxDisplayOrder + 1;
 
-            var affectedItem = _repositoryPermission.Update(item, true);
+            var affectedItem = _repositoryParameterGroup.Update(item, true);
 
-            addModel.Item = affectedItem.CreateMapped<Permission, PermissionModel>();
+            addModel.Item = affectedItem.CreateMapped<ParameterGroup, ParameterGroupModel>();
 
             addModel.Item.Creator = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
             addModel.Item.LastModifier = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
@@ -305,19 +285,19 @@ namespace Adfnet.Service.Implementations
 
         }
 
-        public UpdateModel<PermissionModel> Update(Guid id)
+        public UpdateModel<ParameterGroupModel> Update(Guid id)
         {
-            return new UpdateModel<PermissionModel>
+            return new UpdateModel<ParameterGroupModel>
             {
                 Item = Detail(id).Item
             };
         }
 
 
-        public UpdateModel<PermissionModel> Update(UpdateModel<PermissionModel> updateModel)
+        public UpdateModel<ParameterGroupModel> Update(UpdateModel<ParameterGroupModel> updateModel)
         {
 
-            IValidator validator = new FluentValidator<PermissionModel, PermissionValidationRules>(updateModel.Item);
+            IValidator validator = new FluentValidator<ParameterGroupModel, ParameterGroupValidationRules>(updateModel.Item);
 
             var validationResults = validator.Validate();
 
@@ -329,7 +309,7 @@ namespace Adfnet.Service.Implementations
                 };
             }
 
-            var item = _repositoryPermission
+            var item = _repositoryParameterGroup
                 .Join(x => x.Creator.Person)
                 .Join(x => x.LastModifier.Person).FirstOrDefault(e => e.Id == updateModel.Item.Id);
 
@@ -340,13 +320,13 @@ namespace Adfnet.Service.Implementations
 
             if (updateModel.Item.Code != item.Code)
             {
-                if (_repositoryPermission.Get().Any(p => p.Code == updateModel.Item.Code))
+                if (_repositoryParameterGroup.Get().Any(p => p.Code == updateModel.Item.Code))
                 {
                     throw new DuplicateException(string.Format(Messages.DangerFieldDuplicated, Dictionary.Code));
                 }
             }
 
-            var itemHistory = item.CreateMapped<Permission, PermissionHistory>();
+            var itemHistory = item.CreateMapped<ParameterGroup, ParameterGroupHistory>();
 
             itemHistory.Id = GuidHelper.NewGuid();
 
@@ -356,7 +336,7 @@ namespace Adfnet.Service.Implementations
 
             itemHistory.CreationTime = DateTime.Now;
 
-            _repositoryPermissionHistory.Add(itemHistory, true);
+            _repositoryParameterGroupHistory.Add(itemHistory, true);
 
             var version = item.Version;
 
@@ -366,64 +346,15 @@ namespace Adfnet.Service.Implementations
 
             item.Description = updateModel.Item.Description;
 
-            item.ControllerName = updateModel.Item.ControllerName;
-
-            item.ActionName = updateModel.Item.ActionName;
-
             item.IsApproved = updateModel.Item.IsApproved;
             
             item.LastModificationTime = DateTime.Now;
             
             item.Version = version + 1;
 
-            var affectedItem = _repositoryPermission.Update(item, true);
-            foreach (var line in _repositoryPermissionMenuLine
-                           .Join(x => x.Menu)
-                           .Join(x => x.Permission)
-                           .Where(x => x.Permission.Id == affectedItem.Id).ToList())
-            {
-                var lineHistory = line.CreateMapped<PermissionMenuLine, PermissionMenuLineHistory>();
-                lineHistory.Id = GuidHelper.NewGuid();
-                lineHistory.ReferenceId = line.Id;
-                lineHistory.MenuId = line.Menu.Id;
-                lineHistory.PermissionId = line.Permission.Id;
-                lineHistory.CreationTime = DateTime.Now;
-                lineHistory.CreatorId = _serviceMain.IdentityUser.Id;
-                _repositoryPermissionMenuLineHistory.Add(lineHistory, true);
-                _repositoryPermissionMenuLine.Delete(line, true);
-            }
+            var affectedItem = _repositoryParameterGroup.Update(item, true);
 
-            foreach (var idCodeNameSelected in updateModel.Item.Menus)
-            {
-                var itemMenu = _repositoryMenu.Get(x => x.Id == idCodeNameSelected.Id);
-
-                var affectedLine = _repositoryPermissionMenuLine.Add(new PermissionMenuLine
-                {
-                    Id = GuidHelper.NewGuid(),
-                    Menu = itemMenu,
-                    Permission = affectedItem,
-                    Creator = _serviceMain.IdentityUser,
-                    CreationTime = DateTime.Now,
-                    DisplayOrder = 1,
-                    LastModifier = _serviceMain.IdentityUser,
-                    LastModificationTime = DateTime.Now,
-                    Version = 1
-
-                }, true);
-
-                var lineHistory = affectedLine.CreateMapped<PermissionMenuLine, PermissionMenuLineHistory>();
-                lineHistory.Id = GuidHelper.NewGuid();
-                lineHistory.ReferenceId = affectedLine.Id;
-                lineHistory.MenuId = affectedLine.Menu.Id;
-                lineHistory.PermissionId = affectedLine.Permission.Id;
-                lineHistory.CreatorId = affectedLine.Creator.Id;
-
-                _repositoryPermissionMenuLineHistory.Add(lineHistory, true);
-            }
-
-
-
-            updateModel.Item = affectedItem.CreateMapped<Permission, PermissionModel>();
+            updateModel.Item = affectedItem.CreateMapped<ParameterGroup, ParameterGroupModel>();
 
             updateModel.Item.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
 
@@ -435,23 +366,19 @@ namespace Adfnet.Service.Implementations
 
         public void Delete(Guid id)
         {
-            if (_repositoryRolePermissionLine.Get().Count(x => x.Permission.Id == id) > 0)
-            {
-                throw new InvalidTransactionException(Messages.DangerAssociatedRecordNotDeleted);
-            }
-            if (_repositoryPermissionMenuLine.Get().Count(x => x.Permission.Id == id) > 0)
+            if (_repositoryParameter.Get().Count(x => x.ParameterGroup.Id == id) > 0)
             {
                 throw new InvalidTransactionException(Messages.DangerAssociatedRecordNotDeleted);
             }
 
-            var item = _repositoryPermission.Get().FirstOrDefault(x => x.Id == id);
+            var item = _repositoryParameterGroup.Get().FirstOrDefault(x => x.Id == id);
 
             if (item == null)
             {
                 throw new NotFoundException();
             }
 
-            var itemHistory = item.CreateMapped<Permission, PermissionHistory>();
+            var itemHistory = item.CreateMapped<ParameterGroup, ParameterGroupHistory>();
 
             itemHistory.Id = GuidHelper.NewGuid();
 
@@ -463,9 +390,9 @@ namespace Adfnet.Service.Implementations
 
             itemHistory.IsDeleted = true;
 
-            _repositoryPermissionHistory.Add(itemHistory, true);
+            _repositoryParameterGroupHistory.Add(itemHistory, true);
 
-            _repositoryPermission.Delete(item, true);
+            _repositoryParameterGroup.Delete(item, true);
 
         }
 

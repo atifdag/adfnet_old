@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Adfnet.Core;
 using Adfnet.Core.Globalization;
 using Adfnet.Core.Helpers;

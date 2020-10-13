@@ -1,6 +1,4 @@
-﻿using System;
-using Adfnet.Core;
-using Adfnet.Data.DataEntities;
+﻿using Adfnet.Data.DataEntities;
 
 namespace Adfnet.Data.BaseEntities
 {

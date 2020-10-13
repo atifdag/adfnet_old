@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using Adfnet.Data.DataAccess.EntityFramework;
-using Adfnet.Web.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

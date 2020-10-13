@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Adfnet.Core.Constants
+﻿namespace Adfnet.Core.Constants
 {
     public static class CacheConstants
     {
