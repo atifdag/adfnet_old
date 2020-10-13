@@ -1,0 +1,7 @@
+{
+  "name": "adfnet-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
