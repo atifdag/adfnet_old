@@ -3,7 +3,7 @@ using Adfnet.Service.Models;
 
 namespace Adfnet.Service
 {
-    public interface ICategoryService : ICrudService<CategoryModel>
+    public interface ICategoryService : ICrudServiceWithLanguage<CategoryModel>
     {
     }
 }

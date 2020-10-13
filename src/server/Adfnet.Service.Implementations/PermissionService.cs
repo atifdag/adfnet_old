@@ -140,8 +140,8 @@ namespace Adfnet.Service.Implementations
             foreach (var item in items)
             {
                 var modelItem = item.CreateMapped<Permission, PermissionModel>();
-                modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
-                modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
+                modelItem.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
+                modelItem.LastModifier = new IdName(item.LastModifier.Id, item.LastModifier.Person.DisplayName);
 
                 modelItems.Add(modelItem);
             }
@@ -235,8 +235,8 @@ namespace Adfnet.Service.Implementations
 
 
             var modelItem = item.CreateMapped<Permission, PermissionModel>();
-            modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
-            modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
+            modelItem.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
+            modelItem.LastModifier = new IdName(item.LastModifier.Id, item.LastModifier.Person.DisplayName);
             modelItem.Menus = listMenu;
             return new DetailModel<PermissionModel>
             {
@@ -298,8 +298,8 @@ namespace Adfnet.Service.Implementations
 
             addModel.Item = affectedItem.CreateMapped<Permission, PermissionModel>();
 
-            addModel.Item.Creator = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
-            addModel.Item.LastModifier = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
+            addModel.Item.Creator = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
+            addModel.Item.LastModifier = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
 
             return addModel;
 
@@ -425,9 +425,9 @@ namespace Adfnet.Service.Implementations
 
             updateModel.Item = affectedItem.CreateMapped<Permission, PermissionModel>();
 
-            updateModel.Item.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
+            updateModel.Item.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
 
-            updateModel.Item.LastModifier = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
+            updateModel.Item.LastModifier = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
 
             return updateModel;
 

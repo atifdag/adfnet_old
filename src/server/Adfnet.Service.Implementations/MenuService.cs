@@ -160,8 +160,8 @@ namespace Adfnet.Service.Implementations
             foreach (var item in items)
             {
                 var modelItem = item.CreateMapped<Menu, MenuModel>();
-                modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
-                modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
+                modelItem.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
+                modelItem.LastModifier = new IdName(item.LastModifier.Id, item.LastModifier.Person.DisplayName);
                 modelItem.ParentMenu = new IdCodeName(item.ParentMenu.Id, item.ParentMenu.Code, item.ParentMenu.Name);
 
                 modelItems.Add(modelItem);
@@ -242,8 +242,8 @@ namespace Adfnet.Service.Implementations
                 throw new NotFoundException(Messages.DangerRecordNotFound);
             }
             var modelItem = item.CreateMapped<Menu, MenuModel>();
-            modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
-            modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
+            modelItem.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
+            modelItem.LastModifier = new IdName(item.LastModifier.Id, item.LastModifier.Person.DisplayName);
             modelItem.ParentMenu = new IdCodeName(item.ParentMenu.Id, item.ParentMenu.Code, item.ParentMenu.Name);
 
             return new DetailModel<MenuModel>
@@ -318,8 +318,8 @@ namespace Adfnet.Service.Implementations
 
             addModel.Item = affectedItem.CreateMapped<Menu, MenuModel>();
 
-            addModel.Item.Creator = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
-            addModel.Item.LastModifier = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
+            addModel.Item.Creator = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
+            addModel.Item.LastModifier = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
             addModel.Item.ParentMenu = new IdCodeName(parent.Id, parent.Code, parent.Name);
             return addModel;
 
@@ -411,9 +411,9 @@ namespace Adfnet.Service.Implementations
 
             updateModel.Item = affectedItem.CreateMapped<Menu, MenuModel>();
 
-            updateModel.Item.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
+            updateModel.Item.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
 
-            updateModel.Item.LastModifier = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
+            updateModel.Item.LastModifier = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
 
             updateModel.Item.ParentMenu = new IdCodeName(parent.Id, parent.Code, parent.Name);
 

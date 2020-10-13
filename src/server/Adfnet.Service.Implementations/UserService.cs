@@ -149,8 +149,8 @@ namespace Adfnet.Service.Implementations
             foreach (var item in items)
             {
                 var modelItem = item.CreateMapped<User, UserModel>();
-                modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
-                modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
+                modelItem.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
+                modelItem.LastModifier = new IdName(item.LastModifier.Id, item.LastModifier.Person.DisplayName);
                 modelItem.IdentityCode = item.Person.IdentityCode;
                 modelItem.FirstName = item.Person.FirstName;
                 modelItem.LastName = item.Person.LastName;
@@ -252,8 +252,8 @@ namespace Adfnet.Service.Implementations
 
             var modelItem = item.CreateMapped<User, UserModel>();
             modelItem.Roles = roleList;
-            modelItem.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
-            modelItem.LastModifier = new IdCodeName(item.LastModifier.Id, item.LastModifier.Username, item.LastModifier.Person.DisplayName);
+            modelItem.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
+            modelItem.LastModifier = new IdName(item.LastModifier.Id, item.LastModifier.Person.DisplayName);
             modelItem.Language = new IdCodeName(item.Language.Id, item.Language.Code, item.Language.Name);
             modelItem.IdentityCode = item.Person.IdentityCode;
             modelItem.FirstName = item.Person.FirstName;
@@ -397,8 +397,8 @@ namespace Adfnet.Service.Implementations
 
             addModel.Item = affectedUser.CreateMapped<User, UserModel>();
 
-            addModel.Item.Creator = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
-            addModel.Item.LastModifier = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
+            addModel.Item.Creator = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
+            addModel.Item.LastModifier = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
             addModel.Item.Language = new IdCodeName(affectedUser.Language.Id, affectedUser.Language.Code, affectedUser.Language.Name);
 
             addModel.Item.IdentityCode = affectedUser.Person.IdentityCode;
@@ -573,8 +573,8 @@ namespace Adfnet.Service.Implementations
 
             updateModel.Item = affectedUser.CreateMapped<User, UserModel>();
 
-            updateModel.Item.Creator = new IdCodeName(item.Creator.Id, item.Creator.Username, item.Creator.Person.DisplayName);
-            updateModel.Item.LastModifier = new IdCodeName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Username, _serviceMain.IdentityUser.Person.DisplayName);
+            updateModel.Item.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
+            updateModel.Item.LastModifier = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
             updateModel.Item.Language = new IdCodeName(affectedUser.Language.Id, affectedUser.Language.Code, affectedUser.Language.Name);
 
             updateModel.Item.IdentityCode = item.Person.IdentityCode;
@@ -760,8 +760,8 @@ namespace Adfnet.Service.Implementations
             {
 
                 userModel = identityUser.CreateMapped<User, UserModel>();
-                userModel.Creator = new IdCodeName(identityUser.Creator.Id, identityUser.Creator.Username, identityUser.Creator.Person.DisplayName);
-                userModel.LastModifier = new IdCodeName(identityUser.LastModifier.Id, identityUser.LastModifier.Username, identityUser.LastModifier.Person.DisplayName);
+                userModel.Creator = new IdName(identityUser.Creator.Id, identityUser.Creator.Person.DisplayName);
+                userModel.LastModifier = new IdName(identityUser.LastModifier.Id, identityUser.LastModifier.Person.DisplayName);
                 userModel.Language = new IdCodeName(identityUser.Language.Id, identityUser.Language.Code, identityUser.Language.Name);
 
                 userModel.IdentityCode = identityUser.Person.IdentityCode;
@@ -788,8 +788,8 @@ namespace Adfnet.Service.Implementations
             }
 
             userModel = identityUser.CreateMapped<User, UserModel>();
-            userModel.Creator = new IdCodeName(identityUser.Creator.Id, identityUser.Creator.Username, identityUser.Creator.Person.DisplayName);
-            userModel.LastModifier = new IdCodeName(identityUser.LastModifier.Id, identityUser.LastModifier.Username, identityUser.LastModifier.Person.DisplayName);
+            userModel.Creator = new IdName(identityUser.Creator.Id, identityUser.Creator.Person.DisplayName);
+            userModel.LastModifier = new IdName(identityUser.LastModifier.Id, identityUser.LastModifier.Person.DisplayName);
             userModel.Language = new IdCodeName(identityUser.Language.Id, identityUser.Language.Code, identityUser.Language.Name);
 
             userModel.IdentityCode = identityUser.Person.IdentityCode;
