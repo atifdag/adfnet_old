@@ -83,8 +83,7 @@ namespace Adfnet.Web.Common
 
             try
             {
-                var affectedModel = _service.Add(addModel);
-                return Ok(affectedModel);
+                return Ok(_service.Add(addModel));
             }
 
             catch (ValidationException exception)

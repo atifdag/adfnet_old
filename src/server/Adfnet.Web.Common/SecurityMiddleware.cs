@@ -36,13 +36,13 @@ namespace Adfnet.Web.Common
                     identity.AddClaims(new[]
                     {
                         new Claim("UserId",Guid.Empty.ToString()),
-                        new Claim("LanguageId",Guid.Empty.ToString()),
                         new Claim("Username",string.Empty),
                         new Claim("Password",string.Empty),
                         new Claim("FirstName",string.Empty),
                         new Claim("LastName",string.Empty),
                         new Claim("DisplayName",string.Empty),
                         new Claim("Email",string.Empty),
+                        new Claim("LanguageId",Guid.Empty.ToString()),
                         new Claim("IsAuthenticated",false.ToString()),
                     });
 

@@ -48,12 +48,12 @@ namespace Adfnet.Web.Common
             dynamic jObject = JObject.Parse(takenPayload);
 
             Guid userId = jObject.UserId;
-            Guid languageId = jObject.LanguageId;
             string username = jObject.Username;
             string firstName = jObject.FirstName;
             string lastName = jObject.LastName;
             string displayName = jObject.DisplayName;
             string email = jObject.Email;
+            Guid languageId = jObject.LanguageId;
             JArray roles = jObject.Roles;
 
             var claims = new List<Claim>
