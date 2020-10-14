@@ -62,6 +62,7 @@ namespace Adfnet.Service.Implementations
             }
 
             var user = _repositoryUser
+                .Join(x => x.Language)
                 .Join(x => x.Person)
                 .Join(x => x.Creator)
                 .Join(x => x.RoleUserLines)

@@ -2,19 +2,30 @@
   <mat-card-header>
     <mat-card-title>
       <p style="text-align: center;"><img src="assets/images/logo2.png"></p>
-      Giriş Yap
+      {{'Login' | globalizationdictionary}}
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form class="box-form">
+    <form class="box-form" [formGroup]="userForm" (ngSubmit)="submit()">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Telefon, e-posta veya kullanıcı adı">
+        <input matInput formControlName="username" placeholder="{{ 'Username' | globalizationdictionary }}">
+        <mat-error *ngIf="!userForm.controls['username'].valid&&userForm.controls['username'].dirty">
+          {{userForm.controls['username'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','Username') : userForm.controls['username'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','Username','8') : ''}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput placeholder="Parola">
+        <input matInput type="password" formControlName="password" placeholder="{{  'Password' | globalizationdictionary }}">
       </mat-form-field>
-      <button mat-raised-button color="accent" class="btn-block" (click)="submit()">Giriş yap</button>
+      <button mat-raised-button color="accent" type="submit" class="btn-block" [disabled]="!userForm.valid">{{ 'Send' | globalizationdictionary }}</button>
     </form>
+    <p *ngIf="loading" style="text-align: center">
+      <br>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+
+      <br>
+      {{'PleaseWait' | globalizationdictionary}}
+  </p>
+
   </mat-card-content>
   <mat-card-actions>
     <button mat-button routerLink="/Authentication/Register">Kaydol</button>

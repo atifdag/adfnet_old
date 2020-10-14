@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { PortalModule } from '@angular/cdk/portal';
@@ -32,6 +32,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { GlobalizationDictionaryPipe } from './pipes/globalization-dictionary.pipe';
+import { GlobalizationMessagesPipe } from './pipes/globalization-messages.pipe';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 const materialModules = [
   CdkTreeModule,
@@ -47,6 +52,7 @@ const materialModules = [
   MatListModule,
   MatMenuModule,
   MatProgressSpinnerModule,
+  MatProgressBarModule,
   MatPaginatorModule,
   MatRippleModule,
   MatSelectModule,
@@ -70,13 +76,31 @@ const materialModules = [
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    GlobalizationDictionaryPipe,
+    GlobalizationMessagesPipe,
+  ],
   imports: [
     CommonModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     ...materialModules
   ],
   exports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    GlobalizationDictionaryPipe,
+    GlobalizationMessagesPipe,
     ...materialModules
   ],
+  providers: [
+    TitleCasePipe,
+    DatePipe,
+    GlobalizationDictionaryPipe,
+    GlobalizationMessagesPipe
+  ]
 })
 export class SharedModule { }

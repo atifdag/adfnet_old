@@ -205,6 +205,10 @@
     <value>Listele</value>
     <comment>Listele</comment>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Giriş Yap</value>
+    <comment>Giriş Yap</comment>
+  </data>
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
     <comment>Menu</comment>
@@ -245,9 +249,17 @@
     <value>Yetki</value>
     <comment>Yetki</comment>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Lütfen bekleyiniz...</value>
+    <comment>Lütfen bekleyiniz...</comment>
+  </data>
   <data name="Product" xml:space="preserve">
     <value>Ürün</value>
     <comment>Ürün</comment>
+  </data>
+  <data name="RedirectionTitle" xml:space="preserve">
+    <value>Şimdi Yönlendiriliyorsunuz...</value>
+    <comment>Şimdi Yönlendiriliyorsunuz...</comment>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Rol</value>
@@ -257,6 +269,10 @@
     <value>Rol</value>
     <comment>Rol</comment>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Gönder</value>
+    <comment>Gönder</comment>
+  </data>
   <data name="Server" xml:space="preserve">
     <value>Sunucu</value>
     <comment>Sunucu</comment>
@@ -264,6 +280,10 @@
   <data name="StartTime" xml:space="preserve">
     <value>Başlama Zamanı</value>
     <comment>Başlama Zamanı</comment>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Başarılı</value>
+    <comment>Başarılı</comment>
   </data>
   <data name="UnitPrice" xml:space="preserve">
     <value>Birim Fiyat</value>

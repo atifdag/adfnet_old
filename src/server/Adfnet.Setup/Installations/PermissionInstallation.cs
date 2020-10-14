@@ -16,6 +16,7 @@ namespace Adfnet.Setup.Installations
 
         private static readonly List<Permission> DefaultUserPermissions = new List<Permission>
         {
+            new Permission {ControllerName = "Home", ActionName = "Index"},
             new Permission {ControllerName = "Authentication", ActionName = "MyProfile"},
             new Permission {ControllerName = "Authentication", ActionName = "UpdateMyInformation"},
             new Permission {ControllerName = "Authentication", ActionName = "UpdateMyPassword"}
@@ -23,17 +24,14 @@ namespace Adfnet.Setup.Installations
 
         private static readonly List<string> DeveloperControllers = new List<string>
         {
-            "Menu",
-            "Parameter",
-            "ParameterGroup",
-            "Part",
-            "Permission",
-            "Person",
-            "Role",
             "User",
-            "Country",
-            "Branch",
-            "Language"
+            "Role",
+            "ParameterGroup",
+            "Parameter",
+            "Permission",
+            "Menu",
+            "Language",
+            "Category",
         };
 
         private static readonly List<string> Actions = new List<string>
@@ -44,36 +42,29 @@ namespace Adfnet.Setup.Installations
             "Add",
             "Update",
             "Delete",
-            "KeysAndValues",
         };
 
         private static readonly List<RolePermissionLine> OtherPermissions = new List<RolePermissionLine>
             {
-                new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "Language", ActionName = "KeysAndValues"}},
-                new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "Role", ActionName = "KeysAndValues"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "List"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Filter"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Detail"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Add"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Update"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Delete"}},
-                new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "KeysAndValues"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "List"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "Filter"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "Detail"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "Add"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "Update"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "Delete"}},
-                new RolePermissionLine {Role = new Role {Code = RoleConstants.Manager.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "KeysAndValues"}},
 
-                new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "Role", ActionName = "KeysAndValues"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "List"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Filter"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Detail"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Add"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Update"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "Delete"}},
-                new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "User", ActionName = "KeysAndValues"}},
 
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "List"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "Filter"}},
@@ -81,7 +72,6 @@ namespace Adfnet.Setup.Installations
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "Add"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "Update"}},
                 new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "Delete"}},
-                new RolePermissionLine {Role = new Role {Code = RoleConstants.Editor.Item1}, Permission = new Permission {ControllerName = "Category", ActionName = "KeysAndValues"}},
 
             };
 

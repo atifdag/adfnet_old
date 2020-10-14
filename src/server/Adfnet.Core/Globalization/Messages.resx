@@ -209,6 +209,10 @@
     <value>Mevcut veritabanı kaldırılıyor...</value>
     <comment>Mevcut veritabanı kaldırılıyor...</comment>
   </data>
+  <data name="InfoLoginOperationSuccessful" xml:space="preserve">
+    <value>Başarıyla giriş yapıldı.</value>
+    <comment>Başarıyla giriş yapıldı.</comment>
+  </data>
   <data name="InfoNewDatabaseCreated" xml:space="preserve">
     <value>Yeni veritabanı oluşturuldu.</value>
     <comment>Yeni veritabanı oluşturuldu.</comment>

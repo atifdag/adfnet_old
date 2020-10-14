@@ -268,6 +268,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Başarıyla giriş yapıldı..
+        /// </summary>
+        public static string InfoLoginOperationSuccessful {
+            get {
+                return ResourceManager.GetString("InfoLoginOperationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yeni veritabanı oluşturuldu..
         /// </summary>
         public static string InfoNewDatabaseCreated {

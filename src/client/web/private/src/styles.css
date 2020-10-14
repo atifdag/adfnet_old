@@ -162,3 +162,15 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 .mat-sort-header, .mat-sort-header-container {
   /* justify-content:center !important; */
 }
+
+.success-snackbar {
+  background: #3f51b5;
+  color:#fff;
+  font-weight: 500;
+}
+
+.error-snackbar {
+  background: #f44336;
+  color:#fff;
+  font-weight: 500;
+}

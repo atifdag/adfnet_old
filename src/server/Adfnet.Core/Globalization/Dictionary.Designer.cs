@@ -259,6 +259,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Giriş Yap.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu.
         /// </summary>
         public static string Menu {
@@ -349,11 +358,29 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lütfen bekleyiniz....
+        /// </summary>
+        public static string PleaseWait {
+            get {
+                return ResourceManager.GetString("PleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ürün.
         /// </summary>
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Şimdi Yönlendiriliyorsunuz....
+        /// </summary>
+        public static string RedirectionTitle {
+            get {
+                return ResourceManager.GetString("RedirectionTitle", resourceCulture);
             }
         }
         
@@ -376,6 +403,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gönder.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sunucu.
         /// </summary>
         public static string Server {
@@ -390,6 +426,15 @@ namespace Adfnet.Core.Globalization {
         public static string StartTime {
             get {
                 return ResourceManager.GetString("StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Başarılı.
+        /// </summary>
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
             }
         }
         

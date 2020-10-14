@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Adfnet.Data.DataAccess.EntityFramework;
+using Adfnet.Web.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -97,7 +98,7 @@ namespace Adfnet.Web.Api
             app.UseCors("CorsPolicy");
 
             // Her istek öncesi güvenlik için çalýþýr
-            //app.UseMiddleware<SecurityMiddleware>();
+            app.UseMiddleware<SecurityMiddleware>();
 
 
             app.UseSwagger();
