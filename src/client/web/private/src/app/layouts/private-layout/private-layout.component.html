@@ -1,0 +1,37 @@
+<div class="layout-wrapper" [class.layout-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="layout-header">
+    <button mat-icon-button class="menu-toggle-button" (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink="/" class="logo">DomurTek</a>
+    <span class="layout-header-items">
+      <button mat-button [matMenuTriggerFor]="menu">Atıf DAĞ <mat-icon>account_circle</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Bilgilerimi Güncelle</span>
+        </button>
+        <button mat-menu-item (click)="exit()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Çıkış Yap</span>
+        </button>
+      </mat-menu>
+    </span>
+  </mat-toolbar>
+  <mat-sidenav-container class="layout-container">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      [opened]="!mobileQuery.matches">
+      <mat-nav-list class="sidenav-list">
+        <a mat-list-item routerLink="/ClientType">
+          <mat-icon>role</mat-icon>&nbsp;Roller
+        </a>
+        <a mat-list-item routerLink="/Client">
+          <mat-icon>person</mat-icon>&nbsp;Kullanıcılar
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="layout-sidenav-content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
