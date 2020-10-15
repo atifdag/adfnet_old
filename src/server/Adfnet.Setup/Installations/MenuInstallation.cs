@@ -15,14 +15,14 @@ namespace Adfnet.Setup.Installations
     {
         private static readonly List<Menu> DeveloperRootMenus = new List<Menu>
         {
-            new Menu {Address = "#", Code = "UserManagement", Name =Dictionary.UserManagement,  Icon = "pi pi-th-folder"},
-            new Menu {Address = "#", Code = "RoleManagement", Name =Dictionary.RoleManagement,  Icon = "pi pi-th-folder"},
-            new Menu {Address = "#", Code = "ParameterGroupManagement", Name =Dictionary.ParameterGroupManagement,  Icon = "pi pi-th-folder"},
-            new Menu {Address = "#", Code = "ParameterManagement", Name =Dictionary.ParameterManagement,  Icon = "pi pi-th-folder"},
-            new Menu {Address = "#", Code = "PermissionManagement", Name =Dictionary.PermissionManagement,  Icon = "pi pi-th-folder"},
-            new Menu {Address = "#", Code = "MenuManagement", Name =Dictionary.MenuManagement,  Icon = "pi pi-th-folder"},
-            new Menu {Address = "#", Code = "LanguageManagement", Name =Dictionary.LanguageManagement,  Icon = "pi pi-th-folder"},
-            new Menu {Address = "#", Code = "CategoryManagement", Name = Dictionary.CategoryManagement,  Icon = "pi pi-th-folder"},
+            new Menu {Address = "#", Code = "UserManagement", Name =Dictionary.UserManagement,  Icon = "account_circle"},
+            new Menu {Address = "#", Code = "RoleManagement", Name =Dictionary.RoleManagement,  Icon = "recent_actors"},
+            new Menu {Address = "#", Code = "ParameterGroupManagement", Name =Dictionary.ParameterGroupManagement,  Icon = "scatter_plot"},
+            new Menu {Address = "#", Code = "ParameterManagement", Name =Dictionary.ParameterManagement,  Icon = "lens"},
+            new Menu {Address = "#", Code = "PermissionManagement", Name =Dictionary.PermissionManagement,  Icon = "lock"},
+            new Menu {Address = "#", Code = "MenuManagement", Name =Dictionary.MenuManagement,  Icon = "vertical_split"},
+            new Menu {Address = "#", Code = "LanguageManagement", Name =Dictionary.LanguageManagement,  Icon = "language"},
+            new Menu {Address = "#", Code = "CategoryManagement", Name = Dictionary.CategoryManagement,  Icon = "category"},
 
         };
 

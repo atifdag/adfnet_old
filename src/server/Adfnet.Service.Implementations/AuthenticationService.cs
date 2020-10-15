@@ -351,7 +351,7 @@ namespace Adfnet.Service.Implementations
                 FirstName = affectedUser.Person.FirstName,
                 LastName = affectedUser.Person.LastName
             };
-            var emailSender = new EmailSender(_smtp, _serviceMain.ApplicationSettings);
+            var emailSender = new EmailSender(_serviceMain,_smtp);
             emailSender.SendEmailToUser(emailUser, EmailTypeOption.SignUp);
         }
 
@@ -439,7 +439,7 @@ namespace Adfnet.Service.Implementations
                 LastName = user.Person.LastName
             };
 
-            var emailSender = new EmailSender(_smtp, _serviceMain.ApplicationSettings);
+            var emailSender = new EmailSender(_serviceMain, _smtp);
             emailSender.SendEmailToUser(emailUser, EmailTypeOption.ForgotPassword);
 
         }

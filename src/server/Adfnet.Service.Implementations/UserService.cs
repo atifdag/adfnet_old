@@ -416,7 +416,7 @@ namespace Adfnet.Service.Implementations
                 FirstName = affectedUser.Person.FirstName,
                 LastName = affectedUser.Person.LastName
             };
-            var emailSender = new EmailSender(_smtp, _serviceMain.ApplicationSettings);
+            var emailSender = new EmailSender(_serviceMain, _smtp);
             emailSender.SendEmailToUser(emailUser, EmailTypeOption.Add);
             return addModel;
 
@@ -591,7 +591,7 @@ namespace Adfnet.Service.Implementations
                 FirstName = affectedUser.Person.FirstName,
                 LastName = affectedUser.Person.LastName
             };
-            var emailSender = new EmailSender(_smtp, _serviceMain.ApplicationSettings);
+            var emailSender = new EmailSender(_serviceMain, _smtp);
             emailSender.SendEmailToUser(emailUser, EmailTypeOption.Update);
             return updateModel;
 
@@ -870,7 +870,7 @@ namespace Adfnet.Service.Implementations
                 FirstName = affectedUser.Person.FirstName,
                 LastName = affectedUser.Person.LastName
             };
-            var emailSender = new EmailSender(_smtp, _serviceMain.ApplicationSettings);
+            var emailSender = new EmailSender(_serviceMain, _smtp);
             emailSender.SendEmailToUser(emailUser, EmailTypeOption.UpdateMyPassword);
         }
 
@@ -977,7 +977,7 @@ namespace Adfnet.Service.Implementations
                 FirstName = affectedUser.Person.FirstName,
                 LastName = affectedUser.Person.LastName
             };
-            var emailSender = new EmailSender(_smtp, _serviceMain.ApplicationSettings);
+            var emailSender = new EmailSender(_serviceMain, _smtp);
             emailSender.SendEmailToUser(emailUser, EmailTypeOption.UpdateMyInformation);
         }
     }

@@ -37,6 +37,7 @@ import { GlobalizationMessagesPipe } from './pipes/globalization-messages.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -79,12 +80,14 @@ const materialModules = [
   declarations: [
     GlobalizationDictionaryPipe,
     GlobalizationMessagesPipe,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+
     ...materialModules
   ],
   exports: [
@@ -94,6 +97,7 @@ const materialModules = [
     ReactiveFormsModule,
     GlobalizationDictionaryPipe,
     GlobalizationMessagesPipe,
+    ConfirmDialogComponent,
     ...materialModules
   ],
   providers: [

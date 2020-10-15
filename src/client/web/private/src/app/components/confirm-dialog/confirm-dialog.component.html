@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content><p>{{data.message}}</p></div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onConfirm()"><mat-icon>done</mat-icon> {{'Yes' | globalizationdictionary}}</button>
+  <button mat-raised-button color="warn" (click)="onDismiss()" style="float: right;"><mat-icon>close</mat-icon> {{'No' | globalizationdictionary}}</button>
+</div>

@@ -5,15 +5,15 @@
     </button>
     <a routerLink="/" class="logo">DomurTek</a>
     <span class="layout-header-items">
-      <button mat-button [matMenuTriggerFor]="menu">Atıf DAĞ <mat-icon>account_circle</mat-icon></button>
+      <button mat-button [matMenuTriggerFor]="menu">{{ profileModel.userModel.displayName }} <mat-icon>account_circle</mat-icon></button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>
           <mat-icon>edit</mat-icon>
-          <span>Bilgilerimi Güncelle</span>
+          <span>{{'UserProfile' | globalizationdictionary}}</span>
         </button>
-        <button mat-menu-item (click)="exit()">
+        <button mat-menu-item (click)="showConfirm()">
           <mat-icon>exit_to_app</mat-icon>
-          <span>Çıkış Yap</span>
+          <span>{{'SignOut' | globalizationdictionary}}</span>
         </button>
       </mat-menu>
     </span>
@@ -22,11 +22,8 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
       [opened]="!mobileQuery.matches">
       <mat-nav-list class="sidenav-list">
-        <a mat-list-item routerLink="/ClientType">
-          <mat-icon>supervised_user_circle</mat-icon>&nbsp;Roller
-        </a>
-        <a mat-list-item routerLink="/Client">
-          <mat-icon>account_circle</mat-icon>&nbsp;Kullanıcılar
+        <a mat-list-item *ngFor="let menu of profileModel.rootMenus">
+          <mat-icon>{{menu.icon}}</mat-icon>&nbsp;{{menu.name}}
         </a>
       </mat-nav-list>
     </mat-sidenav>

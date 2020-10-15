@@ -142,6 +142,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parolayı Onayla.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrolör Adı.
         /// </summary>
         public static string ControllerName {
@@ -210,6 +219,15 @@ namespace Adfnet.Core.Globalization {
         public static string IdentityCode {
             get {
                 return ResourceManager.GetString("IdentityCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Şifremi Unuttum.
+        /// </summary>
+        public static string IForgotMyPassword {
+            get {
+                return ResourceManager.GetString("IForgotMyPassword", resourceCulture);
             }
         }
         
@@ -304,6 +322,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hayır.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parametre.
         /// </summary>
         public static string Parameter {
@@ -385,6 +412,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kayıt Ol.
+        /// </summary>
+        public static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rol.
         /// </summary>
         public static string Role {
@@ -417,6 +453,15 @@ namespace Adfnet.Core.Globalization {
         public static string Server {
             get {
                 return ResourceManager.GetString("Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Çıkış Yap.
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
             }
         }
         
@@ -484,11 +529,29 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hesabım.
+        /// </summary>
+        public static string UserProfile {
+            get {
+                return ResourceManager.GetString("UserProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Değer.
         /// </summary>
         public static string Value {
             get {
                 return ResourceManager.GetString("Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evet.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

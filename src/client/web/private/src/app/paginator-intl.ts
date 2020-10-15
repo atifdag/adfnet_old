@@ -12,7 +12,7 @@ const dutchRangeLabel = (page: number, pageSize: number, length: number) => {
     Math.min(startIndex + pageSize, length) :
     startIndex + pageSize;
   return `${length} kayıttan ${startIndex + 1} ile ${endIndex} arası`;
-}
+};
 
 
 export function getPaginatorIntl(): MatPaginatorIntl {

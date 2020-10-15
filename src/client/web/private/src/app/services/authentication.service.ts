@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AppSettingsService } from './app-settings.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { IdentityService } from './identity.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { LoginModel } from '../models/login-model';
-import { SignOutOption } from '../value-objects/sign-out-option.enum';
 import { RegisterModel } from '../models/register-model';
+import { SignOutOption } from '../value-objects/sign-out-option.enum';
+import { AppSettingsService } from './app-settings.service';
+import { IdentityService } from './identity.service';
 
 @Injectable({
   providedIn: 'root'

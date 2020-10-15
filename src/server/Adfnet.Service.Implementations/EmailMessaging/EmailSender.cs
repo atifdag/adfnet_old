@@ -14,13 +14,14 @@ namespace Adfnet.Service.Implementations.EmailMessaging
 {
     public class EmailSender
     {
-        private readonly ISmtp _smtp;
         private readonly ApplicationSettings _applicationSettings;
+        private readonly ISmtp _smtp;
+       
 
-        public EmailSender(ISmtp smtp, ApplicationSettings applicationSettings)
+        public EmailSender(IMainService serviceMain, ISmtp smtp)
         {
+            _applicationSettings = serviceMain.ApplicationSettings;
             _smtp = smtp;
-            _applicationSettings = applicationSettings;
         }
 
         private static string ConvertTemplateToString(string emailTemplate, EmailRow emailRow)

@@ -13,17 +13,17 @@ namespace Adfnet.Service.Implementations.EmailMessaging.MailKit
     public class MailKitSmtp : ISmtp
     {
         private readonly CustomSmtpClient _smtpClient;
-        private readonly ApplicationSettings _applicationSettings;
 
-        public MailKitSmtp()
+        public MailKitSmtp(IMainService serviceMain)
         {
+            var applicationSettings = serviceMain.ApplicationSettings;
             _smtpClient = new CustomSmtpClient
             {
-                EnableSsl = _applicationSettings.SmtpSsl,
-                Host = _applicationSettings.SmtpServer,
-                Port = _applicationSettings.SmtpPort,
-                Username = _applicationSettings.SmtpUser,
-                Password = _applicationSettings.SmtpPassword
+                EnableSsl = applicationSettings.SmtpSsl,
+                Host = applicationSettings.SmtpServer,
+                Port = applicationSettings.SmtpPort,
+                Username = applicationSettings.SmtpUser,
+                Password = applicationSettings.SmtpPassword
             };
         }
 

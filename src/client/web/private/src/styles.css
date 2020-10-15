@@ -173,13 +173,11 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 }
 
 .success-snackbar {
-  background: #3f51b5;
-  color:#fff;
+  background: #32CD32;
+  color:rgba(0,0,0,.87);
   font-weight: 500;
 }
 
 .error-snackbar {
-  background: #f44336;
-  color:#fff;
-  font-weight: 500;
+
 }

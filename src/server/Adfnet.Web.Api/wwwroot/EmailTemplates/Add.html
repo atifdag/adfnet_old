@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <title>{%Subject%}</title>
+    <style type="text/css">
+
+        * {
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            padding-top: 50px !important;
+            text-align: center;
+        }
+
+        .body {
+            text-align: center;
+        }
+
+        .footer {
+            padding-top: 50px !important;
+            text-align: center;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        td {
+            text-align: left;
+            padding: 1em;
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="{%ApplicationUrl%}">{%ApplicationName%}</a>
+    </div>
+    <div class="body">
+        <h1>{%Subject%}</h1>
+        <p>
+            Sayın {%FirstName%} {%LastName%},
+            <br />{%ApplicationUrl%} adresinde yer alan <strong>{%ApplicationName%}</strong> uygulamasına üye oldunuz.
+        </p>
+        <p>
+            Kullanıcı bilgileriniz aşağıdadır:
+        </p>
+        <table>
+            <tr>
+                <td><strong>Kullanıcı Adı</strong></td>
+                <td>{%Username%}</td>
+            </tr>
+            <tr>
+                <td><strong>Şifre</strong></td>
+                <td>{%Password%}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer">
+        <hr />
+        <p>
+            &copy; {%ApplicationName%}
+        </p>
+    </div>
+
+
+</body>
+
+</html>

@@ -153,6 +153,10 @@
     <value>Api client yetkili değil!</value>
     <comment>Api client yetkili değil!</comment>
   </data>
+  <data name="DangerInvalidEmail" xml:space="preserve">
+    <value>E-posta adresi geçerli değil!</value>
+    <comment>E-posta adresi geçerli değil!</comment>
+  </data>
   <data name="DangerInvalidEntitiy" xml:space="preserve">
     <value>İçerik geçerli değil!</value>
     <comment>İçerik geçerli değil!</comment>
@@ -213,6 +217,10 @@
     <value>Başarıyla giriş yapıldı.</value>
     <comment>Başarıyla giriş yapıldı.</comment>
   </data>
+  <data name="InfoLogoutOperationSuccessful" xml:space="preserve">
+    <value>Başarıyla çıkış yapıldı.</value>
+    <comment>Başarıyla çıkış yapıldı.</comment>
+  </data>
   <data name="InfoNewDatabaseCreated" xml:space="preserve">
     <value>Yeni veritabanı oluşturuldu.</value>
     <comment>Yeni veritabanı oluşturuldu.</comment>
@@ -228,6 +236,14 @@
   <data name="InfoStartingInstallation" xml:space="preserve">
     <value>Kurulum başlatılıyor...</value>
     <comment>Kurulum başlatılıyor...</comment>
+  </data>
+  <data name="QuestionAreYouSure" xml:space="preserve">
+    <value>Emin misiniz?</value>
+    <comment>Emin misiniz?</comment>
+  </data>
+  <data name="QuestionAreYouSureLogout" xml:space="preserve">
+    <value>Oturumu sonlandırmak istediğinizden emin misiniz?</value>
+    <comment>Oturumu sonlandırmak istediğinizden emin misiniz?</comment>
   </data>
   <data name="SuccessInstallationOk" xml:space="preserve">
     <value>Kurulum Tamamlandı.</value>

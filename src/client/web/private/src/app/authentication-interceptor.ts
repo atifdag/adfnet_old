@@ -53,7 +53,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             // { severity: 'error', summary: 'Yetkisiz Giriş!', detail: 'Bu işlem için yetkiniz yok!' });
           } else {
             console.log('api call error :', error);
-            this.router.navigate(['/Error/Server']);
+           // this.router.navigate(['/Error/Server']);
             //  this.router.navigate(['/User/MyProfile']);
           }
         }

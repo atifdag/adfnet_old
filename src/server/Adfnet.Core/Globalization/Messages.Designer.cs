@@ -142,6 +142,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E-posta adresi geçerli değil!.
+        /// </summary>
+        public static string DangerInvalidEmail {
+            get {
+                return ResourceManager.GetString("DangerInvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to İçerik geçerli değil!.
         /// </summary>
         public static string DangerInvalidEntitiy {
@@ -277,6 +286,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Başarıyla çıkış yapıldı..
+        /// </summary>
+        public static string InfoLogoutOperationSuccessful {
+            get {
+                return ResourceManager.GetString("InfoLogoutOperationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yeni veritabanı oluşturuldu..
         /// </summary>
         public static string InfoNewDatabaseCreated {
@@ -309,6 +327,24 @@ namespace Adfnet.Core.Globalization {
         public static string InfoStartingInstallation {
             get {
                 return ResourceManager.GetString("InfoStartingInstallation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emin misiniz?.
+        /// </summary>
+        public static string QuestionAreYouSure {
+            get {
+                return ResourceManager.GetString("QuestionAreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oturumu sonlandırmak istediğinizden emin misiniz?.
+        /// </summary>
+        public static string QuestionAreYouSureLogout {
+            get {
+                return ResourceManager.GetString("QuestionAreYouSureLogout", resourceCulture);
             }
         }
         

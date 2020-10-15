@@ -79,7 +79,7 @@ namespace Adfnet.Setup.Installations
             };
 
 
-            var firstPassword = firstPerson.FirstName.ToStringForSeo().Substring(0, 1) + firstPerson.LastName.ToStringForSeo().Substring(0, 1) + ".Cr2020";
+            var firstPassword = firstPerson.FirstName.ToStringForSeo().Substring(0, 1) + firstPerson.LastName.ToStringForSeo().Substring(0, 1) + ".123456";
 
 
             var firstLanguage = new Language
@@ -156,7 +156,7 @@ namespace Adfnet.Setup.Installations
                     LastModifierId = firstUser.Id
                 };
 
-                var password = itemPerson.FirstName.ToStringForSeo().Substring(0, 1) + itemPerson.LastName.ToStringForSeo().Substring(0, 1) + ".Card2020";
+                var password = itemPerson.FirstName.ToStringForSeo().Substring(0, 1) + itemPerson.LastName.ToStringForSeo().Substring(0, 1) + ".123456";
                 var affectedItemPerson = repositoryPerson.Add(itemPerson, true);
 
 

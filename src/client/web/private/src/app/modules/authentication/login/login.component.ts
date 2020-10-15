@@ -19,11 +19,8 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   loading: boolean;
   redirectUrl: string;
-  errorMessage: string;
   model: LoginModel;
-  durationInSeconds = 5;
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private serviceAuthentication: AuthenticationService,
@@ -31,22 +28,10 @@ export class LoginComponent implements OnInit {
     public globalizationDictionaryPipe: GlobalizationDictionaryPipe,
     private globalizationMessagesPipe: GlobalizationMessagesPipe,
     private identityService: IdentityService,
-    private snackBar: MatSnackBar
+
   ) { }
 
-  openSuccessSnackBar(message: string): void {
-    this.snackBar.open(this.globalizationDictionaryPipe.transform('Success') + '! ' + message, 'X', {
-      duration: 3000,
-      panelClass: ['success-snackbar']
-    });
-  }
 
-  openErrorSnackBar(message: string): void {
-    this.snackBar.open(this.globalizationDictionaryPipe.transform('Error') + '! ' + message, 'X', {
-      duration: 3000,
-      panelClass: ['error-snackbar']
-    });
-  }
   ngOnInit(): void {
     this.loading = false;
     this.userForm = this.fb.group({
@@ -62,7 +47,6 @@ export class LoginComponent implements OnInit {
   globalizationMessagesByParameter2(key: string, parameter1: string, parameter2: string): string {
     return this.globalizationMessagesPipe.transform(key + ',' + parameter1 + ',' + parameter2);
   }
-
   submit(): void {
     this.submitted = true;
     if (this.userForm.invalid) {
@@ -77,8 +61,7 @@ export class LoginComponent implements OnInit {
       res => {
         if (res.status === 200) {
           this.identityService.set(res.body);
-          this.openSuccessSnackBar(this.globalizationMessagesPipe.transform('InfoLoginOperationSuccessful')
-          + ' ' + this.globalizationDictionaryPipe.transform('RedirectionTitle'));
+          this.loading = false;
           let url: any[];
           if (this.redirectUrl != null) {
             if (this.redirectUrl.indexOf(';id=') > 0) {
@@ -90,24 +73,21 @@ export class LoginComponent implements OnInit {
           } else {
             url = ['/Home/Index'];
           }
-
-          setTimeout(() => {
-            this.router.navigate(url);
-          }, 1000);
+          this.router.navigate(url);
         } else if (res.status === 401) {
           this.loading = false;
-          this.openErrorSnackBar('Kod: 401. ' + res.body);
+          this.serviceMain.openErrorSnackBar('Kod: 401. ' + res.body);
         } else if (res.status === 403) {
           this.loading = false;
-          this.openErrorSnackBar('Kod: 403. ' + res.body);
+          this.serviceMain.openErrorSnackBar('Kod: 403. ' + res.body);
         } else {
           this.loading = false;
-          this.openErrorSnackBar('Kod: 01. ' + res.body);
+          this.serviceMain.openErrorSnackBar('Kod: 01. ' + res.body);
         }
       },
       err => {
         this.loading = false;
-        this.openErrorSnackBar('Kod: 99. ' + err.error);
+        this.serviceMain.openErrorSnackBar('Kod: 99. ' + err.error);
       }
     );
 

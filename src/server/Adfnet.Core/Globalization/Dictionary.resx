@@ -153,6 +153,10 @@
     <value>Kod</value>
     <comment>Kod</comment>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Parolayı Onayla</value>
+    <comment>Parolayı Onayla</comment>
+  </data>
   <data name="ControllerName" xml:space="preserve">
     <value>Kontrolör Adı</value>
     <comment>Kontrolör Adı</comment>
@@ -184,6 +188,10 @@
   <data name="IdentityCode" xml:space="preserve">
     <value>Kimlik No</value>
     <comment>Kimlik No</comment>
+  </data>
+  <data name="IForgotMyPassword" xml:space="preserve">
+    <value>Şifremi Unuttum</value>
+    <comment>Şifremi Unuttum</comment>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Anahtar</value>
@@ -225,6 +233,10 @@
     <value>Yeni Parola</value>
     <comment>Yeni Parola</comment>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Hayır</value>
+    <comment>Hayır</comment>
+  </data>
   <data name="Parameter" xml:space="preserve">
     <value>Parametre</value>
     <comment>Parametre</comment>
@@ -261,6 +273,10 @@
     <value>Şimdi Yönlendiriliyorsunuz...</value>
     <comment>Şimdi Yönlendiriliyorsunuz...</comment>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Kayıt Ol</value>
+    <comment>Kayıt Ol</comment>
+  </data>
   <data name="Role" xml:space="preserve">
     <value>Rol</value>
     <comment>Rol</comment>
@@ -276,6 +292,10 @@
   <data name="Server" xml:space="preserve">
     <value>Sunucu</value>
     <comment>Sunucu</comment>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Çıkış Yap</value>
+    <comment>Çıkış Yap</comment>
   </data>
   <data name="StartTime" xml:space="preserve">
     <value>Başlama Zamanı</value>
@@ -305,8 +325,16 @@
     <value>Kullanıcı Adı</value>
     <comment>Kullanıcı Adı</comment>
   </data>
+  <data name="UserProfile" xml:space="preserve">
+    <value>Hesabım</value>
+    <comment>Hesabım</comment>
+  </data>
   <data name="Value" xml:space="preserve">
     <value>Değer</value>
     <comment>Değer</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Evet</value>
+    <comment>Evet</comment>
   </data>
 </root>
