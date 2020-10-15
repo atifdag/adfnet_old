@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ErrorLayoutComponent } from './layouts/error-layout/error-layout.component';
 import { PrivateLayoutComponent } from './layouts/private-layout/private-layout.component';
 import { PublicLayoutComponent } from './layouts/public-layout/public-layout.component';
 
@@ -25,6 +26,7 @@ const routes: Routes = [
         path: 'Category',
         loadChildren: () => import('./modules/category/category.module').then(m => m.CategoryModule)
       },
+
     ]
   },
   {
@@ -34,6 +36,16 @@ const routes: Routes = [
       {
         path: 'Authentication',
         loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule)
+      },
+    ]
+  },
+  {
+    path: '',
+    component: ErrorLayoutComponent,
+    children: [
+      {
+        path: 'Error',
+        loadChildren: () => import('./modules/error/error.module').then(m => m.ErrorModule)
       },
     ]
   },

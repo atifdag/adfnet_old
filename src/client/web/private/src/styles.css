@@ -20,6 +20,15 @@ body {
   height: 100%;
 }
 
+.error-layout-wrapper{
+  background: black;
+}
+
+.error-layout-wrapper .error-message{
+  color: white;
+  font-weight: 500;
+}
+
 .layout-wrapper .layout-header {
   position: fixed;
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),

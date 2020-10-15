@@ -11,13 +11,15 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getPaginatorIntl } from './paginator-intl';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationInterceptor } from './authentication-interceptor';
+import { ErrorLayoutComponent } from './layouts/error-layout/error-layout.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PrivateLayoutComponent,
-    PublicLayoutComponent
+    PublicLayoutComponent,
+    ErrorLayoutComponent
   ],
   imports: [
     BrowserModule,
