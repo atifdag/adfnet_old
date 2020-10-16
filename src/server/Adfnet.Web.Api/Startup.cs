@@ -18,12 +18,12 @@ namespace Adfnet.Web.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.SQLite(Directory.GetCurrentDirectory() + Configuration.GetSection("Logging:LogSqlitePath").Value)
-                .WriteTo.Seq(Configuration.GetSection("Logging:SeqUrl").Value)
-                .CreateLogger();
+            //Log.Logger = new LoggerConfiguration()
+            //    .WriteTo.SQLite(Directory.GetCurrentDirectory() + Configuration.GetSection("Logging:LogSqlitePath").Value)
+            //    .WriteTo.Seq(Configuration.GetSection("Logging:SeqUrl").Value)
+            //    .CreateLogger();
 
-            Log.Information("Adfnet Baþlatýldý...");
+            //Log.Information("Adfnet Baþlatýldý...");
         }
 
         public IConfiguration Configuration { get; }

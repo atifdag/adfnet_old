@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Adfnet.Core;
 using Adfnet.Core.Globalization;
 using Adfnet.Data.DataAccess.EntityFramework;
@@ -13,20 +14,20 @@ namespace Adfnet.Setup
 {
     internal class Program
     {
-        private static IConfiguration Configuration
+        private static string AppPath
         {
             get
             {
-
                 var path = AppContext.BaseDirectory;
                 if (AppContext.BaseDirectory.Contains("bin"))
                 {
                     path = AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.IndexOf("bin", StringComparison.Ordinal));
                 }
-                return new ConfigurationBuilder().SetBasePath(path).AddJsonFile("appsettings.json", false, true).Build();
+                return path;
             }
         }
 
+        private static IConfiguration Configuration => new ConfigurationBuilder().SetBasePath(AppPath).AddJsonFile("appsettings.json", false, true).Build();
 
 
         private static void Main()
@@ -61,11 +62,11 @@ namespace Adfnet.Setup
                     break;
 
                 case "SqliteConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+                    services.AddDbContext<EfDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection").Replace("Data Source=", "Data Source=" + AppPath + "\\")));
                     break;
 
                 default:
-                    services.AddDbContext<EfDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+                    services.AddDbContext<EfDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection").Replace("Data Source=", "Data Source=" + AppPath + "\\")));
                     break;
             }
 
@@ -151,6 +152,25 @@ namespace Adfnet.Setup
                     MenuInstallation.Install(provider);
                     LanguageInstallation.Install(provider);
                     CategoryInstallation.Install(provider);
+
+
+                    if (Configuration["DefaultConnectionString"] == "SqliteConnection")
+                    {
+                        var setupProjectRootPath = AppContext.BaseDirectory;
+                        if (AppContext.BaseDirectory.Contains("bin"))
+                        {
+                            setupProjectRootPath = AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.IndexOf("bin", StringComparison.Ordinal));
+                        }
+
+                        if (File.Exists(Path.Combine(setupProjectRootPath, dbServer)))
+                        {
+                            var apiProjectRootPath = setupProjectRootPath.Replace("Adfnet.Setup", "Adfnet.Web.Api");
+                            File.Delete(Path.Combine(apiProjectRootPath, dbServer));
+                            File.Copy(Path.Combine(setupProjectRootPath, dbServer), Path.Combine(apiProjectRootPath, dbServer));
+                        }
+                    }
+
+
 
                     Console.WriteLine(Messages.SuccessInstallationOk);
                     Console.WriteLine(Dictionary.EndTime + @": " + DateTime.Now);
