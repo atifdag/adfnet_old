@@ -15,7 +15,7 @@ namespace Adfnet.Setup.Installations
 
         private static readonly List<Tuple<string, string, bool>> OtherItems = new List<Tuple<string, string, bool>>
         {
-            Tuple.Create("en", "English", false),
+            Tuple.Create("en", "English", true),
             Tuple.Create("ar", "العربية", true)
         };
 

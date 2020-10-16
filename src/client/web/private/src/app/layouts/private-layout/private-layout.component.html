@@ -7,14 +7,14 @@
     <span class="layout-header-items">
       <button mat-button [matMenuTriggerFor]="menu">{{ profileModel.userModel.displayName }} <mat-icon>account_circle</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>edit</mat-icon>
+        <a mat-menu-item routerLink="/User/MyProfile">
+          <mat-icon>account_box</mat-icon>
           <span>{{'UserProfile' | globalizationdictionary}}</span>
-        </button>
-        <button mat-menu-item (click)="showConfirm()">
+        </a>
+        <a mat-menu-item (click)="showConfirm()">
           <mat-icon>exit_to_app</mat-icon>
           <span>{{'SignOut' | globalizationdictionary}}</span>
-        </button>
+        </a>
       </mat-menu>
     </span>
   </mat-toolbar>

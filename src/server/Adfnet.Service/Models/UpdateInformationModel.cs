@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Adfnet.Core.ValueObjects;
 
 namespace Adfnet.Service.Models
@@ -15,5 +16,6 @@ namespace Adfnet.Service.Models
         public DateTime LastModificationTime { get; set; }
         public IdName LastModifier { get; set; }
         public IdCodeName Language { get; set; }
+        public List<IdCodeNameSelected> Languages { get; set; }
     }
 }

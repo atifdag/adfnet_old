@@ -104,7 +104,7 @@ namespace Adfnet.Setup.Installations
                 IsApproved = true,
                 Username = "atif.dag",
                 Password = firstPassword.ToSha512(),
-                Email = "atif.dag@hidoctor.com",
+                Email = "atif.dag@adfnet.com",
             };
 
             firstUser.Creator = firstUser;
@@ -172,7 +172,8 @@ namespace Adfnet.Setup.Installations
                     Email = item3 + "@adfnet.com",
                     Person = affectedItemPerson,
                     IsApproved = true,
-                    Password = password,
+                    Language = firstLanguage,
+                    Password = password.ToSha512(),
                     Version = 1,
                 };
                 var affectedUser = repositoryUser.Add(itemUser, true);

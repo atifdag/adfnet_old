@@ -24,6 +24,7 @@ namespace Adfnet.Service.Models
         public string LastName { get; set; }
         public string DisplayName => FirstName + " " + LastName;
         public IdCodeName Language { get; set; }
+        public List<IdCodeNameSelected> Languages { get; set; }
 
     }
 }

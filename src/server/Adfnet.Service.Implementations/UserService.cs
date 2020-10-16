@@ -36,7 +36,7 @@ namespace Adfnet.Service.Implementations
         private readonly IMainService _serviceMain;
         private readonly ISmtp _smtp;
         private readonly IRepository<Language> _repositoryLanguage;
-
+        private readonly List<IdCodeNameSelected> _languages;
 
         public UserService(IRepository<User> repositoryUser, IRepository<RolePermissionLine> repositoryRolePermissionLine, IRepository<PermissionMenuLine> repositoryPermissionMenuLine, IRepository<RoleUserLine> repositoryRoleUserLine, IRepository<UserHistory> repositoryUserHistory, ISmtp smtp, IRepository<Person> repositoryPerson, IRepository<PersonHistory> repositoryPersonHistory, IRepository<Role> repositoryRole, IRepository<RoleUserLineHistory> repositoryRoleUserLineHistory, IMainService serviceMain, IRepository<Language> repositoryLanguage)
         {
@@ -52,6 +52,9 @@ namespace Adfnet.Service.Implementations
             _repositoryRoleUserLineHistory = repositoryRoleUserLineHistory;
             _serviceMain = serviceMain;
             _repositoryLanguage = repositoryLanguage;
+
+            _languages = _repositoryLanguage.Get().Where(x => x.IsApproved).OrderBy(x => x.DisplayOrder)
+                .Select(t => new IdCodeNameSelected(t.Id, t.Code, t.Name, false)).ToList();
         }
         public ListModel<UserModel> List(FilterModel filterModel)
         {
@@ -756,10 +759,14 @@ namespace Adfnet.Service.Implementations
 
 
             var sessionHistories = identityUser.SessionHistoriesCreatedBy;
+            userModel = identityUser.CreateMapped<User, UserModel>();
+            userModel.Languages = _languages;
             if (!(sessionHistories?.Count > 0))
             {
 
-                userModel = identityUser.CreateMapped<User, UserModel>();
+               
+           
+               
                 userModel.Creator = new IdName(identityUser.Creator.Id, identityUser.Creator.Person.DisplayName);
                 userModel.LastModifier = new IdName(identityUser.LastModifier.Id, identityUser.LastModifier.Person.DisplayName);
                 userModel.Language = new IdCodeName(identityUser.Language.Id, identityUser.Language.Code, identityUser.Language.Name);
@@ -774,7 +781,7 @@ namespace Adfnet.Service.Implementations
                 {
                     UserModel = userModel,
                     LastLoginTime = lastLoginTime,
-                    RootMenus = rootMenus
+                    RootMenus = rootMenus,
                 };
 
                 return myProfileModel;
@@ -787,7 +794,6 @@ namespace Adfnet.Service.Implementations
                 lastLoginTime = lastSession.LastModificationTime;
             }
 
-            userModel = identityUser.CreateMapped<User, UserModel>();
             userModel.Creator = new IdName(identityUser.Creator.Id, identityUser.Creator.Person.DisplayName);
             userModel.LastModifier = new IdName(identityUser.LastModifier.Id, identityUser.LastModifier.Person.DisplayName);
             userModel.Language = new IdCodeName(identityUser.Language.Id, identityUser.Language.Code, identityUser.Language.Name);
@@ -899,6 +905,7 @@ namespace Adfnet.Service.Implementations
 
             var identity = (CustomIdentity)Thread.CurrentPrincipal?.Identity;
             var user = _repositoryUser
+                .Join(x=>x.Creator)
                 .Join(x => x.Language)
                 .Join(x => x.Person)
                 .FirstOrDefault(e => e.Id == identity.UserId);
