@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://api.adfnet.com',
+  apiUrl: 'https://api.domurtek.com',
 };

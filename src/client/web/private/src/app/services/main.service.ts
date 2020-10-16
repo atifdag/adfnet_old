@@ -41,23 +41,20 @@ export class MainService {
   }
 
   convertToSeoLiteral(str: string): string {
+
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
     str = str.toLowerCase();
-    str = str.replace(' ', '.');
-    str = str.replace('Ç', 'c');
-    str = str.replace('Ğ', 'g');
-    str = str.replace('I', 'i');
-    str = str.replace('İ', 'i');
-    str = str.replace('Ö', 'o');
-    str = str.replace('Ş', 's');
-    str = str.replace('Ü', 'u');
-    str = str.replace('ç', 'c');
-    str = str.replace('ğ', 'g');
-    str = str.replace('ı', 'i');
-    str = str.replace('i', 'i');
-    str = str.replace('ö', 'o');
-    str = str.replace('ş', 's');
-    str = str.replace('ü', 'u');
-    str = str.toLowerCase();
+
+    const from = 'ÇçĞğIıİiÖöŞş';
+    const to = 'ccggiiiiooss';
+    for (let i = 0, l = from.length; i < l; i++) {
+      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+      .replace(/\s+/g, '-') // collapse whitespace and replace by -
+      .replace(/-+/g, '-'); // collapse dashes
+
     return str;
   }
 
@@ -77,7 +74,7 @@ export class MainService {
     str = str.replace('ö', 'Ö');
     str = str.replace('ş', 'Ş');
     str = str.replace('ü', 'Ü');
-    str = str.toUpperCase();
+    str = str.toLocaleUpperCase();
     return str;
   }
 

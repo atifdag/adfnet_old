@@ -12,14 +12,14 @@
     <form class="box-form" [formGroup]="userForm" (ngSubmit)="submit()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'FirstName' | globalizationdictionary }}</mat-label>
-        <input matInput formControlName="firstName">
+        <input matInput formControlName="firstName" (blur)="onBlurFirstName()">
         <mat-error *ngIf="!userForm.controls['firstName'].valid&&userForm.controls['firstName'].dirty">
           {{userForm.controls['firstName'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','FirstName') : userForm.controls['firstName'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','FirstName','2') : ''}}
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'LastName' | globalizationdictionary }}</mat-label>
-        <input matInput formControlName="lastName">
+        <input matInput formControlName="lastName" (blur)="onBlurLastName()">
         <mat-error *ngIf="!userForm.controls['lastName'].valid&&userForm.controls['lastName'].dirty">
           {{userForm.controls['lastName'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','LastName') : userForm.controls['lastName'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','LastName','2') : ''}}
         </mat-error>
