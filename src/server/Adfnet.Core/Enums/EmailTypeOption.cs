@@ -3,7 +3,7 @@
     public enum EmailTypeOption
     {
         Add,
-        SignUp,
+        Register,
         ForgotPassword,
         Update,
         UpdateMyPassword,

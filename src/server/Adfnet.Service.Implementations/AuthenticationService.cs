@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using Adfnet.Core;
+using Adfnet.Core.Constants;
 using Adfnet.Core.Enums;
 using Adfnet.Core.Exceptions;
 using Adfnet.Core.Globalization;
@@ -305,6 +306,7 @@ namespace Adfnet.Service.Implementations
                 Username = model.Username,
                 Password = password,
                 Email = model.Email,
+                Language = _serviceMain.DefaultLanguage,
                 Person = person,
 
             };
@@ -319,11 +321,11 @@ namespace Adfnet.Service.Implementations
 
             var affectedUser = _repositoryUser.Add(user, true);
 
-            var role = _repositoryRole.Get(x => x.Code == "DEFAULTROLE");
+            var role = _repositoryRole.Get(x => x.Code == RoleConstants.Default.Item1);
 
             if (role == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             _repositoryRoleUserLine.Add(new RoleUserLine
@@ -344,6 +346,7 @@ namespace Adfnet.Service.Implementations
 
             var emailUser = new EmailUser
             {
+                Id = affectedUser.Id,
                 Username = affectedUser.Username,
                 Password = password,
                 CreationTime = affectedUser.CreationTime,
@@ -352,7 +355,7 @@ namespace Adfnet.Service.Implementations
                 LastName = affectedUser.Person.LastName
             };
             var emailSender = new EmailSender(_serviceMain,_smtp);
-            emailSender.SendEmailToUser(emailUser, EmailTypeOption.SignUp);
+            emailSender.SendEmailToUser(emailUser, EmailTypeOption.Register);
         }
 
         public void ForgotPassword(string username)

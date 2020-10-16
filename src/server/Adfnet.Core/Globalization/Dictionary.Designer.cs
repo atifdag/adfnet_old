@@ -97,6 +97,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geri.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kategori.
         /// </summary>
         public static string Category {
@@ -160,6 +169,24 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oluşturulma Zamanı.
+        /// </summary>
+        public static string CreationTime {
+            get {
+                return ResourceManager.GetString("CreationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oluşturan.
+        /// </summary>
+        public static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Veritabanı.
         /// </summary>
         public static string Database {
@@ -214,6 +241,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kimlik.
+        /// </summary>
+        public static string Id {
+            get {
+                return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kimlik No.
         /// </summary>
         public static string IdentityCode {
@@ -255,6 +291,33 @@ namespace Adfnet.Core.Globalization {
         public static string LanguageManagement {
             get {
                 return ResourceManager.GetString("LanguageManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Son Giriş Zamanı.
+        /// </summary>
+        public static string LastLoginTime {
+            get {
+                return ResourceManager.GetString("LastLoginTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Son Değişiklik Zamanı.
+        /// </summary>
+        public static string LastModificationTime {
+            get {
+                return ResourceManager.GetString("LastModificationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Son Değiştiren.
+        /// </summary>
+        public static string LastModifier {
+            get {
+                return ResourceManager.GetString("LastModifier", resourceCulture);
             }
         }
         
@@ -327,6 +390,15 @@ namespace Adfnet.Core.Globalization {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eski Parola.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
             }
         }
         
@@ -439,6 +511,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kaydet.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gönder.
         /// </summary>
         public static string Send {
@@ -489,6 +570,24 @@ namespace Adfnet.Core.Globalization {
         public static string UnitPrice {
             get {
                 return ResourceManager.GetString("UnitPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bilgilerimi Güncelle.
+        /// </summary>
+        public static string UpdateMyInformation {
+            get {
+                return ResourceManager.GetString("UpdateMyInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Şifremi Değiştir.
+        /// </summary>
+        public static string UpdateMyPassword {
+            get {
+                return ResourceManager.GetString("UpdateMyPassword", resourceCulture);
             }
         }
         

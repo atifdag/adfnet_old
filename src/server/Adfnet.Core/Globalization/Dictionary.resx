@@ -133,6 +133,10 @@
     <value>Tümü</value>
     <comment>Tümü</comment>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Geri</value>
+    <comment>Geri</comment>
+  </data>
   <data name="Category" xml:space="preserve">
     <value>Kategori</value>
     <comment>Kategori</comment>
@@ -161,6 +165,14 @@
     <value>Kontrolör Adı</value>
     <comment>Kontrolör Adı</comment>
   </data>
+  <data name="CreationTime" xml:space="preserve">
+    <value>Oluşturulma Zamanı</value>
+    <comment>Oluşturulma Zamanı</comment>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Oluşturan</value>
+    <comment>Oluşturan</comment>
+  </data>
   <data name="Database" xml:space="preserve">
     <value>Veritabanı</value>
     <comment>Veritabanı</comment>
@@ -185,6 +197,10 @@
     <value>Adı</value>
     <comment>Adı</comment>
   </data>
+  <data name="Id" xml:space="preserve">
+    <value>Kimlik</value>
+    <comment>Kimlik</comment>
+  </data>
   <data name="IdentityCode" xml:space="preserve">
     <value>Kimlik No</value>
     <comment>Kimlik No</comment>
@@ -204,6 +220,18 @@
   <data name="LanguageManagement" xml:space="preserve">
     <value>Dil</value>
     <comment>Dil</comment>
+  </data>
+  <data name="LastLoginTime" xml:space="preserve">
+    <value>Son Giriş Zamanı</value>
+    <comment>Son Giriş Zamanı</comment>
+  </data>
+  <data name="LastModificationTime" xml:space="preserve">
+    <value>Son Değişiklik Zamanı</value>
+    <comment>Son Değişiklik Zamanı</comment>
+  </data>
+  <data name="LastModifier" xml:space="preserve">
+    <value>Son Değiştiren</value>
+    <comment>Son Değiştiren</comment>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Soyadı</value>
@@ -236,6 +264,10 @@
   <data name="No" xml:space="preserve">
     <value>Hayır</value>
     <comment>Hayır</comment>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Eski Parola</value>
+    <comment>Eski Parola</comment>
   </data>
   <data name="Parameter" xml:space="preserve">
     <value>Parametre</value>
@@ -285,6 +317,10 @@
     <value>Rol</value>
     <comment>Rol</comment>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Kaydet</value>
+    <comment>Kaydet</comment>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Gönder</value>
     <comment>Gönder</comment>
@@ -308,6 +344,14 @@
   <data name="UnitPrice" xml:space="preserve">
     <value>Birim Fiyat</value>
     <comment>Birim Fiyat</comment>
+  </data>
+  <data name="UpdateMyInformation" xml:space="preserve">
+    <value>Bilgilerimi Güncelle</value>
+    <comment>Bilgilerimi Güncelle</comment>
+  </data>
+  <data name="UpdateMyPassword" xml:space="preserve">
+    <value>Şifremi Değiştir</value>
+    <comment>Şifremi Değiştir</comment>
   </data>
   <data name="User" xml:space="preserve">
     <value>Kullanıcı</value>

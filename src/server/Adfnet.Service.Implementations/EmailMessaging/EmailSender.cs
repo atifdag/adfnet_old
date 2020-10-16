@@ -90,7 +90,7 @@ namespace Adfnet.Service.Implementations.EmailMessaging
                         });
                         break;
                     }
-                case EmailTypeOption.SignUp:
+                case EmailTypeOption.Register:
                     {
                         eMailSubject = Dictionary.UserInformation;
                         emailKeys.Add(new EmailKey

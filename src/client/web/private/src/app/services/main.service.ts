@@ -41,12 +41,10 @@ export class MainService {
   }
 
   convertToSeoLiteral(str: string): string {
-
-    str = str.replace(/^\s+|\s+$/g, ''); // trim
-    str = str.toLowerCase();
-
     const from = 'ÇçĞğIıİiÖöŞş';
     const to = 'ccggiiiiooss';
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
     for (let i = 0, l = from.length; i < l; i++) {
       str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
     }
@@ -58,22 +56,24 @@ export class MainService {
     return str;
   }
 
+  lowerCase(str: string): string {
+    const from = 'ÇçĞğIıİiÖöŞş';
+    const to = 'ççğğııiiööşş';
+
+    for (let i = 0, l = from.length; i < l; i++) {
+      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.toLocaleLowerCase();
+    return str;
+  }
 
   upperCase(str: string): string {
-    str = str.replace('Ç', 'Ç');
-    str = str.replace('Ğ', 'Ğ');
-    str = str.replace('I', 'I');
-    str = str.replace('İ', 'İ');
-    str = str.replace('Ö', 'Ö');
-    str = str.replace('Ş', 'Ş');
-    str = str.replace('Ü', 'Ü');
-    str = str.replace('ç', 'Ç');
-    str = str.replace('ğ', 'Ğ');
-    str = str.replace('ı', 'I');
-    str = str.replace('i', 'İ');
-    str = str.replace('ö', 'Ö');
-    str = str.replace('ş', 'Ş');
-    str = str.replace('ü', 'Ü');
+    const from = 'ÇçĞğIıİiÖöŞş';
+    const to = 'ÇÇĞĞIIİİÖÖŞŞ';
+    for (let i = 0, l = from.length; i < l; i++) {
+      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
     str = str.toLocaleUpperCase();
     return str;
   }
