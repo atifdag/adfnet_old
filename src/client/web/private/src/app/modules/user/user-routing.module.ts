@@ -10,7 +10,7 @@ import { UpdateMyPasswordComponent } from './update-my-password/update-my-passwo
 import { UpdateComponent } from './update/update.component';
 
 const routes: Routes = [
-  { path: '', component: AddComponent, canActivate: [AuthenticationGuard] },
+  { path: '', component: ListComponent, canActivate: [AuthenticationGuard] },
   { path: 'Add', component: AddComponent, canActivate: [AuthenticationGuard] },
   { path: 'List', component: ListComponent, canActivate: [AuthenticationGuard] },
   { path: 'Update', component: UpdateComponent, canActivate: [AuthenticationGuard] },

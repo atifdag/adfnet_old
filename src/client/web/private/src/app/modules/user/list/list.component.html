@@ -1,1 +1,93 @@
-<p>list works!</p>
+<mat-card class="content-card">
+  <mat-card-header>
+    <mat-card-title>Cari Hesap Türü</mat-card-title>
+    <mat-card-subtitle>Listele</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="content" fxLayout="row wrap">
+      <div fxFlex.lg="50%" fxFlex.xs="100%" fxFlex.sm="100%">
+        <mat-form-field class="full-width">
+          <mat-label>Filtrele</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Aranacak ifadeyi yazınız..." #input>
+        </mat-form-field>
+      </div>
+      <div fxFlex.lg="50%" fxFlex.xs="100%" fxFlex.sm="100%">
+        <mat-paginator [pageSizeOptions]="pageSizes"></mat-paginator>
+      </div>
+    </div>
+    <table class="mat-data-table" mat-table [dataSource]="dataSource" matSort>
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Id' | globalizationdictionary }}</th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+
+      <!-- username Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Username' | globalizationdictionary }}</th>
+        <td mat-cell *matCellDef="let row"> {{row.username}}</td>
+      </ng-container>
+
+      <!-- firstName Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'FirstName' | globalizationdictionary }}</th>
+        <td mat-cell *matCellDef="let row"> {{row.firstName}} </td>
+      </ng-container>
+
+       <!-- lastName Column -->
+       <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'LastName' | globalizationdictionary }}</th>
+        <td mat-cell *matCellDef="let row"> {{row.lastName}} </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>İşlemler</th>
+        <td mat-cell *matCellDef="let row" class="action-link">
+          <button mat-stroked-button [matMenuTriggerFor]="menu">
+            İşlemler
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>edit</mat-icon>Düzenle
+            </button>
+            <button mat-menu-item>
+              <mat-icon>delete</mat-icon>Sil
+            </button>
+          </mat-menu>
+
+        </td>
+      </ng-container>
+      <thead>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      </thead>
+
+
+      <tbody>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </tbody>
+
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Kayıt bulunamadı!</td>
+      </tr>
+    </table>
+
+
+  </mat-card-content>
+</mat-card>
