@@ -34,58 +34,22 @@ namespace Adfnet.Service.Implementations
         public ListModel<MenuModel> List(FilterModel filterModel)
         {
 
-            if (filterModel.StartDate == default)
-            {
-                filterModel.StartDate = DateTime.Now.AddYears(-2);
-            }
-
-            if (filterModel.EndDate == default)
-            {
-                filterModel.EndDate = DateTime.Now;
-            }
-
-            if (filterModel.PageNumber == default)
-            {
-                filterModel.PageNumber = 1;
-            }
-
-            if (filterModel.PageSize == default)
-            {
-                filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
-            }
             var model = filterModel.CreateMapped<FilterModel, ListModel<MenuModel>>();
             return List(filterModel.StartDate, filterModel.EndDate, filterModel.PageNumber, filterModel.PageSize, filterModel.Status, filterModel.Searched, Guid.Empty, model);
+
         }
 
         public ListModel<MenuModel> List(FilterModelWithParent filterModel)
         {
 
-            if (filterModel.StartDate == default)
-            {
-                filterModel.StartDate = DateTime.Now.AddYears(-2);
-            }
-
-            if (filterModel.EndDate == default)
-            {
-                filterModel.EndDate = DateTime.Now;
-            }
-
-            if (filterModel.PageNumber == default)
-            {
-                filterModel.PageNumber = 1;
-            }
-
-            if (filterModel.PageSize == default)
-            {
-                filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
-            }
-
             var model = filterModel.CreateMapped<FilterModelWithParent, ListModel<MenuModel>>();
             return List(filterModel.StartDate, filterModel.EndDate, filterModel.PageNumber, filterModel.PageSize, filterModel.Status, filterModel.Searched, filterModel.Parent.Id, model);
+
         }
 
         private ListModel<MenuModel> List(DateTime startDate, DateTime endDate, int pageNumber, int pageSize, int status, string searched, Guid parentId, ListModel<MenuModel> model)
         {
+
             var resetedStartDate = startDate.ResetTimeToStartOfDay();
             var resetedEndDate = endDate.ResetTimeToEndOfDay();
 

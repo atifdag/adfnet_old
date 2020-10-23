@@ -7,7 +7,7 @@ namespace Adfnet.Web.Api.Controllers
 
     public class CategoryController : BaseCrudWithLanguageApiController<CategoryModel>
     {
-        public CategoryController(ICategoryService serviceCategory) : base(serviceCategory)
+        public CategoryController(ICategoryService serviceCategory, IMainService serviceMain) : base(serviceCategory, serviceMain)
         {
         }
     }

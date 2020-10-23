@@ -7,7 +7,7 @@ namespace Adfnet.Web.Api.Controllers
 
     public class LanguageController : BaseCrudApiController<LanguageModel>
     {
-        public LanguageController(ILanguageService serviceLanguage) : base(serviceLanguage)
+        public LanguageController(ILanguageService serviceLanguage, IMainService serviceMain) : base(serviceLanguage, serviceMain)
         {
         }
     }

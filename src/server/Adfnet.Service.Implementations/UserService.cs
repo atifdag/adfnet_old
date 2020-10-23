@@ -83,11 +83,11 @@ namespace Adfnet.Service.Implementations
                 {
                     if (bStatus)
                     {
-                        expression = c => c.IsApproved && c.Person.DisplayName.Contains(searched);
+                        expression = c => c.IsApproved && c.Username.Contains(searched);
                     }
                     else
                     {
-                        expression = c => c.IsApproved == false && c.Person.DisplayName.Contains(searched);
+                        expression = c => c.IsApproved == false && c.Username.Contains(searched);
                     }
                 }
                 else
@@ -107,7 +107,7 @@ namespace Adfnet.Service.Implementations
             {
                 if (searched != null)
                 {
-                    expression = c => c.Person.DisplayName.Contains(searched);
+                    expression = c => c.Username.Contains(searched);
                 }
                 else
                 {
@@ -125,9 +125,7 @@ namespace Adfnet.Service.Implementations
                 }
             }
 
-            var identityUserMinRoleLevel = _serviceMain.IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
-
-            expression = expression.And(x => x.RoleUserLines.All(t => t.Role.Level > identityUserMinRoleLevel));
+            expression = expression.And(x => x.RoleUserLines.All(t => t.Role.Level > _serviceMain.IdentityUserMinRoleLevel));
 
             var sortHelper = new SortHelper<User>();
 

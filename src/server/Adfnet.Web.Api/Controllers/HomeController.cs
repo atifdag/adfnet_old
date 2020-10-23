@@ -13,11 +13,11 @@ namespace Adfnet.Web.Api.Controllers
     [ApiController]
     public class HomeController : CommonController
     {
-        
+        private IMainService _serviceMain;
 
         public HomeController(IMainService serviceMain) : base(serviceMain)
         {
-
+            _serviceMain = serviceMain;
         }
         [Route("Index")]
         [HttpGet]

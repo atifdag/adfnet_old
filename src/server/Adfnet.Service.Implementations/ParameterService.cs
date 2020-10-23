@@ -37,51 +37,12 @@ namespace Adfnet.Service.Implementations
         public ListModel<ParameterModel> List(FilterModel filterModel)
         {
 
-            if (filterModel.StartDate == default)
-            {
-                filterModel.StartDate = DateTime.Now.AddYears(-2);
-            }
-
-            if (filterModel.EndDate == default)
-            {
-                filterModel.EndDate = DateTime.Now;
-            }
-
-            if (filterModel.PageNumber == default)
-            {
-                filterModel.PageNumber = 1;
-            }
-
-            if (filterModel.PageSize == default)
-            {
-                filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
-            }
             var model = filterModel.CreateMapped<FilterModel, ListModel<ParameterModel>>();
             return List(filterModel.StartDate, filterModel.EndDate, filterModel.PageNumber, filterModel.PageSize, filterModel.Status, filterModel.Searched, Guid.Empty, model);
         }
 
         public ListModel<ParameterModel> List(FilterModelWithParent filterModel)
         {
-
-            if (filterModel.StartDate == default)
-            {
-                filterModel.StartDate = DateTime.Now.AddYears(-2);
-            }
-
-            if (filterModel.EndDate == default)
-            {
-                filterModel.EndDate = DateTime.Now;
-            }
-
-            if (filterModel.PageNumber == default)
-            {
-                filterModel.PageNumber = 1;
-            }
-
-            if (filterModel.PageSize == default)
-            {
-                filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
-            }
 
             var model = filterModel.CreateMapped<FilterModelWithParent, ListModel<ParameterModel>>();
             return List(filterModel.StartDate, filterModel.EndDate, filterModel.PageNumber, filterModel.PageSize, filterModel.Status, filterModel.Searched, filterModel.Parent.Id, model);

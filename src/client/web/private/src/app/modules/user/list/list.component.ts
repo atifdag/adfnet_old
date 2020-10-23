@@ -1,5 +1,5 @@
 import { UserModel } from './../../../models/user-model';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
@@ -18,14 +18,14 @@ import { MainService } from 'src/app/services/main.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements AfterViewInit {
+export class ListComponent implements OnInit {
 
   displayedColumns: string[] = ['select', 'id', 'username', 'firstName', 'lastName', 'actions'];
   dataSource: MatTableDataSource<UserModel>;
   selection = new SelectionModel<UserModel>(true, []);
   selectedPageNumber = 1;
   statusOptions: any[];
-  pageSizes: any[];
+  pageSizes: number[] = [];
   selectedPageSize = this.appSettingsService.selectedPageSize.key;
   rowsPerPageOptions = this.appSettingsService.rowsPerPageOptions;
   listModel = new ListModel<UserModel>();
@@ -38,7 +38,7 @@ export class ListComponent implements AfterViewInit {
     private appSettingsService: AppSettingsService,
     private serviceUser: UserService,
     public globalizationDictionaryPipe: GlobalizationDictionaryPipe,
-    private globalizationMessagesPipe: GlobalizationMessagesPipe,
+    public globalizationMessagesPipe: GlobalizationMessagesPipe,
     private serviceMain: MainService,
     private router: Router
   ) {
@@ -51,23 +51,28 @@ export class ListComponent implements AfterViewInit {
     this.yearRange = (year - 10).toString() + ':' + year.toString();
     startDate.setFullYear(today.getFullYear() - 2);
     this.statusOptions = this.appSettingsService.statusOptions;
-    this.pageSizes = this.appSettingsService.pageSizes;
+
+    this.appSettingsService.pageSizes.forEach(x => {
+      this.pageSizes.push(x.key);
+    });
+
     this.filterModel.startDate = startDate;
     this.filterModel.endDate = endDate;
     this.filterModel.pageNumber = this.selectedPageNumber;
     this.filterModel.pageSize = this.selectedPageSize;
-
+    this.listModel.items = [];
     this.list();
 
 
   }
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    this.paginator.length = this.listModel.items.length;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   list(): void {
-    this.serviceUser.list(this.filterModel).subscribe(
+    this.serviceUser.list().subscribe(
       res => {
         if (res.status === 200) {
           this.listModel = res.body as ListModel<UserModel>;
@@ -98,9 +103,10 @@ export class ListComponent implements AfterViewInit {
       }
     );
   }
+
   isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.listModel.items.length;
     return numSelected === numRows;
   }
 

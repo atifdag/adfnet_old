@@ -10,7 +10,7 @@ namespace Adfnet.Service
         ApplicationSettings ApplicationSettings { get; }
         List<Guid> GetActionRoles(string controller, string action);
         User IdentityUser { get; }
-
+        int IdentityUserMinRoleLevel { get; }
         Language DefaultLanguage { get; }
     }
 }

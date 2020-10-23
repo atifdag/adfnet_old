@@ -121,6 +121,10 @@
     <value>Aksiyon Adı</value>
     <comment>Aksiyon Adı</comment>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>İşlemler</value>
+    <comment>İşlemler</comment>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Ekle</value>
     <comment>Ekle</comment>
@@ -180,6 +184,14 @@
   <data name="DatabaseType" xml:space="preserve">
     <value>Veritabanı Türü</value>
     <comment>Veritabanı Türü</comment>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+    <comment>Sil</comment>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detay</value>
+    <comment>Detay</comment>
   </data>
   <data name="Email" xml:space="preserve">
     <value>E-posta</value>
@@ -344,6 +356,10 @@
   <data name="UnitPrice" xml:space="preserve">
     <value>Birim Fiyat</value>
     <comment>Birim Fiyat</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Güncelle</value>
+    <comment>Güncelle</comment>
   </data>
   <data name="UpdateMyInformation" xml:space="preserve">
     <value>Bilgilerimi Güncelle</value>

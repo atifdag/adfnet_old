@@ -13,7 +13,7 @@ namespace Adfnet.Web.Api.Controllers
     public class UserController : BaseCrudApiController<UserModel>
     {
         private readonly IUserService _serviceUser;
-        public UserController(IUserService serviceUser) : base(serviceUser)
+        public UserController(IUserService serviceUser, IMainService serviceMain) : base(serviceUser, serviceMain)
         {
             _serviceUser = serviceUser;
         }

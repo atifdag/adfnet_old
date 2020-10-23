@@ -7,7 +7,7 @@ namespace Adfnet.Web.Api.Controllers
 
     public class RoleController : BaseCrudApiController<RoleModel>
     {
-        public RoleController(IRoleService serviceRole) : base(serviceRole)
+        public RoleController(IRoleService serviceRole, IMainService serviceMain) : base(serviceRole, serviceMain)
         {
         }
     }

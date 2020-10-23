@@ -77,9 +77,40 @@ namespace Adfnet.Service.Implementations
                 User user;
 
                 // Veritabanından sorgulanıyor
-                user = _repositoryUser.Get()
-                    .Join(x => x.Person)
-                    .FirstOrDefault(a => a.Id == identity.UserId);
+
+
+                user = _repositoryUser
+                     .Join(x => x.RoleUserLines)
+                     .ThenJoin(x => x.Role)
+                     .Join(x => x.Person)
+                     .Select(t => new User
+                     {
+                         Id = t.Id,
+                         Username = t.Username,
+                         Email = t.Email,
+                         IsApproved = t.IsApproved,
+                         Person = new Person
+                         {
+                             Id = t.Person.Id,
+                             FirstName = t.Person.FirstName,
+                             LastName = t.Person.LastName,
+                         },
+                         RoleUserLines = t.RoleUserLines.Select(t => new RoleUserLine
+                         {
+                             Role = new Role
+                             {
+                                 Id = t.Role.Id,
+                                 Level = t.Role.Level
+
+                             },
+                             User = new User
+                             {
+                                 Id = t.User.Id
+                             }
+
+                         }).ToList()
+                     })
+                     .FirstOrDefault(a => a.Id == identity.UserId && a.IsApproved);
 
                 // Kullanıcı bulunamadı ise
                 if (user == null)
@@ -90,6 +121,15 @@ namespace Adfnet.Service.Implementations
                 return user;
             }
         }
+
+        public int IdentityUserMinRoleLevel
+        {
+            get
+            {
+                return IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
+            }
+        }
+
         public Language DefaultLanguage
         {
             get

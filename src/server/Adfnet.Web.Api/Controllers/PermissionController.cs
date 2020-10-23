@@ -7,7 +7,7 @@ namespace Adfnet.Web.Api.Controllers
 
     public class PermissionController : BaseCrudApiController<PermissionModel>
     {
-        public PermissionController(IPermissionService servicePermission) : base(servicePermission)
+        public PermissionController(IPermissionService servicePermission, IMainService serviceMain) : base(servicePermission, serviceMain)
         {
         }
     }

@@ -1,8 +1,10 @@
 ﻿using System;
 using Adfnet.Core;
+using Adfnet.Core.Enums;
 using Adfnet.Core.Exceptions;
 using Adfnet.Core.GenericCrudModels;
 using Adfnet.Core.Globalization;
+using Adfnet.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Adfnet.Web.Common
@@ -13,15 +15,45 @@ namespace Adfnet.Web.Common
     public class BaseCrudWithLanguageApiController<T> : ControllerBase where T : class, IServiceModel, new()
     {
         private readonly ICrudServiceWithLanguage<T> _service;
+        private readonly IMainService _serviceMain;
 
-        public BaseCrudWithLanguageApiController(ICrudServiceWithLanguage<T> service)
+        public BaseCrudWithLanguageApiController(ICrudServiceWithLanguage<T> service, IMainService serviceMain)
         {
             _service = service;
+            _serviceMain = serviceMain;
         }
 
         [Route("List")]
         [HttpGet]
-        public ActionResult<ListModel<T>> List([FromQuery] FilterModel filterModel, Guid languageId)
+        public ActionResult<ListModel<T>> List()
+        {
+
+            try
+
+            {
+                var filterModel = new FilterModel
+                {
+                    StartDate = DateTime.Now.AddYears(-2),
+                    EndDate = DateTime.Now,
+                    Status = StatusOption.All.GetHashCode(),
+                    PageNumber = 1,
+                    PageSize = _serviceMain.ApplicationSettings.DefaultPageSize,
+                    Searched = string.Empty
+                };
+                return Ok(_service.List(filterModel));
+            }
+
+            catch (Exception exception)
+            {
+                ModelState.AddModelError("ErrorMessage", exception.ToString());
+                return BadRequest(ModelState);
+            }
+        }
+
+
+        [Route("Filter")]
+        [HttpGet]
+        public ActionResult<ListModel<T>> Filter(FilterModel filterModel, Guid languageId)
         {
 
             try

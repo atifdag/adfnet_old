@@ -17,9 +17,16 @@ export abstract class BaseCrudService<T> {
     @Inject(String) private endPoint: any
   ) { }
 
-  list(model: FilterModel): Observable<HttpResponse<any>> {
-    return this.httpClient.post(
+  list(): Observable<HttpResponse<any>> {
+    return this.httpClient.get(
       this.appSettingsService.apiUrl + '/' + this.endPoint + '/List',
+      { observe: 'response' }
+    );
+  }
+
+  filter(model: FilterModel): Observable<HttpResponse<any>> {
+    return this.httpClient.post(
+      this.appSettingsService.apiUrl + '/' + this.endPoint + '/Filter',
       model,
       { observe: 'response' });
   }

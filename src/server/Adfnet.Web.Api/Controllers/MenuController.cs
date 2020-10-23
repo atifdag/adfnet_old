@@ -7,7 +7,7 @@ namespace Adfnet.Web.Api.Controllers
 
     public class MenuController : BaseCrudApiController<MenuModel>
     {
-        public MenuController(IMenuService serviceMenu) : base(serviceMenu)
+        public MenuController(IMenuService serviceMenu, IMainService serviceMain) : base(serviceMenu, serviceMain)
         {
         }
     }

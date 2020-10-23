@@ -43,26 +43,7 @@ namespace Adfnet.Service.Implementations
 
         public ListModel<CategoryModel> List(FilterModel filterModel, Guid languageId)
         {
-            if (filterModel.StartDate == default)
-            {
-                filterModel.StartDate = DateTime.Now.AddYears(-2);
-            }
-
-            if (filterModel.EndDate == default)
-            {
-                filterModel.EndDate = DateTime.Now;
-            }
-
-            if (filterModel.PageNumber == default)
-            {
-                filterModel.PageNumber = 1;
-            }
-
-            if (filterModel.PageSize == default)
-            {
-                filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
-            }
-            var model = filterModel.CreateMapped<FilterModel, ListModel<CategoryModel>>();
+           var model = filterModel.CreateMapped<FilterModel, ListModel<CategoryModel>>();
             return List(filterModel.StartDate, filterModel.EndDate, filterModel.PageNumber, filterModel.PageSize, filterModel.Status, filterModel.Searched, languageId, model);
         }
 

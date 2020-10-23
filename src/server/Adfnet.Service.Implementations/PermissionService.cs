@@ -44,27 +44,6 @@ namespace Adfnet.Service.Implementations
         public ListModel<PermissionModel> List(FilterModel filterModel)
         {
 
-            if (filterModel.StartDate == default)
-            {
-                filterModel.StartDate = DateTime.Now.AddYears(-2);
-            }
-
-            if (filterModel.EndDate == default)
-            {
-                filterModel.EndDate = DateTime.Now;
-            }
-
-            if (filterModel.PageNumber == default)
-            {
-                filterModel.PageNumber = 1;
-            }
-
-            if (filterModel.PageSize == default)
-            {
-                filterModel.PageSize = _serviceMain.ApplicationSettings.DefaultPageSize;
-            }
-
-
             var startDate = filterModel.StartDate.ResetTimeToStartOfDay();
 
             var endDate = filterModel.EndDate.ResetTimeToEndOfDay();

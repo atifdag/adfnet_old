@@ -7,7 +7,7 @@ namespace Adfnet.Web.Api.Controllers
 
     public class ParameterGroupController : BaseCrudApiController<ParameterGroupModel>
     {
-        public ParameterGroupController(IParameterGroupService serviceParameterGroup) : base(serviceParameterGroup)
+        public ParameterGroupController(IParameterGroupService serviceParameterGroup, IMainService serviceMain) : base(serviceParameterGroup, serviceMain)
         {
         }
     }
