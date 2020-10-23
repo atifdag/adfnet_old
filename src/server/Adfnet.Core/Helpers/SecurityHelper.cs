@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -239,6 +240,52 @@ namespace Adfnet.Core.Helpers
                 }
             }
             return new string(password);
+        }
+
+
+        /// <summary>
+        /// Rastgele ID oluşturur.
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+
+        public static string CreateId(int length)
+        {
+            var sb = new StringBuilder();
+
+            var letters = "ABCDEFGHIJKLMNOPRSTUVYZQXW".ToCharArray().Select(c => c.ToString()).ToArray();
+
+            var numbers = DateTime.Now.Ticks.ToString().ToCharArray().Select(c => c.ToString()).ToArray();
+
+            for (var i = 1; i <= length; i++)
+            {
+                var random1 = new Random();
+                var int1 = random1.Next(letters.Length);
+                var str1 = letters[int1];
+                sb.Append(str1);
+
+                var random2 = new Random();
+                var int2 = random2.Next(numbers.Length);
+                var str2 = numbers[int2];
+                sb.Append(str2);
+
+                var random3 = new Random();
+                var int3 = random3.Next(letters.Length);
+                var str3 = letters[int3];
+                sb.Append(str3);
+
+                var random4 = new Random();
+                var int4 = random4.Next(numbers.Length);
+                var str4 = numbers[int4];
+                sb.Append(str4);
+
+                if (i != length)
+                {
+                    sb.Append("-");
+                }
+            }
+            
+            return sb.ToString();
         }
 
     }
