@@ -137,6 +137,10 @@
     <value>Tümü</value>
     <comment>Tümü</comment>
   </data>
+  <data name="ApprovalStatus" xml:space="preserve">
+    <value>Onay Durumu</value>
+    <comment>Onay Durumu</comment>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Geri</value>
     <comment>Geri</comment>
@@ -196,6 +200,10 @@
   <data name="Email" xml:space="preserve">
     <value>E-posta</value>
     <comment>E-posta</comment>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Bitiş Tarihi</value>
+    <comment>Bitiş Tarihi</comment>
   </data>
   <data name="EndTime" xml:space="preserve">
     <value>Bitiş Zamanı</value>
@@ -333,6 +341,10 @@
     <value>Kaydet</value>
     <comment>Kaydet</comment>
   </data>
+  <data name="SearchWord" xml:space="preserve">
+    <value>Aranan</value>
+    <comment>Aranan</comment>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Gönder</value>
     <comment>Gönder</comment>
@@ -344,6 +356,10 @@
   <data name="SignOut" xml:space="preserve">
     <value>Çıkış Yap</value>
     <comment>Çıkış Yap</comment>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Başlangıç Tarihi</value>
+    <comment>Başlangıç Tarihi</comment>
   </data>
   <data name="StartTime" xml:space="preserve">
     <value>Başlama Zamanı</value>

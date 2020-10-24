@@ -331,6 +331,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aranacak kelimeyi yazınız....
+        /// </summary>
+        public static string InfoTypeSearchedWord {
+            get {
+                return ResourceManager.GetString("InfoTypeSearchedWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Emin misiniz?.
         /// </summary>
         public static string QuestionAreYouSure {

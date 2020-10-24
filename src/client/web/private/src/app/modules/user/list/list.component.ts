@@ -2,7 +2,7 @@ import { UserModel } from './../../../models/user-model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FilterModelWithMultiParent } from 'src/app/models/filter-model-with-multi-parent';
 import { ListModel } from 'src/app/models/list-model';
@@ -12,6 +12,9 @@ import { GlobalizationMessagesPipe } from 'src/app/pipes/globalization-messages.
 import { AppSettingsService } from 'src/app/services/app-settings.service';
 import { UserService } from 'src/app/services/user.service';
 import { MainService } from 'src/app/services/main.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { IdCodeNameSelected } from 'src/app/value-objects/id-code-name-selected';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-list',
@@ -23,6 +26,8 @@ export class ListComponent implements OnInit {
   displayedColumns: string[] = ['select', 'id', 'username', 'firstName', 'lastName', 'actions'];
   dataSource: MatTableDataSource<UserModel>;
   selection = new SelectionModel<UserModel>(true, []);
+
+  pageEvent: PageEvent;
   selectedPageNumber = 1;
   statusOptions: any[];
   pageSizes: number[] = [];
@@ -32,6 +37,7 @@ export class ListComponent implements OnInit {
   filterModel = new FilterModelWithMultiParent();
   yearRange: string;
   loading = true;
+  userForm: FormGroup;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(
@@ -56,19 +62,29 @@ export class ListComponent implements OnInit {
       this.pageSizes.push(x.key);
     });
 
+
+
+
     this.filterModel.startDate = startDate;
     this.filterModel.endDate = endDate;
     this.filterModel.pageNumber = this.selectedPageNumber;
     this.filterModel.pageSize = this.selectedPageSize;
     this.listModel.items = [];
-    this.list();
+
 
 
   }
   ngOnInit(): void {
-    this.paginator.length = this.listModel.items.length;
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
+    this.userForm = new FormGroup({
+      searched: new FormControl(this.filterModel.searched),
+      startDate: new FormControl(this.filterModel.startDate),
+      endDate: new FormControl(this.filterModel.endDate),
+      selectedStatus: new FormControl(this.appSettingsService.selectedStatus.key),
+      roles: new FormControl(''),
+    });
+    this.list();
+
   }
 
   list(): void {
@@ -77,6 +93,9 @@ export class ListComponent implements OnInit {
         if (res.status === 200) {
           this.listModel = res.body as ListModel<UserModel>;
           this.dataSource = new MatTableDataSource(this.listModel.items);
+          this.paginator.length = this.listModel.items.length;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         } else {
           this.serviceMain.openErrorSnackBar('Kod: 01. ' + res.statusText);
 
@@ -104,6 +123,88 @@ export class ListComponent implements OnInit {
     );
   }
 
+  getPageSizeOptions(): number[] {
+    return [5, 10, 20, this.dataSource.paginator.length];
+  }
+
+
+  filter(): void {
+    console.log(this.filterModel);
+
+    this.serviceUser.filter(this.filterModel).subscribe(
+      res => {
+        if (res.status === 200) {
+          this.listModel = res.body as ListModel<UserModel>;
+          this.dataSource = new MatTableDataSource(this.listModel.items);
+          this.pageSizes.push(this.dataSource.data.length);
+          this.paginator.length = this.listModel.items.length;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+
+        } else {
+          this.serviceMain.openErrorSnackBar('Kod: 11. ' + res.statusText);
+
+        }
+        this.loading = false;
+      },
+      err => {
+        if (err.status === 400) {
+          if (err.error != null) {
+            this.listModel.message = 'Hata oluştu!';
+            this.listModel.hasError = true;
+            this.serviceMain.openErrorSnackBar('Kod: 12. ' + this.listModel.message);
+
+          } else {
+            this.listModel.message = err.error;
+            this.listModel.hasError = true;
+            this.serviceMain.openErrorSnackBar('Kod: 13 ' + this.listModel.message);
+          }
+          this.loading = false;
+          setTimeout(() => {
+            this.router.navigate(['/User/List']);
+          }, 1000);
+        }
+      }
+    );
+  }
+
+  changeForm(): void {
+    this.loading = true;
+    this.filterModel.searched = this.userForm.controls.searched.value;
+    this.filterModel.startDate = this.userForm.controls.startDate.value;
+    this.filterModel.endDate = this.userForm.controls.endDate.value;
+    this.filterModel.status = this.userForm.controls.selectedStatus.value;
+    this.filterModel.pageNumber = this.selectedPageNumber;
+    this.filterModel.pageSize = this.selectedPageSize;
+    if (this.userForm.controls.roles.value !== '') {
+      this.filterModel.parents = [];
+      this.userForm.controls.roles.value.forEach((x: string) => {
+        const idCodeNameSelected = new IdCodeNameSelected();
+        idCodeNameSelected.id = x;
+        this.filterModel.parents.push(idCodeNameSelected);
+      });
+    }
+    this.filter();
+  }
+
+  handlePage(event): void {
+
+    this.selectedPageNumber = event.pageIndex + 1;
+    this.filterModel.pageNumber = this.selectedPageNumber;
+    this.selectedPageSize = event.pageSize;
+    this.filterModel.pageSize = this.selectedPageSize;
+    this.changeForm();
+  }
+
+  startDateEvent(event: MatDatepickerInputEvent<Date>): void {
+    this.userForm.get('startDate').setValue(event.value);
+    this.changeForm();
+  }
+
+  endDateEvent(event: MatDatepickerInputEvent<Date>): void {
+    this.userForm.get('endDate').setValue(event.value);
+    this.changeForm();
+  }
   isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.listModel.items.length;
@@ -121,14 +222,5 @@ export class ListComponent implements OnInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 }

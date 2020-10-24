@@ -237,6 +237,10 @@
     <value>Kurulum başlatılıyor...</value>
     <comment>Kurulum başlatılıyor...</comment>
   </data>
+  <data name="InfoTypeSearchedWord" xml:space="preserve">
+    <value>Aranacak kelimeyi yazınız...</value>
+    <comment>Aranacak kelimeyi yazınız...</comment>
+  </data>
   <data name="QuestionAreYouSure" xml:space="preserve">
     <value>Emin misiniz?</value>
     <comment>Emin misiniz?</comment>

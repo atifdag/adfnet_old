@@ -45,7 +45,7 @@ export class AppSettingsService {
   ];
 
   pageSizes = [
-    { key: 1, value: '1' },
+  //  { key: -1, value: 'Tümü' },
     { key: 5, value: '5' },
     { key: 10, value: '10' },
     { key: 25, value: '25' },
