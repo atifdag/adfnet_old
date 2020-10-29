@@ -41,4 +41,6 @@ export class UserService extends BaseCrudService<UserModel>{
   updateMyInformation(model: UpdateMyInformationModel): Observable<HttpResponse<any>> {
     return this.httpClient.put(this.appSettingsService.apiUrl + '/User/UpdateMyInformation', model, { observe: 'response' });
   }
+
+
 }

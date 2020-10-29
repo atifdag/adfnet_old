@@ -15,6 +15,8 @@ import { MainService } from 'src/app/services/main.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { IdCodeNameSelected } from 'src/app/value-objects/id-code-name-selected';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { RoleService } from 'src/app/services/role.service';
+import { IdName } from 'src/app/value-objects/id-name';
 
 @Component({
   selector: 'app-list',
@@ -26,7 +28,7 @@ export class ListComponent implements OnInit {
   displayedColumns: string[] = ['select', 'id', 'username', 'firstName', 'lastName', 'actions'];
   dataSource: MatTableDataSource<UserModel>;
   selection = new SelectionModel<UserModel>(true, []);
-
+  roles: IdName[] = [];
   pageEvent: PageEvent;
   selectedPageNumber = 1;
   statusOptions: any[];
@@ -45,6 +47,7 @@ export class ListComponent implements OnInit {
     private serviceUser: UserService,
     public globalizationDictionaryPipe: GlobalizationDictionaryPipe,
     public globalizationMessagesPipe: GlobalizationMessagesPipe,
+    private serviceRole: RoleService,
     private serviceMain: MainService,
     private router: Router
   ) {
@@ -81,9 +84,37 @@ export class ListComponent implements OnInit {
       startDate: new FormControl(this.filterModel.startDate),
       endDate: new FormControl(this.filterModel.endDate),
       selectedStatus: new FormControl(this.appSettingsService.selectedStatus.key),
-      roles: new FormControl(''),
+      selectedRoles: new FormControl(''),
     });
-    this.list();
+
+    this.serviceRole.idNameList().subscribe(
+      responseRole => {
+        if (responseRole.status === 200) {
+          const idNameList = responseRole.body as IdName[];
+          if (idNameList.length > 0) {
+            this.roles = idNameList;
+            this.list();
+          } else {
+            this.serviceMain.openErrorSnackBar('Kod: 22. ' + responseRole.statusText);
+
+          }
+        } else {
+          this.serviceMain.openErrorSnackBar('Kod: 23. ' + this.globalizationMessagesPipe.transform('DangerParentNotFound'));
+
+        }
+      },
+      errorRole => {
+        this.loading = false;
+        if (errorRole.status === 400) {
+          this.loading = false;
+          this.serviceMain.openErrorSnackBar('Kod: 24. ' + this.globalizationMessagesPipe.transform('DangerParentNotFound'));
+
+        }
+        setTimeout(() => {
+          this.router.navigate(['/Home']);
+        }, 1000);
+      }
+    );
 
   }
 
@@ -176,14 +207,20 @@ export class ListComponent implements OnInit {
     this.filterModel.status = this.userForm.controls.selectedStatus.value;
     this.filterModel.pageNumber = this.selectedPageNumber;
     this.filterModel.pageSize = this.selectedPageSize;
-    if (this.userForm.controls.roles.value !== '') {
+
+    console.log(this.userForm.controls.selectedRoles.value);
+
+    if (this.userForm.controls.selectedRoles.value !== '') {
       this.filterModel.parents = [];
-      this.userForm.controls.roles.value.forEach((x: string) => {
+      this.userForm.controls.selectedRoles.value.forEach((x: string) => {
         const idCodeNameSelected = new IdCodeNameSelected();
         idCodeNameSelected.id = x;
         this.filterModel.parents.push(idCodeNameSelected);
       });
     }
+
+
+
     this.filter();
   }
 

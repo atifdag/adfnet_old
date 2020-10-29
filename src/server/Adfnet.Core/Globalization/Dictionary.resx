@@ -337,6 +337,10 @@
     <value>Rol</value>
     <comment>Rol</comment>
   </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roller</value>
+    <comment>Roller</comment>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Kaydet</value>
     <comment>Kaydet</comment>

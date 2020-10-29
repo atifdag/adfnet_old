@@ -556,6 +556,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Roller.
+        /// </summary>
+        public static string Roles {
+            get {
+                return ResourceManager.GetString("Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kaydet.
         /// </summary>
         public static string Save {
