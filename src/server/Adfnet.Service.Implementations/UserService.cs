@@ -459,25 +459,25 @@ namespace Adfnet.Service.Implementations
             var identityUserMinRoleLevel = _serviceMain.IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
 
 
-            var item = _repositoryUser
+            var itemUser = _repositoryUser
                 
                 .Join(x => x.Person)
                 .Join(x => x.Language)
                 .Join(x => x.Creator.Person)
                 .Join(x => x.LastModifier.Person)
                 .FirstOrDefault(x => x.Id == updateModel.Item.Id && x.RoleUserLines.All(t => t.Role.Level > identityUserMinRoleLevel));
-            if (item == null)
+            if (itemUser == null)
             {
                 throw new NotFoundException();
             }
 
-            var person = item.Person;
+            var person = itemUser.Person;
 
             if (person == null)
             {
                 throw new ParentNotFoundException();
             }
-            if (updateModel.Item.Username != item.Username)
+            if (updateModel.Item.Username != itemUser.Username)
             {
                 if (_repositoryUser.Get().Any(p => p.Username == updateModel.Item.Username))
                 {
@@ -485,7 +485,7 @@ namespace Adfnet.Service.Implementations
                 }
             }
 
-            if (updateModel.Item.Email != item.Email)
+            if (updateModel.Item.Email != itemUser.Email)
             {
                 if (_repositoryUser.Get().Any(p => p.Email == updateModel.Item.Email))
                 {
@@ -494,7 +494,7 @@ namespace Adfnet.Service.Implementations
             }
 
 
-            var versionUser = item.Version;
+            var versionUser = itemUser.Version;
             var versionPerson = person.Version;
 
 
@@ -514,25 +514,25 @@ namespace Adfnet.Service.Implementations
             var afffectedPerson = _repositoryPerson.Update(person, true);
 
 
-            var userHistory = item.CreateMapped<User, UserHistory>();
+            var userHistory = itemUser.CreateMapped<User, UserHistory>();
             userHistory.Id = GuidHelper.NewGuid();
-            userHistory.ReferenceId = item.Id;
+            userHistory.ReferenceId = itemUser.Id;
             userHistory.PersonId = afffectedPerson.Id;
             userHistory.LanguageId = language.Id;
             userHistory.CreatorId = _serviceMain.IdentityUser.Id;
             userHistory.CreationTime = DateTime.Now;
             _repositoryUserHistory.Add(userHistory, true);
 
-            item.Username = updateModel.Item.Username;
-            item.Email = updateModel.Item.Email;
-            item.IsApproved = updateModel.Item.IsApproved;
-            item.Language = language;
-            item.Person = afffectedPerson;
-            item.LastModificationTime = DateTime.Now;
-            item.LastModifier = _serviceMain.IdentityUser;
-            item.Version = versionUser + 1;
+            itemUser.Username = updateModel.Item.Username;
+            itemUser.Email = updateModel.Item.Email;
+            itemUser.IsApproved = updateModel.Item.IsApproved;
+            itemUser.Language = language;
+            itemUser.Person = afffectedPerson;
+            itemUser.LastModificationTime = DateTime.Now;
+            itemUser.LastModifier = _serviceMain.IdentityUser;
+            itemUser.Version = versionUser + 1;
 
-            var affectedUser = _repositoryUser.Update(item, true);
+            var affectedUser = _repositoryUser.Update(itemUser, true);
 
             foreach (var line in _repositoryRoleUserLine
 
@@ -581,13 +581,13 @@ namespace Adfnet.Service.Implementations
 
             updateModel.Item = affectedUser.CreateMapped<User, UserModel>();
 
-            updateModel.Item.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
+            updateModel.Item.Creator = new IdName(itemUser.Creator.Id, itemUser.Creator.Person.DisplayName);
             updateModel.Item.LastModifier = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
             updateModel.Item.Language = new IdName(affectedUser.Language.Id, affectedUser.Language.Name);
 
-            updateModel.Item.IdentityCode = item.Person.IdentityCode;
-            updateModel.Item.FirstName = item.Person.FirstName;
-            updateModel.Item.LastName = item.Person.LastName;
+            updateModel.Item.IdentityCode = itemUser.Person.IdentityCode;
+            updateModel.Item.FirstName = itemUser.Person.FirstName;
+            updateModel.Item.LastName = itemUser.Person.LastName;
 
             if (!_serviceMain.ApplicationSettings.SendMailAfterUpdateUserInformation) return updateModel;
             var emailUser = new EmailUser

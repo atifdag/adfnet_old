@@ -32,8 +32,8 @@ namespace Adfnet.Data.DataAccess.EntityFramework.Configurations
             builder.Property(x => x.Password).IsRequired().HasColumnType("char(128)");
             builder.Property(x => x.Email).IsRequired().HasColumnType("varchar(512)");
             builder.HasIndex(x => x.Email).IsUnique().HasName("UK_UserEmail");
-            builder.HasOne(x => x.Person).WithMany(y => y.Users).OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(x => x.Language).WithMany(y => y.Users).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.Person).WithMany(y => y.Users).IsRequired().OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.Language).WithMany(y => y.Users).IsRequired().OnDelete(DeleteBehavior.Restrict);
 
         }
     }
