@@ -12,7 +12,6 @@ import { getPaginatorIntl } from './paginator-intl';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationInterceptor } from './authentication-interceptor';
 import { ErrorLayoutComponent } from './layouts/error-layout/error-layout.component';
-import { WaitingSnackbarComponent } from './components/waiting-snackbar/waiting-snackbar.component';
 
 
 @NgModule({
@@ -21,7 +20,7 @@ import { WaitingSnackbarComponent } from './components/waiting-snackbar/waiting-
     PrivateLayoutComponent,
     PublicLayoutComponent,
     ErrorLayoutComponent,
-    WaitingSnackbarComponent,
+
   ],
   imports: [
     BrowserModule,

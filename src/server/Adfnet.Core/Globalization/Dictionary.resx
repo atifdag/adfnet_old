@@ -141,6 +141,10 @@
     <value>Onay Durumu</value>
     <comment>Onay Durumu</comment>
   </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Onaylandı</value>
+    <comment>Onaylandı</comment>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Geri</value>
     <comment>Geri</comment>
@@ -284,6 +288,10 @@
   <data name="No" xml:space="preserve">
     <value>Hayır</value>
     <comment>Hayır</comment>
+  </data>
+  <data name="NotApproved" xml:space="preserve">
+    <value>Onaylanmadı</value>
+    <comment>Onaylanmadı</comment>
   </data>
   <data name="OldPassword" xml:space="preserve">
     <value>Eski Parola</value>

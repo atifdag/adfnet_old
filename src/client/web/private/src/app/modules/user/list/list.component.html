@@ -49,7 +49,9 @@
           <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
             [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
           </mat-checkbox>
-          <a mat-button color="warn" *ngIf="selection.hasValue()"><mat-icon>delete</mat-icon> Seçilenleri Sil</a>
+          <a mat-button color="warn" *ngIf="selection.hasValue()">
+            <mat-icon>delete</mat-icon> Seçilenleri Sil
+          </a>
         </th>
         <td mat-cell *matCellDef="let row">
           <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
@@ -90,15 +92,15 @@
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <a mat-menu-item [routerLink]="['/User/Detail', row.id ]">
               <mat-icon>visibility</mat-icon> {{'Detail' | globalizationdictionary}}
-            </button>
-            <button mat-menu-item>
+            </a>
+            <a mat-menu-item [routerLink]="['/User/Update', row.id ]">
               <mat-icon>edit</mat-icon> {{'Update' | globalizationdictionary}}
-            </button>
-            <button mat-menu-item>
+            </a>
+            <a mat-menu-item [routerLink]="['Delete',row.id ]">
               <mat-icon>delete</mat-icon> {{'Delete' | globalizationdictionary}}
-            </button>
+            </a>
           </mat-menu>
 
         </td>

@@ -36,7 +36,7 @@ namespace Adfnet.Service.Implementations
         private readonly IMainService _serviceMain;
         private readonly ISmtp _smtp;
         private readonly IRepository<Language> _repositoryLanguage;
-        private readonly List<IdCodeNameSelected> _languages;
+        private readonly List<IdName> _languages;
 
         public UserService(IRepository<User> repositoryUser, IRepository<RolePermissionLine> repositoryRolePermissionLine, IRepository<PermissionMenuLine> repositoryPermissionMenuLine, IRepository<RoleUserLine> repositoryRoleUserLine, IRepository<UserHistory> repositoryUserHistory, ISmtp smtp, IRepository<Person> repositoryPerson, IRepository<PersonHistory> repositoryPersonHistory, IRepository<Role> repositoryRole, IRepository<RoleUserLineHistory> repositoryRoleUserLineHistory, IMainService serviceMain, IRepository<Language> repositoryLanguage)
         {
@@ -54,7 +54,7 @@ namespace Adfnet.Service.Implementations
             _repositoryLanguage = repositoryLanguage;
 
             _languages = _repositoryLanguage.Get().Where(x => x.IsApproved).OrderBy(x => x.DisplayOrder)
-                .Select(t => new IdCodeNameSelected(t.Id, t.Code, t.Name, false)).ToList();
+                .Select(t => new IdName(t.Id, t.Name)).ToList();
         }
         public ListModel<UserModel> List(FilterModel filterModel)
         {
@@ -222,6 +222,7 @@ namespace Adfnet.Service.Implementations
 
         }
 
+       
         public DetailModel<UserModel> Detail(Guid id)
         {
             var identityUserMinRoleLevel = _serviceMain.IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
@@ -236,7 +237,7 @@ namespace Adfnet.Service.Implementations
 
             if (item == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             var roleList = new List<IdCodeNameSelected>();
@@ -255,10 +256,11 @@ namespace Adfnet.Service.Implementations
             modelItem.Roles = roleList;
             modelItem.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
             modelItem.LastModifier = new IdName(item.LastModifier.Id, item.LastModifier.Person.DisplayName);
-            modelItem.Language = new IdCodeName(item.Language.Id, item.Language.Code, item.Language.Name);
+            modelItem.Language = new IdName(item.Language.Id, item.Language.Name);
             modelItem.IdentityCode = item.Person.IdentityCode;
             modelItem.FirstName = item.Person.FirstName;
             modelItem.LastName = item.Person.LastName;
+            modelItem.Languages = _languages;
             return new DetailModel<UserModel>
             {
                 Item = modelItem
@@ -379,10 +381,10 @@ namespace Adfnet.Service.Implementations
 
             if (role == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
-
-            var affectedRoleUserLine = _repositoryRoleUserLine.Add(new RoleUserLine
+            
+            _repositoryRoleUserLine.Add(new RoleUserLine
             {
                 Id = GuidHelper.NewGuid(),
                 User = affectedUser,
@@ -400,7 +402,7 @@ namespace Adfnet.Service.Implementations
 
             addModel.Item.Creator = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
             addModel.Item.LastModifier = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
-            addModel.Item.Language = new IdCodeName(affectedUser.Language.Id, affectedUser.Language.Code, affectedUser.Language.Name);
+            addModel.Item.Language = new IdName(affectedUser.Language.Id, affectedUser.Language.Name);
 
             addModel.Item.IdentityCode = affectedUser.Person.IdentityCode;
             addModel.Item.FirstName = affectedUser.Person.FirstName;
@@ -458,18 +460,23 @@ namespace Adfnet.Service.Implementations
 
 
             var item = _repositoryUser
+                
                 .Join(x => x.Person)
+                .Join(x => x.Language)
                 .Join(x => x.Creator.Person)
                 .Join(x => x.LastModifier.Person)
                 .FirstOrDefault(x => x.Id == updateModel.Item.Id && x.RoleUserLines.All(t => t.Role.Level > identityUserMinRoleLevel));
             if (item == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             var person = item.Person;
 
-
+            if (person == null)
+            {
+                throw new ParentNotFoundException();
+            }
             if (updateModel.Item.Username != item.Username)
             {
                 if (_repositoryUser.Get().Any(p => p.Username == updateModel.Item.Username))
@@ -488,12 +495,12 @@ namespace Adfnet.Service.Implementations
 
 
             var versionUser = item.Version;
-            var versionPerson = item.Person.Version;
+            var versionPerson = person.Version;
 
 
             var personHistory = person.CreateMapped<Person, PersonHistory>();
             personHistory.Id = GuidHelper.NewGuid();
-            personHistory.ReferenceId = item.Id;
+            personHistory.ReferenceId = person.Id;
             personHistory.CreatorId = _serviceMain.IdentityUser.Id;
             personHistory.CreationTime = DateTime.Now;
             _repositoryPersonHistory.Add(personHistory, true);
@@ -504,14 +511,14 @@ namespace Adfnet.Service.Implementations
             person.LastModificationTime = DateTime.Now;
             person.LastModifierId = _serviceMain.IdentityUser.Id;
             person.Version = versionPerson + 1;
-            _repositoryPerson.Update(person, true);
+            var afffectedPerson = _repositoryPerson.Update(person, true);
 
 
             var userHistory = item.CreateMapped<User, UserHistory>();
             userHistory.Id = GuidHelper.NewGuid();
             userHistory.ReferenceId = item.Id;
-            userHistory.PersonId = item.Person.Id;
-            userHistory.LanguageId = item.Language.Id;
+            userHistory.PersonId = afffectedPerson.Id;
+            userHistory.LanguageId = language.Id;
             userHistory.CreatorId = _serviceMain.IdentityUser.Id;
             userHistory.CreationTime = DateTime.Now;
             _repositoryUserHistory.Add(userHistory, true);
@@ -520,7 +527,7 @@ namespace Adfnet.Service.Implementations
             item.Email = updateModel.Item.Email;
             item.IsApproved = updateModel.Item.IsApproved;
             item.Language = language;
-
+            item.Person = afffectedPerson;
             item.LastModificationTime = DateTime.Now;
             item.LastModifier = _serviceMain.IdentityUser;
             item.Version = versionUser + 1;
@@ -576,7 +583,7 @@ namespace Adfnet.Service.Implementations
 
             updateModel.Item.Creator = new IdName(item.Creator.Id, item.Creator.Person.DisplayName);
             updateModel.Item.LastModifier = new IdName(_serviceMain.IdentityUser.Id, _serviceMain.IdentityUser.Person.DisplayName);
-            updateModel.Item.Language = new IdCodeName(affectedUser.Language.Id, affectedUser.Language.Code, affectedUser.Language.Name);
+            updateModel.Item.Language = new IdName(affectedUser.Language.Id, affectedUser.Language.Name);
 
             updateModel.Item.IdentityCode = item.Person.IdentityCode;
             updateModel.Item.FirstName = item.Person.FirstName;
@@ -602,18 +609,13 @@ namespace Adfnet.Service.Implementations
         public void Delete(Guid id)
         {
 
-            if (_repositoryRoleUserLine.Get().Count(x => x.User.Id == id) > 0)
-            {
-                throw new InvalidTransactionException(Messages.DangerAssociatedRecordNotDeleted);
-            }
-
             var identityUserMinRoleLevel = _serviceMain.IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
 
 
             var item = _repositoryUser.Get(x => x.Id == id && x.RoleUserLines.All(t => t.Role.Level > identityUserMinRoleLevel));
             if (item == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             foreach (var line in _repositoryRoleUserLine
@@ -767,7 +769,7 @@ namespace Adfnet.Service.Implementations
                
                 userModel.Creator = new IdName(identityUser.Creator.Id, identityUser.Creator.Person.DisplayName);
                 userModel.LastModifier = new IdName(identityUser.LastModifier.Id, identityUser.LastModifier.Person.DisplayName);
-                userModel.Language = new IdCodeName(identityUser.Language.Id, identityUser.Language.Code, identityUser.Language.Name);
+                userModel.Language = new IdName(identityUser.Language.Id, identityUser.Language.Name);
 
                 userModel.IdentityCode = identityUser.Person.IdentityCode;
                 userModel.FirstName = identityUser.Person.FirstName;
@@ -794,7 +796,7 @@ namespace Adfnet.Service.Implementations
 
             userModel.Creator = new IdName(identityUser.Creator.Id, identityUser.Creator.Person.DisplayName);
             userModel.LastModifier = new IdName(identityUser.LastModifier.Id, identityUser.LastModifier.Person.DisplayName);
-            userModel.Language = new IdCodeName(identityUser.Language.Id, identityUser.Language.Code, identityUser.Language.Name);
+            userModel.Language = new IdName(identityUser.Language.Id, identityUser.Language.Name);
 
             userModel.IdentityCode = identityUser.Person.IdentityCode;
             userModel.FirstName = identityUser.Person.FirstName;
@@ -836,7 +838,7 @@ namespace Adfnet.Service.Implementations
 
             if (user == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
             if (model.OldPassword.ToSha512() != user.Password)
@@ -910,7 +912,7 @@ namespace Adfnet.Service.Implementations
 
             if (user == null)
             {
-                throw new NotFoundException(Messages.DangerRecordNotFound);
+                throw new NotFoundException();
             }
 
 
@@ -985,5 +987,6 @@ namespace Adfnet.Service.Implementations
             var emailSender = new EmailSender(_serviceMain, _smtp);
             emailSender.SendEmailToUser(emailUser, EmailTypeOption.UpdateMyInformation);
         }
+
     }
 }

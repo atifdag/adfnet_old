@@ -115,6 +115,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Onaylandı.
+        /// </summary>
+        public static string Approved {
+            get {
+                return ResourceManager.GetString("Approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geri.
         /// </summary>
         public static string Back {
@@ -435,6 +444,15 @@ namespace Adfnet.Core.Globalization {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onaylanmadı.
+        /// </summary>
+        public static string NotApproved {
+            get {
+                return ResourceManager.GetString("NotApproved", resourceCulture);
             }
         }
         

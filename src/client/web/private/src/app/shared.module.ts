@@ -39,6 +39,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { WaitingSnackbarComponent } from './components/waiting-snackbar/waiting-snackbar.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 const materialModules = [
   CdkTreeModule,
@@ -74,7 +76,8 @@ const materialModules = [
   MatRadioModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSlideToggleModule,
 ];
 
 
@@ -83,6 +86,7 @@ const materialModules = [
     GlobalizationDictionaryPipe,
     GlobalizationMessagesPipe,
     ConfirmDialogComponent,
+    WaitingSnackbarComponent,
   ],
   imports: [
     CommonModule,
@@ -100,6 +104,8 @@ const materialModules = [
     GlobalizationDictionaryPipe,
     GlobalizationMessagesPipe,
     ConfirmDialogComponent,
+    WaitingSnackbarComponent,
+
     ...materialModules
   ],
   providers: [

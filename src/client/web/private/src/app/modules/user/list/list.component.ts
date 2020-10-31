@@ -208,8 +208,6 @@ export class ListComponent implements OnInit {
     this.filterModel.pageNumber = this.selectedPageNumber;
     this.filterModel.pageSize = this.selectedPageSize;
 
-    console.log(this.userForm.controls.selectedRoles.value);
-
     if (this.userForm.controls.selectedRoles.value !== '') {
       this.filterModel.parents = [];
       this.userForm.controls.selectedRoles.value.forEach((x: string) => {

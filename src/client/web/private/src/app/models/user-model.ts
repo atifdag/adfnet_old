@@ -20,12 +20,12 @@ export class UserModel {
     displayName: string;
 
     roles: IdCodeNameSelected[];
-    language: IdCodeName;
-    languages: IdCodeNameSelected[];
+    language: IdName;
+    languages: IdName[];
     constructor() {
         this.creator = new IdName();
         this.lastModifier = new IdName();
-        this.language = new IdCodeName();
+        this.language = new IdName();
         this.roles = [];
         this.languages = [];
     }

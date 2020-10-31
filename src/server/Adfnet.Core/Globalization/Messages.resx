@@ -245,6 +245,10 @@
     <value>Emin misiniz?</value>
     <comment>Emin misiniz?</comment>
   </data>
+  <data name="QuestionAreYouSureDelete" xml:space="preserve">
+    <value>Silmek istediğinizden emin misiniz?</value>
+    <comment>Silmek istediğinizden emin misiniz?</comment>
+  </data>
   <data name="QuestionAreYouSureLogout" xml:space="preserve">
     <value>Oturumu sonlandırmak istediğinizden emin misiniz?</value>
     <comment>Oturumu sonlandırmak istediğinizden emin misiniz?</comment>
