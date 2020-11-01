@@ -62,7 +62,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "adfnet-web-public:build"
+            "browserTarget": "adfnet-web-public:build",
+            "port": 1027
           },
           "configurations": {
             "production": {
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "adfnet-web-public"
+    }
+  },
+  "defaultProject": "adfnet-web-public",
+  "cli": {
+    "analytics": "f9393906-321f-49e8-959b-e88925946c28"
+  }
 }
