@@ -43,7 +43,6 @@ export class ListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(
-
     private appSettingsService: AppSettingsService,
     private serviceUser: UserService,
     public globalizationDictionaryPipe: GlobalizationDictionaryPipe,
@@ -61,11 +60,13 @@ export class ListComponent implements OnInit {
     this.yearRange = (year - 10).toString() + ':' + year.toString();
     startDate.setFullYear(today.getFullYear() - 2);
     this.statusOptions = this.appSettingsService.statusOptions;
+
     this.appSettingsService.pageSizes.forEach(x => {
       this.pageSizes.push(x.key);
     });
 
-    
+
+
 
     this.filterModel.startDate = startDate;
     this.filterModel.endDate = endDate;
