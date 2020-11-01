@@ -349,6 +349,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Silmek istediğinizden emin misiniz?.
+        /// </summary>
+        public static string QuestionAreYouSureDelete {
+            get {
+                return ResourceManager.GetString("QuestionAreYouSureDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oturumu sonlandırmak istediğinizden emin misiniz?.
         /// </summary>
         public static string QuestionAreYouSureLogout {

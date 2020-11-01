@@ -51,7 +51,7 @@ body {
   line-height: 64px;
   padding-left: 64px;
   height: 64px;
-  background: url(assets/images/logo.svg) no-repeat 8px 8px;
+  background: url(assets/images/logo.png) no-repeat 8px 8px;
 }
 
 .layout-is-mobile .layout-header .logo {

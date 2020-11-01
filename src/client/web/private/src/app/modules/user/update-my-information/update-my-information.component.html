@@ -5,11 +5,6 @@
   <mat-card-content>
     <div class="content" fxLayout="row wrap">
       <form class="box-form" [formGroup]="userForm">
-
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>{{ 'Id' | globalizationdictionary }}</mat-label>
-          <input matInput value="{{ profileModel.userModel.id }}" [disabled]="true">
-        </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>{{ 'FirstName' | globalizationdictionary }}</mat-label>
           <input matInput formControlName="firstName" (blur)="onBlurFirstName()">
@@ -42,7 +37,7 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>{{ 'Language' | globalizationdictionary }}</mat-label>
           <mat-select formControlName="language">
-            <mat-option value="{{language.id}}" *ngFor="let language of this.profileModel.userModel.languages">{{language.name}}</mat-option>
+            <mat-option value="{{language.id}}" *ngFor="let language of profileModel.userModel.languages">{{language.name}}</mat-option>
           </mat-select>
 
           <input matInput>

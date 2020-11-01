@@ -21,7 +21,7 @@ git config --global user.email "epostaadresiniz@siteniz.com"
 6. Komut satırından ```git clone https://github.com/atifdag/adfnet.git``` komutuyla projeyi bilgisayarınıza indirin.
 7. Komut satırından ```npm i -g @angular/cli``` komutuyla "Angular CLI" paketini indirip kurun.
 8. Komut satırından "src/server/Adfnet.Setup" klasöründe iken ```dotnet run``` komutuyla veri tabanı kurulumunu yapın.
-9. Komut satırından "src/server/Adfnet.Web.Api" klasöründe iken ```dotnet run --urls="http://localhost:1011"``` komutuyla Web Api projesini çalıştırın.
+9. Komut satırından "src/server/Adfnet.Web.Api" klasöründe iken ```dotnet run``` komutuyla Web Api projesini çalıştırın.
 10. Komut satırından "src/client/web/private" klasöründe iken ```npm i``` komutuyla bu projede kullanılan paketleri kurun.
 11. Komut satırından "src/client/web/private" klasöründe iken ```ng s -o``` komutuyla Angular tabanlı web sitesi yönetim paneli projesini çalıştırın.
 12. Komut satırından "src/client/web/public" klasöründe iken ```npm i``` komutuyla bu projede kullanılan paketleri kurun.
