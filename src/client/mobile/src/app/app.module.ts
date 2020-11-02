@@ -30,7 +30,6 @@ import { PrivateLayoutPage } from './layouts/private-layout/private-layout.page'
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
