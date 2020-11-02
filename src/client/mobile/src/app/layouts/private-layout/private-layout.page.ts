@@ -1,15 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-private-layout',
   templateUrl: './private-layout.page.html',
   styleUrls: ['./private-layout.page.scss'],
 })
-export class PrivateLayoutPage implements OnInit, OnDestroy {
-  navigationSubscription: Subscription;
+export class PrivateLayoutPage implements OnInit {
   public appPages = [
     {
       title: 'Home',
@@ -26,27 +24,14 @@ export class PrivateLayoutPage implements OnInit, OnDestroy {
     private router: Router,
     public alertController: AlertController
   ) {
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
-      }
-    });
+
   }
 
 
   ngOnInit() {
   }
 
-  initialiseInvites() {
-    // Set default values and re-fetch any data you need.
-  }
 
-  ngOnDestroy() {
-    if (this.navigationSubscription) {
-      this.navigationSubscription.unsubscribe();
-    }
-  }
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({

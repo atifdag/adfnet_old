@@ -1,9 +1,8 @@
 import { PrivateLayoutPage } from './layouts/private-layout/private-layout.page';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { PublicLayoutPage } from './layouts/public-layout/public-layout.page';
 import { ErrorLayoutPage } from './layouts/error-layout/error-layout.page';
-import { CustomPreloaderStrategy } from './custom-preloader-strategy';
 
 const routes: Routes = [
   {
