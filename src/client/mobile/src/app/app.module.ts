@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PublicLayoutPage } from './layouts/public-layout/public-layout.page';
 import { PrivateLayoutPage } from './layouts/private-layout/private-layout.page';
+import { CustomPreloaderStrategy } from './custom-preloader-strategy';
 
 @NgModule({
   declarations: [

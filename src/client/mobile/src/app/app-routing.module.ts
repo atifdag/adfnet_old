@@ -1,8 +1,9 @@
 import { PrivateLayoutPage } from './layouts/private-layout/private-layout.page';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { PublicLayoutPage } from './layouts/public-layout/public-layout.page';
 import { ErrorLayoutPage } from './layouts/error-layout/error-layout.page';
+import { CustomPreloaderStrategy } from './custom-preloader-strategy';
 
 const routes: Routes = [
   {
@@ -13,17 +14,14 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
         pathMatch: 'full',
-        runGuardsAndResolvers: 'always',
       },
       {
         path: 'Home',
         loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
-        runGuardsAndResolvers: 'always',
       },
       {
         path: 'User',
         loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
-        runGuardsAndResolvers: 'always',
       }
     ]
   },
@@ -34,7 +32,6 @@ const routes: Routes = [
       {
         path: 'Authentication',
         loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule),
-        runGuardsAndResolvers: 'always',
       },
     ]
   },
@@ -45,7 +42,6 @@ const routes: Routes = [
       {
         path: 'Error',
         loadChildren: () => import('./modules/error/error.module').then(m => m.ErrorModule),
-        runGuardsAndResolvers: 'always',
       },
     ]
   },
