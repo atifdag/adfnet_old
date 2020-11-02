@@ -1,16 +1,60 @@
+import { PrivateLayoutPage } from './layouts/private-layout/private-layout.page';
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { PublicLayoutPage } from './layouts/public-layout/public-layout.page';
+import { ErrorLayoutPage } from './layouts/error-layout/error-layout.page';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  }
+    component: PrivateLayoutPage,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
+        pathMatch: 'full',
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'Home',
+        loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
+        runGuardsAndResolvers: 'always',
+      },
+      {
+        path: 'User',
+        loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+        runGuardsAndResolvers: 'always',
+      }
+    ]
+  },
+  {
+    path: '',
+    component: PublicLayoutPage,
+    children: [
+      {
+        path: 'Authentication',
+        loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule),
+        runGuardsAndResolvers: 'always',
+      },
+    ]
+  },
+  {
+    path: '',
+    component: ErrorLayoutPage,
+    children: [
+      {
+        path: 'Error',
+        loadChildren: () => import('./modules/error/error.module').then(m => m.ErrorModule),
+        runGuardsAndResolvers: 'always',
+      },
+    ]
+  },
 ];
+
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { useHash: false, onSameUrlNavigation: 'reload'})
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
