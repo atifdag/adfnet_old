@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Adfnet.Core.Globalization;
-using Adfnet.Core.Helpers;
 using Adfnet.Service.Models;
 
 namespace Adfnet.Service.Implementations.ValidationRules.FluentValidation

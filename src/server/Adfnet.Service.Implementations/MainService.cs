@@ -79,38 +79,9 @@ namespace Adfnet.Service.Implementations
                 // Veritabanından sorgulanıyor
 
 
-                user = _repositoryUser
-                     .Join(x => x.RoleUserLines)
-                     .ThenJoin(x => x.Role)
-                     .Join(x => x.Person)
-                     .Select(t => new User
-                     {
-                         Id = t.Id,
-                         Username = t.Username,
-                         Email = t.Email,
-                         IsApproved = t.IsApproved,
-                         Person = new Person
-                         {
-                             Id = t.Person.Id,
-                             FirstName = t.Person.FirstName,
-                             LastName = t.Person.LastName,
-                         },
-                         RoleUserLines = t.RoleUserLines.Select(t => new RoleUserLine
-                         {
-                             Role = new Role
-                             {
-                                 Id = t.Role.Id,
-                                 Level = t.Role.Level
-
-                             },
-                             User = new User
-                             {
-                                 Id = t.User.Id
-                             }
-
-                         }).ToList()
-                     })
-                     .FirstOrDefault(a => a.Id == identity.UserId && a.IsApproved);
+                user = _repositoryUser.Get()
+                    .Join(x => x.Person)
+                    .FirstOrDefault(a => a.Id == identity.UserId && a.IsApproved);
 
                 // Kullanıcı bulunamadı ise
                 if (user == null)
@@ -126,7 +97,30 @@ namespace Adfnet.Service.Implementations
         {
             get
             {
-                return IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
+                // Thread'de kayıtlı kimlik bilgisi alınıyor
+                var identity = (CustomIdentity)Thread.CurrentPrincipal?.Identity;
+
+                // Veritabanından sorgulanıyor
+               var list= _repositoryUser.Get()
+                    .Join(x => x.RoleUserLines).ThenJoin(x => x.Role)
+                    .Where(x=>x.Id==identity.UserId && x.IsApproved)
+                    .Select(x => x.RoleUserLines.Select(t=>t.Role.Level)).ToList();
+
+               if (list == null)
+               {
+                   throw new NotFoundException();
+               }
+
+                var min = list.Min();
+
+
+               if (min == null)
+               {
+                   throw new NotFoundException();
+               }
+
+                return min.FirstOrDefault();
+
             }
         }
 

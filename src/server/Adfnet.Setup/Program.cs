@@ -53,10 +53,7 @@ namespace Adfnet.Setup
                 case "MySqlConnection":
                     services.AddDbContext<EfDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
                     break;
-                case "MariaDbConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MariaDbConnection")));
-                    break;
-
+              
                 case "PostgreSqlConnection":
                     services.AddDbContext<EfDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnection")));
                     break;

@@ -1,0 +1,19 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button routerLink="/Home/Index">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Ana Sayfa</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="/User/MyProfile">
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-label>Hesabım</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="presentAlertConfirm()">
+      <ion-icon name="exit-outline"></ion-icon>
+      <ion-label>Çıkış Yap</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>

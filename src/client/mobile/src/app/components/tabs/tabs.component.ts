@@ -3,36 +3,18 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-private-layout',
-  templateUrl: './private-layout.page.html',
-  styleUrls: ['./private-layout.page.scss'],
+  selector: 'app-tabs',
+  templateUrl: './tabs.component.html',
+  styleUrls: ['./tabs.component.scss'],
 })
-export class PrivateLayoutPage implements OnInit {
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home-outline'
-    },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    }
-  ];
+export class TabsComponent implements OnInit {
+
   constructor(
+    public alertController: AlertController,
     private router: Router,
-    public alertController: AlertController
-  ) {
+  ) { }
 
-  }
-
-
-  ngOnInit() {
-  }
-
-
-
+  ngOnInit() {}
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
       header: 'Emin misiniz?',
@@ -56,5 +38,4 @@ export class PrivateLayoutPage implements OnInit {
 
     await alert.present();
   }
-
 }

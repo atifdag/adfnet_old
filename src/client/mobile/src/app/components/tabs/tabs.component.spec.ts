@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ErrorLayoutPage } from './error-layout.page';
+import { TabsComponent } from './tabs.component';
 
-describe('ErrorLayoutPage', () => {
-  let component: ErrorLayoutPage;
-  let fixture: ComponentFixture<ErrorLayoutPage>;
+describe('TabsComponent', () => {
+  let component: TabsComponent;
+  let fixture: ComponentFixture<TabsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorLayoutPage ],
+      declarations: [ TabsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ErrorLayoutPage);
+    fixture = TestBed.createComponent(TabsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,12 +1,12 @@
+import { LoginComponent } from './login/login.component';
 import { RegisterPage } from './register/register.page';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginPage } from './login/login.page';
 
 
 const routes: Routes = [
-  { path: '', component: LoginPage },
-  { path: 'Login', component: LoginPage },
+  { path: '', component: LoginComponent },
+  { path: 'Login', component: LoginComponent },
   { path: 'Register', component: RegisterPage },
 ];
 

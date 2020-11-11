@@ -1,5 +1,5 @@
+import { LoginComponent } from './login/login.component';
 import { RegisterPage } from './register/register.page';
-import { LoginPage } from './login/login.page';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
@@ -8,7 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    LoginPage,
+    LoginComponent,
     RegisterPage
   ],
   imports: [

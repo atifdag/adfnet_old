@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PrivateLayoutPage } from './private-layout.page';
+import { PublicLayoutComponent } from './public-layout.component';
 
-describe('PrivateLayoutPage', () => {
-  let component: PrivateLayoutPage;
-  let fixture: ComponentFixture<PrivateLayoutPage>;
+describe('PublicLayoutComponent', () => {
+  let component: PublicLayoutComponent;
+  let fixture: ComponentFixture<PublicLayoutComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PrivateLayoutPage ],
+      declarations: [ PublicLayoutComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PrivateLayoutPage);
+    fixture = TestBed.createComponent(PublicLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

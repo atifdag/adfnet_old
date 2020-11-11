@@ -125,7 +125,9 @@ namespace Adfnet.Service.Implementations
                 }
             }
 
-            expression = expression.And(x => x.RoleUserLines.All(t => t.Role.Level > _serviceMain.IdentityUserMinRoleLevel));
+            var identityUserMinRoleLevel = _serviceMain.IdentityUserMinRoleLevel;
+
+            expression = expression.And(x => x.RoleUserLines.All(t => t.Role.Level > identityUserMinRoleLevel));
 
             var sortHelper = new SortHelper<User>();
 
@@ -225,7 +227,7 @@ namespace Adfnet.Service.Implementations
        
         public DetailModel<UserModel> Detail(Guid id)
         {
-            var identityUserMinRoleLevel = _serviceMain.IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
+            var identityUserMinRoleLevel = _serviceMain.IdentityUserMinRoleLevel;
 
             var item = _repositoryUser
                 .Join(x => x.Language)
@@ -456,7 +458,7 @@ namespace Adfnet.Service.Implementations
                 throw new ParentNotFoundException();
             }
 
-            var identityUserMinRoleLevel = _serviceMain.IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
+            var identityUserMinRoleLevel = _serviceMain.IdentityUserMinRoleLevel;
 
 
             var itemUser = _repositoryUser
@@ -609,7 +611,7 @@ namespace Adfnet.Service.Implementations
         public void Delete(Guid id)
         {
 
-            var identityUserMinRoleLevel = _serviceMain.IdentityUser.RoleUserLines.Select(x => x.Role.Level).Min();
+            var identityUserMinRoleLevel = _serviceMain.IdentityUserMinRoleLevel;
 
 
             var item = _repositoryUser.Get(x => x.Id == id && x.RoleUserLines.All(t => t.Role.Level > identityUserMinRoleLevel));

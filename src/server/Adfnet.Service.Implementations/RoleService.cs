@@ -448,8 +448,8 @@ namespace Adfnet.Service.Implementations
 
         public List<IdName> IdNameList()
         {
-
-            var list = _repositoryRole.Get().Where(x => x.IsApproved && x.Level > _serviceMain.IdentityUserMinRoleLevel).OrderBy(x => x.DisplayOrder).Select(x => new IdName(x.Id, x.Name));
+            var identityUserMinRoleLevel = _serviceMain.IdentityUserMinRoleLevel;
+            var list = _repositoryRole.Get().Where(x => x.IsApproved && x.Level > identityUserMinRoleLevel).OrderBy(x => x.DisplayOrder).Select(x => new IdName(x.Id, x.Name));
             if (list.Any())
             {
                 return list.ToList();

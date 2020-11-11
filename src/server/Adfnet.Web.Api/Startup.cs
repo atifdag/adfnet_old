@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using Adfnet.Data.DataAccess.EntityFramework;
 using Adfnet.Web.Common;
 using Microsoft.AspNetCore.Builder;
@@ -9,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Serilog;
 
 namespace Adfnet.Web.Api
 {
@@ -56,9 +54,6 @@ namespace Adfnet.Web.Api
 
                 case "MySqlConnection":
                     services.AddDbContext<EfDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
-                    break;
-                case "MariaDbConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MariaDbConnection")));
                     break;
 
                 case "PostgreSqlConnection":

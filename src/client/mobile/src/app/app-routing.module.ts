@@ -1,13 +1,13 @@
-import { PrivateLayoutPage } from './layouts/private-layout/private-layout.page';
+import { ErrorLayoutComponent } from './layouts/error-layout/error-layout.component';
+import { PublicLayoutComponent } from './layouts/public-layout/public-layout.component';
+import { PrivateLayoutComponent } from './layouts/private-layout/private-layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PublicLayoutPage } from './layouts/public-layout/public-layout.page';
-import { ErrorLayoutPage } from './layouts/error-layout/error-layout.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: PrivateLayoutPage,
+    component: PrivateLayoutComponent,
     children: [
       {
         path: '',
@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: PublicLayoutPage,
+    component: PublicLayoutComponent,
     children: [
       {
         path: 'Authentication',
@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: ErrorLayoutPage,
+    component: ErrorLayoutComponent,
     children: [
       {
         path: 'Error',
