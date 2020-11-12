@@ -73,7 +73,7 @@ namespace Adfnet.Web.Api
             services.AddSwaggerGen(c =>
             {
                 c.MapType<Guid>(() => new OpenApiSchema { Type = "string", Format = "uuid" });
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Adfnet.Web.Api", Version = "v1" });
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = "Adfnet.Web.Api", Version = "v2" });
             });
         }
 
@@ -94,7 +94,7 @@ namespace Adfnet.Web.Api
 
 
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Adfnet.Web.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v2/swagger.json", "Adfnet.Web.Api v2"));
             }
 
         //    app.UseHttpsRedirection();
