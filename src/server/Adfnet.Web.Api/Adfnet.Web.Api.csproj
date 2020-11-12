@@ -2,18 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>7e25cf26-0142-4822-8514-bdae9a72e4f9</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="Serilog.Sinks.Seq" Version="4.0.0" />
-    <PackageReference Include="Serilog.Sinks.SQLite" Version="5.0.0" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Adfnet.Service.Implementations\Adfnet.Service.Implementations.csproj" />
     <ProjectReference Include="..\Adfnet.Web.Common\Adfnet.Web.Common.csproj" />
   </ItemGroup>
-
 
 </Project>

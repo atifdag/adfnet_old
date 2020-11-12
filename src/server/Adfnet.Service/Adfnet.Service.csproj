@@ -7,5 +7,4 @@
     <ProjectReference Include="..\Adfnet.Core\Adfnet.Core.csproj" />
     <ProjectReference Include="..\Adfnet.Data\Adfnet.Data.csproj" />
   </ItemGroup>
-
 </Project>

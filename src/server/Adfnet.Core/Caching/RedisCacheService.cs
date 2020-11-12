@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using Adfnet.Core.Constants;
 using Adfnet.Core.Helpers;
-using Newtonsoft.Json;
 using StackExchange.Redis;
 
 namespace Adfnet.Core.Caching
@@ -46,7 +46,7 @@ namespace Adfnet.Core.Caching
                 var redisValue = Cache.StringGet(key);
                 var sData = (string)redisValue;
                 var binaryDeserilized = sData.DeserializeFromString<string>();
-                value = JsonConvert.DeserializeObject<T>(binaryDeserilized);
+                value = JsonSerializer.Deserialize<T>(binaryDeserilized);
 
             }
             else
@@ -68,7 +68,7 @@ namespace Adfnet.Core.Caching
                 return;
             }
 
-            var jsonSerialized = JsonConvert.SerializeObject(value);
+            var jsonSerialized = JsonSerializer.Serialize(value);
             var binarySerilized = jsonSerialized.SerializeToString();
             Cache.StringSet(key, binarySerilized, TimeSpan.FromHours(_cacheTime));
         }

@@ -19,6 +19,7 @@
     },
     "Adfnet.Web.Api": {
       "commandName": "Project",
+      "dotnetRunMessages": "true",
       "launchBrowser": true,
       "launchUrl": "Home/Index",
       "applicationUrl": "http://localhost:1025",

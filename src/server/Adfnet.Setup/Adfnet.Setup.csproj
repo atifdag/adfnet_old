@@ -8,5 +8,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Adfnet.Data\Adfnet.Data.csproj" />
   </ItemGroup>
-
 </Project>

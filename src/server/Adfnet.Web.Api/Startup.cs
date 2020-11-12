@@ -29,7 +29,6 @@ namespace Adfnet.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             var origins = Configuration.GetSection("JwtUrl").Get<string[]>();
 
             services.AddCors(options =>
@@ -71,11 +70,10 @@ namespace Adfnet.Web.Api
 
             services.ResolveDependency(Configuration);
             services.AddControllers();
-
             services.AddSwaggerGen(c =>
             {
                 c.MapType<Guid>(() => new OpenApiSchema { Type = "string", Format = "uuid" });
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Adfnet API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Adfnet.Web.Api", Version = "v1" });
             });
         }
 
@@ -85,24 +83,21 @@ namespace Adfnet.Web.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // Her istek öncesi loglama için çalýþýr
+                app.UseMiddleware<SerilogMiddleware>();
+
+                app.UseCors("CorsPolicy");
+
+                // Her istek öncesi güvenlik için çalýþýr
+                app.UseMiddleware<SecurityMiddleware>();
+
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Adfnet.Web.Api v1"));
             }
 
-            // Her istek öncesi loglama için çalýþýr
-            app.UseMiddleware<SerilogMiddleware>();
-
-            app.UseCors("CorsPolicy");
-
-            // Her istek öncesi güvenlik için çalýþýr
-            app.UseMiddleware<SecurityMiddleware>();
-
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Adfnet API v1");
-
-            });
+        //    app.UseHttpsRedirection();
 
             app.UseRouting();
 
