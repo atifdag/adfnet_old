@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { PrivateLayoutComponent } from './private-layout.component';
@@ -7,7 +7,7 @@ describe('PrivateLayoutComponent', () => {
   let component: PrivateLayoutComponent;
   let fixture: ComponentFixture<PrivateLayoutComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PrivateLayoutComponent ],
       imports: [IonicModule.forRoot()]
