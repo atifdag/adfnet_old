@@ -2,7 +2,6 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginModel } from 'src/app/models/login-model';
 import { RegisterModel } from 'src/app/models/register-model';
 import { GlobalizationDictionaryPipe } from 'src/app/pipes/globalization-dictionary.pipe';
 import { GlobalizationMessagesPipe } from 'src/app/pipes/globalization-messages.pipe';
@@ -86,12 +85,16 @@ export class RegisterComponent implements OnInit {
     }
     this.loading = true;
     this.model = new RegisterModel();
+
+
     this.model.firstName = this.userForm.controls.firstName.value;
     this.model.lastName = this.userForm.controls.lastName.value;
     this.model.username = this.userForm.controls.username.value;
     this.model.email = this.userForm.controls.email.value;
     this.model.password = this.userForm.controls.password.value;
     this.model.confirmPassword = this.userForm.controls.confirmPassword.value;
+
+
     this.serviceAuthentication.register(this.model).subscribe(
       res => {
         if (res.status === 200) {
