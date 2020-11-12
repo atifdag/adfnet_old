@@ -205,6 +205,10 @@
     <value>Pencereyi kapatabilirsiniz.</value>
     <comment>Pencereyi kapatabilirsiniz.</comment>
   </data>
+  <data name="InfoDeletionOperationSuccessful" xml:space="preserve">
+    <value>Silme işlemi başarıyla tamamlandı.</value>
+    <comment>Silme işlemi başarıyla tamamlandı.</comment>
+  </data>
   <data name="InfoExistingDatabaseRemoved" xml:space="preserve">
     <value>Mevcut veritabanı kaldırıldı.</value>
     <comment>Mevcut veritabanı kaldırıldı.</comment>

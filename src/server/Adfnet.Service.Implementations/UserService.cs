@@ -287,12 +287,8 @@ namespace Adfnet.Service.Implementations
                 };
             }
 
-            var language = _repositoryLanguage.Get(e => e.Id == addModel.Item.Language.Id);
+            var language = _serviceMain.DefaultLanguage;
 
-            if (language == null)
-            {
-                throw new ParentNotFoundException();
-            }
 
             var item = addModel.Item.CreateMapped<UserModel, User>();
 
@@ -606,7 +602,11 @@ namespace Adfnet.Service.Implementations
             var identityUserMinRoleLevel = _serviceMain.IdentityUserMinRoleLevel;
 
 
-            var item = _repositoryUser.Get(x => x.Id == id && x.RoleUserLines.All(t => t.Role.Level > identityUserMinRoleLevel));
+            var item = _repositoryUser.Join(x => x.Person)
+                .Join(x => x.Language)
+                .Join(x => x.Creator.Person)
+                .Join(x => x.LastModifier.Person)
+                .FirstOrDefault(x => x.Id == id && x.RoleUserLines.All(t => t.Role.Level > identityUserMinRoleLevel));
             if (item == null)
             {
                 throw new NotFoundException();

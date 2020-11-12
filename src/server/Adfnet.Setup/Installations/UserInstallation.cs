@@ -15,7 +15,9 @@ namespace Adfnet.Setup.Installations
     {
         public static List<Tuple<string, string, string, string>> Items = new List<Tuple<string, string, string, string>>
         {
-            Tuple.Create("Mahmut","HASIL","mahmut.hasil", RoleConstants.Manager.Item1),
+            Tuple.Create("Yönetici","Kullanıcı","yonetici.kullanici", RoleConstants.Manager.Item1),
+            Tuple.Create("Editör","Kullanıcı","editor.kullanici", RoleConstants.Editor.Item1),
+            Tuple.Create("Abone","Kullanıcı","abone.kullanici", RoleConstants.Subscriber.Item1),
             Tuple.Create("Varsayılan","Kullanıcı","varsayilan.kullanici", RoleConstants.Default.Item1),
         };
 

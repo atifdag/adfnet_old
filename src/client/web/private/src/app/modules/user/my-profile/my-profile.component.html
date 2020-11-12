@@ -1,0 +1,71 @@
+<p>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+</p>
+<mat-card *ngIf="!loading" class="content-card">
+  <mat-card-header>
+    <mat-card-title>{{'UserInformation' | globalizationdictionary}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="content" fxLayout="row wrap">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Id' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.id }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'FirstName' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.firstName }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'LastName' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.lastName }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Username' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.username }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Email' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.email }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Language' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.language.name }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'LastLoginTime' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.lastLoginTime | date:'dd/MM/yyyy HH:mm:ss' }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Creator' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.creator.name }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'CreationTime' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.creationTime | date:'dd/MM/yyyy HH:mm:ss' }}"
+          [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'LastModifier' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.lastModifier.name }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'LastModificationTime' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ profileModel.userModel.lastModificationTime | date:'dd/MM/yyyy HH:mm:ss' }}"
+          [disabled]="true">
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions style="text-align: center;">
+    <p>
+      <a mat-button mat-raised-button routerLink="/User/UpdateMyInformation">
+        <mat-icon>edit</mat-icon> {{'UpdateMyInformation' | globalizationdictionary}}
+      </a>
+      <a mat-button mat-raised-button routerLink="/User/UpdateMyPassword">
+        <mat-icon>perm_identity</mat-icon> {{'UpdateMyPassword' | globalizationdictionary}}
+      </a>
+      <button mat-button mat-raised-button (click)="showConfirm()">
+        <mat-icon>exit_to_app</mat-icon> {{'SignOut' | globalizationdictionary}}
+      </button>
+    </p>
+  </mat-card-actions>
+</mat-card>

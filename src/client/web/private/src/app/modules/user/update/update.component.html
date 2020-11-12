@@ -1,0 +1,78 @@
+<p>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+</p>
+<mat-card *ngIf="!loading" class="content-card">
+  <mat-card-header>
+    <mat-card-title>{{'UserManagement' | globalizationdictionary}}</mat-card-title>
+    <mat-card-subtitle>{{'Update' | globalizationdictionary}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="content" fxLayout="row wrap">
+      <form class="box-form" [formGroup]="userForm">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'FirstName' | globalizationdictionary }}</mat-label>
+          <input matInput formControlName="firstName" (blur)="onBlurFirstName()">
+          <mat-error *ngIf="!userForm.controls['firstName'].valid&&userForm.controls['firstName'].dirty">
+            {{userForm.controls['firstName'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','FirstName') : userForm.controls['firstName'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','FirstName','2') : ''}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'LastName' | globalizationdictionary }}</mat-label>
+          <input matInput formControlName="lastName" (blur)="onBlurLastName()">
+          <mat-error *ngIf="!userForm.controls['lastName'].valid&&userForm.controls['lastName'].dirty">
+            {{userForm.controls['lastName'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','LastName') : userForm.controls['lastName'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','LastName','2') : ''}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'Username' | globalizationdictionary }}</mat-label>
+          <input matInput formControlName="username">
+          <mat-error *ngIf="!userForm.controls['username'].valid&&userForm.controls['username'].dirty">
+            {{userForm.controls['username'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','Username') : userForm.controls['username'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','Username','8') : ''}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'Email' | globalizationdictionary }}</mat-label>
+          <input matInput formControlName="email">
+          <mat-error style="display: block !important;" *ngIf="!userForm.controls['email'].valid&&userForm.controls['email'].dirty">
+            {{userForm.controls['email'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','Email') : userForm.controls['email'].errors['email'] ? globalizationMessagesPipe.transform('DangerInvalidEmail') : ''}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'Language' | globalizationdictionary }}</mat-label>
+          <mat-select formControlName="language">
+            <mat-option value="{{language.id}}" *ngFor="let language of model.item.languages">{{language.name}}</mat-option>
+          </mat-select>
+
+          <input matInput>
+          <mat-error style="display: block !important;" *ngIf="!userForm.controls['language'].valid&&userForm.controls['language'].dirty">
+            {{globalizationMessagesByParameter('DangerFieldIsEmpty','Language')}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'Creator' | globalizationdictionary }}</mat-label>
+          <input matInput value="{{ model.item.creator.name }}" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'CreationTime' | globalizationdictionary }}</mat-label>
+          <input matInput value="{{ model.item.creationTime | date:'dd/MM/yyyy HH:mm:ss' }}" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'LastModifier' | globalizationdictionary }}</mat-label>
+          <input matInput value="{{ model.item.lastModifier.name }}" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'LastModificationTime' | globalizationdictionary }}</mat-label>
+          <input matInput value="{{ model.item.lastModificationTime | date:'dd/MM/yyyy HH:mm:ss' }}" [disabled]="true">
+        </mat-form-field>
+        <mat-slide-toggle #isApproved formControlName="isApproved" [checked]="model.item.isApproved">{{isApproved.checked ? globalizationDictionaryPipe.transform('Approved'):globalizationDictionaryPipe.transform('NotApproved')}}</mat-slide-toggle>
+      </form>
+    </div>
+  </mat-card-content>
+  <mat-card-actions style="text-align: center;">
+    <button mat-button mat-raised-button (click)="back()"><mat-icon>keyboard_backspace</mat-icon> {{'Back' | globalizationdictionary}}</button>
+    <button mat-button mat-raised-button type="submit" (click)="submit()" [disabled]="!userForm.valid"><mat-icon>save</mat-icon> {{'Save' | globalizationdictionary}}</button>
+    <br>
+  </mat-card-actions>
+</mat-card>

@@ -259,6 +259,15 @@ namespace Adfnet.Core.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Silme işlemi başarıyla tamamlandı..
+        /// </summary>
+        public static string InfoDeletionOperationSuccessful {
+            get {
+                return ResourceManager.GetString("InfoDeletionOperationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mevcut veritabanı kaldırıldı..
         /// </summary>
         public static string InfoExistingDatabaseRemoved {

@@ -1,0 +1,35 @@
+<p>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+</p>
+<mat-card class="box">
+  <mat-card-header>
+    <mat-card-title>
+      <p style="text-align: center;"><img src="assets/images/logo2.png"></p>
+      {{'Login' | globalizationdictionary}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="box-form" [formGroup]="userForm" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Username' | globalizationdictionary }}</mat-label>
+        <input matInput formControlName="username">
+        <mat-error *ngIf="!userForm.controls['username'].valid&&userForm.controls['username'].dirty">
+          {{userForm.controls['username'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','Username') : userForm.controls['username'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','Username','8') : ''}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Password' | globalizationdictionary }}</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error *ngIf="!userForm.controls['password'].valid&&userForm.controls['password'].dirty">
+          {{userForm.controls['password'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','Password') : userForm.controls['password'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','Password','8') : ''}}
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" class="btn-block"
+        [disabled]="!userForm.valid">{{ 'Send' | globalizationdictionary }}</button>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-flat-button routerLink="/Authentication/Register">{{'Register' | globalizationdictionary}}</a>
+    <a mat-flat-button routerLink="/Authentication/ForgotPassword">{{'IForgotMyPassword' | globalizationdictionary}}</a>
+  </mat-card-actions>
+</mat-card>
