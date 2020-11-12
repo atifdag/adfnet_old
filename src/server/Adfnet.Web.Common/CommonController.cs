@@ -62,9 +62,7 @@ namespace Adfnet.Web.Common
 
         protected string GetMessageByParameter(string key, string parameter)
         {
-            return string.Format(Messages.ResourceManager.GetString(key),
-                Dictionary.ResourceManager.GetString(parameter));
-            //string.Format(Messages.DangerFieldLengthLimit, Dictionary.Username, "8")
+            return string.Format(Messages.ResourceManager.GetString(key), Dictionary.ResourceManager.GetString(parameter));
         }
         protected string GetMessageByTwoParameter(string key, string parameter1, string parameter2)
         {

@@ -71,19 +71,14 @@ namespace Adfnet.Service.Implementations
         {
             get
             {
-                // Thread'de kayıtlı kimlik bilgisi alınıyor
                 var identity = (CustomIdentity)Thread.CurrentPrincipal?.Identity;
 
                 User user;
-
-                // Veritabanından sorgulanıyor
-
 
                 user = _repositoryUser.Get()
                     .Join(x => x.Person)
                     .FirstOrDefault(a => a.Id == identity.UserId && a.IsApproved);
 
-                // Kullanıcı bulunamadı ise
                 if (user == null)
                 {
                     throw new NotFoundException(Messages.DangerIdentityUserNotFound);
@@ -97,10 +92,8 @@ namespace Adfnet.Service.Implementations
         {
             get
             {
-                // Thread'de kayıtlı kimlik bilgisi alınıyor
                 var identity = (CustomIdentity)Thread.CurrentPrincipal?.Identity;
 
-                // Veritabanından sorgulanıyor
                var list= _repositoryUser.Get()
                     .Join(x => x.RoleUserLines).ThenJoin(x => x.Role)
                     .Where(x=>x.Id==identity.UserId && x.IsApproved)

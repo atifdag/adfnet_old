@@ -62,7 +62,7 @@ namespace Adfnet.Service.Implementations
             return List(filterModel.StartDate, filterModel.EndDate, filterModel.PageNumber, filterModel.PageSize, filterModel.Status, filterModel.Searched, null, model);
         }
 
-        private ListModel<UserModel> List(DateTime startDate, DateTime endDate, int pageNumber, int pageSize, int status, string searched, List<Guid> parentIds, ListModel<UserModel> model)
+        private ListModel<UserModel> List(DateTime startDate, DateTime endDate, int pageNumber, int pageSize, int status, string searched, ICollection<Guid> parentIds, ListModel<UserModel> model)
         {
             var resetedStartDate = startDate.ResetTimeToStartOfDay();
             var resetedEndDate = endDate.ResetTimeToEndOfDay();
@@ -242,17 +242,12 @@ namespace Adfnet.Service.Implementations
                 throw new NotFoundException();
             }
 
-            var roleList = new List<IdCodeNameSelected>();
-
             var allRoles = _repositoryRole.Get().Where(x => x.IsApproved && x.Level > identityUserMinRoleLevel).ToList();
             var userRoles = _repositoryRoleUserLine
                 .Join(x => x.Role)
                 .Where(x => x.User.Id == item.Id).Select(x => x.Role.Id).ToList();
 
-            foreach (var role in allRoles)
-            {
-                roleList.Add(userRoles.Contains(role.Id) ? new IdCodeNameSelected(role.Id, role.Code, role.Name, true) : new IdCodeNameSelected(role.Id, role.Code, role.Name, false));
-            }
+            var roleList = allRoles.Select(role => userRoles.Contains(role.Id) ? new IdCodeNameSelected(role.Id, role.Code, role.Name, true) : new IdCodeNameSelected(role.Id, role.Code, role.Name, false)).ToList();
 
             var modelItem = item.CreateMapped<User, UserModel>();
             modelItem.Roles = roleList;
@@ -313,9 +308,6 @@ namespace Adfnet.Service.Implementations
 
             var password = addModel.Item.Password.ToSha512();
 
-
-            // kişi bilgisi veritabanında var mı?
-            // Kişi bilgisi yoksa yeni kişi bilgisi oluşturuluyor
             Person person;
 
             var maxDisplayOrderPerson = _repositoryPerson.Get().Max(e => e.DisplayOrder);
@@ -513,13 +505,13 @@ namespace Adfnet.Service.Implementations
             person.LastModificationTime = DateTime.Now;
             person.LastModifierId = _serviceMain.IdentityUser.Id;
             person.Version = versionPerson + 1;
-            var afffectedPerson = _repositoryPerson.Update(person, true);
+            var affectedPerson = _repositoryPerson.Update(person, true);
 
 
             var userHistory = itemUser.CreateMapped<User, UserHistory>();
             userHistory.Id = GuidHelper.NewGuid();
             userHistory.ReferenceId = itemUser.Id;
-            userHistory.PersonId = afffectedPerson.Id;
+            userHistory.PersonId = affectedPerson.Id;
             userHistory.LanguageId = language.Id;
             userHistory.CreatorId = _serviceMain.IdentityUser.Id;
             userHistory.CreationTime = DateTime.Now;
@@ -529,7 +521,7 @@ namespace Adfnet.Service.Implementations
             itemUser.Email = updateModel.Item.Email;
             itemUser.IsApproved = updateModel.Item.IsApproved;
             itemUser.Language = language;
-            itemUser.Person = afffectedPerson;
+            itemUser.Person = affectedPerson;
             itemUser.LastModificationTime = DateTime.Now;
             itemUser.LastModifier = _serviceMain.IdentityUser;
             itemUser.Version = versionUser + 1;
@@ -665,9 +657,7 @@ namespace Adfnet.Service.Implementations
         {
             var lastLoginTime = DateTime.Now;
             MyProfileModel myProfileModel;
-            UserModel userModel;
-            var identity = (CustomIdentity)Thread.CurrentPrincipal.Identity;
-            var cacheKeyProfile = CacheKeyOption.Profile + "-" + identity.UserId;
+            var identity = (CustomIdentity)Thread.CurrentPrincipal?.Identity;
             var identityUser = _repositoryUser
                 .Join(x => x.Language)
                 .Join(x => x.Person)
@@ -761,7 +751,7 @@ namespace Adfnet.Service.Implementations
 
 
             var sessionHistories = identityUser.SessionHistoriesCreatedBy;
-            userModel = identityUser.CreateMapped<User, UserModel>();
+            var userModel = identityUser.CreateMapped<User, UserModel>();
             userModel.Languages = _languages;
             if (!(sessionHistories?.Count > 0))
             {
@@ -832,7 +822,7 @@ namespace Adfnet.Service.Implementations
                 };
             }
 
-            var identity = (CustomIdentity)Thread.CurrentPrincipal.Identity;
+            var identity = (CustomIdentity)Thread.CurrentPrincipal?.Identity;
             var user = _repositoryUser
                 .Join(x => x.Language)
                 .Join(x => x.Person)
