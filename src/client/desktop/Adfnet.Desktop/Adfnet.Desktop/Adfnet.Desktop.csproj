@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="9.3.0" />
+    <PackageReference Include="MailKit" Version="2.9.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Adfnet.Core">
+      <HintPath>..\..\..\..\server\Adfnet.Core\bin\Release\net5.0\Adfnet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Adfnet.Data">
+      <HintPath>..\..\..\..\server\Adfnet.Data\bin\Release\net5.0\Adfnet.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Adfnet.Service">
+      <HintPath>..\..\..\..\server\Adfnet.Service\bin\Release\net5.0\Adfnet.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Adfnet.Service.Implementations">
+      <HintPath>..\..\..\..\server\Adfnet.Service.Implementations\bin\Release\net5.0\Adfnet.Service.Implementations.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AppData\" />
+  </ItemGroup>
+
+
+
+</Project>

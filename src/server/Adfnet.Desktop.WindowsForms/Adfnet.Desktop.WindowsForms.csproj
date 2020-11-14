@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Adfnet.Service.Implementations\Adfnet.Service.Implementations.csproj" />
+    <ProjectReference Include="..\Adfnet.Service\Adfnet.Service.csproj" />
+    <ProjectReference Include="..\Adfnet.Data\Adfnet.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\UserForms\" />
+    <Folder Include="AppData\" />
+  </ItemGroup>
+ 
+</Project>

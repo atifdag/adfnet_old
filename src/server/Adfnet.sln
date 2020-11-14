@@ -1,21 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adfnet.Core", "Adfnet.Core\Adfnet.Core.csproj", "{D304BFAD-FC4A-4A68-AF03-AC7B93CF4A6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adfnet.Core", "Adfnet.Core\Adfnet.Core.csproj", "{D304BFAD-FC4A-4A68-AF03-AC7B93CF4A6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adfnet.Data", "Adfnet.Data\Adfnet.Data.csproj", "{9E785925-C34A-4870-86DE-FCB0FC83C1FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adfnet.Data", "Adfnet.Data\Adfnet.Data.csproj", "{9E785925-C34A-4870-86DE-FCB0FC83C1FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adfnet.Service", "Adfnet.Service\Adfnet.Service.csproj", "{FE0DDF41-99CB-41F1-A8FB-88944674B361}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adfnet.Service", "Adfnet.Service\Adfnet.Service.csproj", "{FE0DDF41-99CB-41F1-A8FB-88944674B361}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adfnet.Service.Implementations", "Adfnet.Service.Implementations\Adfnet.Service.Implementations.csproj", "{B2E97B45-58F5-4B95-B4B0-F3397F566152}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adfnet.Service.Implementations", "Adfnet.Service.Implementations\Adfnet.Service.Implementations.csproj", "{B2E97B45-58F5-4B95-B4B0-F3397F566152}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adfnet.Setup", "Adfnet.Setup\Adfnet.Setup.csproj", "{390FE56F-2D02-4B1F-86C1-19BAB8E189D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adfnet.Setup", "Adfnet.Setup\Adfnet.Setup.csproj", "{390FE56F-2D02-4B1F-86C1-19BAB8E189D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adfnet.Web.Api", "Adfnet.Web.Api\Adfnet.Web.Api.csproj", "{81066B3A-2F37-4736-ADE0-D6E8E6CBF6D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adfnet.Web.Api", "Adfnet.Web.Api\Adfnet.Web.Api.csproj", "{81066B3A-2F37-4736-ADE0-D6E8E6CBF6D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adfnet.Web.Common", "Adfnet.Web.Common\Adfnet.Web.Common.csproj", "{9B9C325B-AB31-49E7-A6D9-D24615772A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adfnet.Web.Common", "Adfnet.Web.Common\Adfnet.Web.Common.csproj", "{9B9C325B-AB31-49E7-A6D9-D24615772A3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adfnet.Desktop.WindowsForms", "Adfnet.Desktop.WindowsForms\Adfnet.Desktop.WindowsForms.csproj", "{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,9 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D304BFAD-FC4A-4A68-AF03-AC7B93CF4A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -114,5 +113,23 @@ Global
 		{9B9C325B-AB31-49E7-A6D9-D24615772A3E}.Release|x64.Build.0 = Release|Any CPU
 		{9B9C325B-AB31-49E7-A6D9-D24615772A3E}.Release|x86.ActiveCfg = Release|Any CPU
 		{9B9C325B-AB31-49E7-A6D9-D24615772A3E}.Release|x86.Build.0 = Release|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Debug|x64.Build.0 = Debug|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Debug|x86.Build.0 = Debug|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Release|x64.ActiveCfg = Release|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Release|x64.Build.0 = Release|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Release|x86.ActiveCfg = Release|Any CPU
+		{F8D07ECC-AEE1-4907-BCCD-22A9FF938A57}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22FFB211-9B24-473F-A598-ECE8DB150096}
 	EndGlobalSection
 EndGlobal

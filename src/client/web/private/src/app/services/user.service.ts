@@ -42,5 +42,4 @@ export class UserService extends BaseCrudService<UserModel>{
     return this.httpClient.put(this.appSettingsService.apiUrl + '/User/UpdateMyInformation', model, { observe: 'response' });
   }
 
-
 }

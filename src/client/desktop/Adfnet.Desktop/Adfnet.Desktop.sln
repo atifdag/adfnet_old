@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adfnet.Desktop", "Adfnet.Desktop\Adfnet.Desktop.csproj", "{B184569E-C6DE-4295-8D0C-C16934402F96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B184569E-C6DE-4295-8D0C-C16934402F96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B184569E-C6DE-4295-8D0C-C16934402F96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B184569E-C6DE-4295-8D0C-C16934402F96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B184569E-C6DE-4295-8D0C-C16934402F96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BC4DE33-0F6E-4F0D-98A6-2435E5379AED}
+	EndGlobalSection
+EndGlobal
