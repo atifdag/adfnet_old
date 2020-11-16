@@ -14,6 +14,8 @@ namespace Adfnet.Web.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseKestrel();
+                    webBuilder.UseUrls("http://localhost:1025");
                     webBuilder.UseStartup<Startup>();
                 });
     }

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace Adfnet.Web.Api
@@ -29,6 +30,12 @@ namespace Adfnet.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddLogging(builder => builder
+                .AddConsole()
+                .AddFilter(level => level >= LogLevel.Information)
+            );
+
             var origins = Configuration.GetSection("JwtUrl").Get<string[]>();
 
             services.AddCors(options =>
@@ -41,39 +48,40 @@ namespace Adfnet.Web.Api
                 );
             });
 
-            switch (Configuration["DefaultConnectionString"])
-            {
-                case "MsSqlConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MsSqlConnection")));
-                    break;
+            //switch (Configuration["DefaultConnectionString"])
+            //{
+            //    //case "MsSqlConnection":
+            //    //    services.AddDbContext<EfDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MsSqlConnection")));
+            //    //    break;
 
-                case "MsSqlLocalDbConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocalDbConnection")));
-                    break;
+            //    //case "MsSqlLocalDbConnection":
+            //    //    services.AddDbContext<EfDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocalDbConnection")));
+            //    //    break;
 
-                case "MySqlConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
-                    break;
+            //    //case "MySqlConnection":
+            //    //    services.AddDbContext<EfDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
+            //    //    break;
 
-                case "PostgreSqlConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnection")));
-                    break;
+            //    //case "PostgreSqlConnection":
+            //    //    services.AddDbContext<EfDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnection")));
+            //    //    break;
 
-                case "SqliteConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
-                    break;
+            //    case "SqliteConnection":
+            //        services.AddDbContext<EfDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+            //        break;
 
-                default:
-                    services.AddDbContext<EfDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
-                    break;
-            }
+            //    default:
+                    
+            //        break;
+            //}
+            services.AddDbContext<EfDbContext>(options => options.UseSqlite("Data Source=AdfnetDB.db"));
 
             services.ResolveDependency(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.MapType<Guid>(() => new OpenApiSchema { Type = "string", Format = "uuid" });
-                c.SwaggerDoc("v2", new OpenApiInfo { Title = "Adfnet.Web.Api", Version = "v2" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Adfnet.Web.Api", Version = "v1" });
             });
         }
 
@@ -84,24 +92,22 @@ namespace Adfnet.Web.Api
             {
                 app.UseDeveloperExceptionPage();
 
-                // Her istek öncesi loglama için çalýþýr
-                app.UseMiddleware<SerilogMiddleware>();
-
-                app.UseCors("CorsPolicy");
-
-                // Her istek öncesi güvenlik için çalýþýr
-                app.UseMiddleware<SecurityMiddleware>();
-
-
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v2/swagger.json", "Adfnet.Web.Api v2"));
             }
 
-        //    app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Adfnet.Web.Api v1"));
+
+            // Her istek öncesi loglama için çalýþýr
+            app.UseMiddleware<SerilogMiddleware>();
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy");
+
             app.UseStaticFiles();
+
+            // Her istek öncesi güvenlik için çalýþýr
+            app.UseMiddleware<SecurityMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.domurtek.com',
+  apiUrl: 'https://api.atifdag.com.tr',
 };

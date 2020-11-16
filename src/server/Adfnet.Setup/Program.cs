@@ -50,13 +50,13 @@ namespace Adfnet.Setup
                     services.AddDbContext<EfDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocalDbConnection")));
                     break;
 
-                case "MySqlConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
-                    break;
+                //case "MySqlConnection":
+                //    services.AddDbContext<EfDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
+                //    break;
               
-                case "PostgreSqlConnection":
-                    services.AddDbContext<EfDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnection")));
-                    break;
+                //case "PostgreSqlConnection":
+                //    services.AddDbContext<EfDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnection")));
+                //    break;
 
                 case "SqliteConnection":
                     services.AddDbContext<EfDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection").Replace("Data Source=", "Data Source=" + AppPath + "\\")));
