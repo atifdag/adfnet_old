@@ -421,6 +421,10 @@
     <value>Değer</value>
     <comment>Değer</comment>
   </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versiyon</value>
+    <comment>Version</comment>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Evet</value>
     <comment>Evet</comment>

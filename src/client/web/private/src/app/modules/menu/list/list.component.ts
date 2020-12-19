@@ -64,6 +64,7 @@ export class ListComponent implements OnInit {
       startDate.setFullYear(today.getFullYear() - 2);
       this.statusOptions = this.appSettingsService.statusOptions;
 
+      
       this.appSettingsService.pageSizes.forEach(x => {
         this.pageSizes.push(x.key);
       });
@@ -71,6 +72,8 @@ export class ListComponent implements OnInit {
   
       this.filterModel.startDate = startDate;
       this.filterModel.endDate = endDate;
+      this.filterModel.status = -1;
+
     
       this.filterModel.pageNumber = this.selectedPageNumber;
       this.filterModel.pageSize = this.selectedPageSize;
@@ -87,7 +90,8 @@ export class ListComponent implements OnInit {
       searched: new FormControl(this.filterModel.searched),      
        selectedStatus: new FormControl(this.appSettingsService.selectedStatus.key),
        startDate: new FormControl(this.filterModel.startDate),
-       endDate: new FormControl(this.filterModel.endDate),
+       endDate: new FormControl(this.filterModel.endDate)
+ 
 
 
     });

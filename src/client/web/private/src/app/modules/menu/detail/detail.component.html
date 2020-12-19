@@ -1,0 +1,77 @@
+<p>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  </p>
+  <mat-card *ngIf="!loading" class="content-card">
+    <mat-card-header>
+      <mat-card-title>{{'UserManagement' | globalizationdictionary}}</mat-card-title>
+      <mat-card-subtitle>{{'Detail' | globalizationdictionary}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Id' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.id }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Name' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.name }}" [disabled]="true">
+      </mat-form-field>
+    
+      <mat-form-field *ngIf="model.item.description"  appearance="outline" class="full-width">
+        <mat-label>{{ 'Description' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.description  }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Code' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.code }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Address' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.address }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'displayOrder' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.displayOrder }}" [disabled]="true">
+      </mat-form-field>
+    
+
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Creator' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.creator.name }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'CreationTime' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.creationTime | date:'dd/MM/yyyy HH:mm:ss' }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'LastModifier' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.lastModifier.name }}" [disabled]="true">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'LastModificationTime' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.lastModificationTime | date:'dd/MM/yyyy HH:mm:ss' }}" [disabled]="true">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'Version' | globalizationdictionary }}</mat-label>
+        <input matInput value="{{ model.item.version }}" [disabled]="true">
+      </mat-form-field>
+
+  
+      <mat-slide-toggle [checked]="model.item.isApproved" [disabled]="true">{{model.item.isApproved ? globalizationDictionaryPipe.transform('Approved'):globalizationDictionaryPipe.transform('NotApproved')}}</mat-slide-toggle>
+  
+    </mat-card-content>
+    <mat-card-actions style="text-align: center;">
+      <button mat-button mat-raised-button (click)="back()">
+        <mat-icon>keyboard_backspace</mat-icon> {{'Back' | globalizationdictionary}}
+      </button>
+      <button mat-button mat-raised-button (click)="update()">
+        <mat-icon>edit</mat-icon> {{'Update' | globalizationdictionary}}
+      </button>
+      <button mat-button mat-raised-button (click)="showConfirm()">
+        <mat-icon>delete</mat-icon> {{'Delete' | globalizationdictionary}}
+      </button>
+      <br>
+    </mat-card-actions>
+  </mat-card>
+  
