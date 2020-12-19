@@ -11,7 +11,7 @@
       <form class="box-form" [formGroup]="userForm">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>{{ 'FirstName' | globalizationdictionary }}</mat-label>
-          <input matInput formControlName="firstName" (blur)="onBlurFirstName()">
+          <input matInput [(ngModel)]="model.item.firstName" formControlName="firstName" (blur)="onBlurFirstName()">
           <mat-error *ngIf="!userForm.controls['firstName'].valid&&userForm.controls['firstName'].dirty">
             {{userForm.controls['firstName'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','FirstName') : userForm.controls['firstName'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','FirstName','2') : ''}}
           </mat-error>

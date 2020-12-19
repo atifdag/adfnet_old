@@ -23,10 +23,14 @@ const routes: Routes = [
         loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
       },
       {
+        path: 'Menu',
+        loadChildren: () => import('./modules/menu/menu.module').then(m => m.MenuModule)
+      },
+      {
         path: 'Category',
         loadChildren: () => import('./modules/category/category.module').then(m => m.CategoryModule)
       },
-
+                                      
     ]
   },
   {

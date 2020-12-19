@@ -1,0 +1,132 @@
+<div class="" *ngFor="let item of listModel.items">
+ 
+  
+</div>
+<mat-card class="content-card">
+
+  <mat-card-header>
+    <mat-card-title>{{'MenuManagement' | globalizationdictionary}}</mat-card-title>
+    <mat-card-subtitle>{{'List' | globalizationdictionary}}</mat-card-subtitle>
+  </mat-card-header>
+ <mat-card-content>
+
+  <form [formGroup]="menuForm" class="menuForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{'SearchWord' | globalizationdictionary}}</mat-label>
+      <input matInput  [(ngModel)]="filterModel.searched" (keyup)="changeForm()" formControlName="searched"
+        placeholder="{{'InfoTypeSearchedWord' | globalizationmessages}}">
+    </mat-form-field>
+    <!-- <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{'ApprovalStatus' | globalizationdictionary}}</mat-label>
+      <mat-select formControlName="selectedStatus" (selectionChange)="changeForm()">
+        <mat-option *ngFor="let status of statusOptions" [value]="status.key">
+          {{status.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{'StartDate' | globalizationdictionary}}</mat-label>
+      <input matInput [matDatepicker]="pickerStartDate" [(ngModel)]="filterModel.startDate" formControlName="startDate" (focus)="pickerStartDate.open()"
+        (dateInput)="startDateEvent($event)" (dateChange)="startDateEvent($event)" (keyup)="changeForm()">
+      <mat-datepicker #pickerStartDate></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{'EndDate' | globalizationdictionary}}</mat-label>
+      <input matInput [matDatepicker]="pickerEndDate"  formControlName="endDate"  [(ngModel)]="filterModel.endDate" (focus)="pickerEndDate.open()"
+        (dateInput)="endDateEvent($event)" (dateChange)="endDateEvent($event)" (keyup)="changeForm()">
+      <mat-datepicker #pickerEndDate></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{'ApprovalStatus' | globalizationdictionary}}</mat-label>
+      <mat-select formControlName="selectedStatus"  [(ngModel)]="filterModel.status" (selectionChange)="changeForm()">
+        <mat-option *ngFor="let status of statusOptions" [value]="status.key">
+          {{status.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-paginator [pageSizeOptions]="pageSizes" (page)="handlePage($event)"></mat-paginator>
+  </form>
+
+  <table  class="mat-data-table" mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Id' | globalizationdictionary}}</th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <!-- username Column -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Kod</th>
+      <td mat-cell *matCellDef="let row"> {{row.code}}</td>
+    </ng-container>
+
+    <!-- firstName Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Menu Adı </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+
+        <!-- address Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Adres </th>
+          <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+        </ng-container>
+
+     
+    <!-- description Column -->
+    <!-- <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'description' | globalizationdictionary}}</th>
+
+      <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+    </ng-container>    -->
+
+    <!-- description Column -->
+    <ng-container matColumnDef="parentMenu">
+      <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'parentMenu' | globalizationdictionary}}</th> -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ust Menü</th>
+
+      <td mat-cell *matCellDef="let row"> {{row.parentMenu.code}} </td>
+    </ng-container>
+    
+     
+
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>{{'Actions' | globalizationdictionary}}</th>
+      <td mat-cell *matCellDef="let row" class="action-link">
+        <button mat-stroked-button [matMenuTriggerFor]="menu">
+          {{'Actions' | globalizationdictionary}}
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a mat-menu-item [routerLink]="['/Menu/Detail', row.id ]">
+            <mat-icon>visibility</mat-icon> {{'Detail' | globalizationdictionary}}
+          </a>
+          <a mat-menu-item [routerLink]="['/Menu/Update', row.id ]">
+            <mat-icon>edit</mat-icon> {{'Update' | globalizationdictionary}}
+          </a>
+          <a mat-menu-item (click)="showConfirm(row.id)">
+            <mat-icon>delete</mat-icon> {{'Delete' | globalizationdictionary}}
+          </a>
+        </mat-menu>
+
+      </td>
+    </ng-container>
+    <thead>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    </thead>                                                              
+
+
+    <tbody>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </tbody >
+
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="7" class="text-center text-danger">{{listModel.message}}</td>
+    </tr>
+  </table>
+</mat-card-content>
+</mat-card>
