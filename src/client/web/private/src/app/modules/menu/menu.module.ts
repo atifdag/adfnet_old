@@ -5,6 +5,7 @@ import { ListComponent } from './list/list.component';
 import { MenuRoutingModule } from './menu-routing.module';
 import { DetailComponent } from './detail/detail.component';
 import { AddComponent } from './add/add.component';
+import { UpdateComponent } from './update/update.component';
 
 
 
@@ -12,7 +13,8 @@ import { AddComponent } from './add/add.component';
   declarations: [
     ListComponent,
     DetailComponent,
-    AddComponent
+    AddComponent,
+    UpdateComponent
   ],
   imports: [
     SharedModule,

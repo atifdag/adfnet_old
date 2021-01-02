@@ -22,7 +22,7 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private serviceUser:  MenuService,
+    private serviceMenu:  MenuService,
     private serviceMain: MainService,
     public globalizationDictionaryPipe: GlobalizationDictionaryPipe,
     public globalizationMessagesPipe: GlobalizationMessagesPipe,
@@ -40,7 +40,7 @@ export class DetailComponent implements OnInit {
 
 
   fillModel(): void {
-    this.serviceUser.detail(this.id).subscribe(
+    this.serviceMenu.detail(this.id).subscribe(
       res => {
         if (res.status === 200) {
           this.model = res.body as DetailModel<MenuModel>;
@@ -96,7 +96,7 @@ export class DetailComponent implements OnInit {
   }
 
   delete(): void {
-    this.serviceUser.delete(this.id).subscribe(
+    this.serviceMenu.delete(this.id).subscribe(
       res => {
         if (res.status === 200) {
           this.serviceMain.openSuccessSnackBar(this.globalizationMessagesPipe.transform('InfoDeletionOperationSuccessful'));

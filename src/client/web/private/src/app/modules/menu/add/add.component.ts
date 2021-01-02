@@ -149,22 +149,10 @@ export class AddComponent implements OnInit {
     return this.globalizationMessagesPipe.transform(key + ',' + parameter1 + ',' + parameter2);
   }
 
-  onBlurFirstName(): void {
-    const firstName = this.menuForm.controls.firstName.value;
-    this.menuForm.get('firstName').setValue(this.titlecasePipe.transform(firstName));
-  }
 
-  onBlurLastName(): void {
-    const firstName = this.menuForm.controls.firstName.value;
-    const lastName = this.menuForm.controls.lastName.value;
-    this.menuForm.get('lastName').setValue(this.serviceMain.upperCase(lastName));
-    this.menuForm.get('username').setValue(this.serviceMain.convertToSeoLiteral(firstName)
-      + '.'
-      + this.serviceMain.convertToSeoLiteral(lastName));
-  }
 
   back(): void {
-    this.router.navigate(['/User/List']);
+    this.router.navigate(['/Menu/List']);
   }
 
   getParentMenus(): void {

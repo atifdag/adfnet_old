@@ -1,0 +1,62 @@
+<p>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  </p>
+  <mat-card *ngIf="!loading" class="content-card">
+    <mat-card-header>
+      <mat-card-title>{{'MenuManagement' | globalizationdictionary}}</mat-card-title>
+      <mat-card-subtitle>{{'Add' | globalizationdictionary}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="content" fxLayout="row wrap">
+        <form class="box-form"   #f="ngForm" (ngSubmit)="submit(f)" novalidate [ngClass]="{'was-validated':f.invalid && f.dirty}">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Name' | globalizationdictionary }}</mat-label>
+            <input matInput [(ngModel)]="model.item.name" minlength="3" name="name"  #name="ngModel">
+            <mat-error *ngIf="name.invalid&&name.dirty">
+              {{name.errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','name') :name.errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','name','3') : ''}}
+            </mat-error>
+<!-- 
+            <input type="text" name="amac" maxlength="2000" class="form-control" id="amac" required [(ngModel)]="model.amac" #ad="ngModel">
+            <div *ngIf="ad.invalid" class="invalid-feedback">
+              Amaç alanı zorunludur.
+            </div> -->
+          </mat-form-field>
+           <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Description' | globalizationdictionary }}</mat-label>
+            <input matInput [(ngModel)]="model.item.description" name="description" #description="ngModel" >
+      
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Code' | globalizationdictionary }}</mat-label>
+            <input matInput  [(ngModel)]="model.item.code" name="code" #code="ngModel">
+            <mat-error *ngIf="code.invalid&&code.dirty">
+                {{code.errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','code') :code.errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','code','3') : ''}}
+            </mat-error>
+          </mat-form-field>       
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Address' | globalizationdictionary }}</mat-label>
+            <input matInput  [(ngModel)]="model.item.address" name="address" #address="ngModel">
+            <mat-error *ngIf="address.invalid&&address.dirty">
+                {{address.errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','address') :address.errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','address','3') : ''}}
+            </mat-error>
+          </mat-form-field> 
+       
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Parent Menus</mat-label>
+            <mat-select  [(ngModel)]="parentId" name="parentId"  (selectionChange)="parentChance()">
+              <mat-option *ngFor="let parent of parentMenus" [value]="parent.id">
+                {{parent.code}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-slide-toggle #isApproved name="isApproved" [(ngModel)]="model.item.isApproved"  [checked]="model.item.isApproved">{{isApproved.checked ? globalizationDictionaryPipe.transform('Approved'):globalizationDictionaryPipe.transform('NotApproved')}}</mat-slide-toggle>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions style="text-align: center;">
+      <button mat-button mat-raised-button (click)="back()"><mat-icon>keyboard_backspace</mat-icon> {{'Back' | globalizationdictionary}}</button>
+      <button mat-button mat-raised-button type="submit" (click)="submit()" [disabled]="!f.valid"><mat-icon>save</mat-icon> {{'Save' | globalizationdictionary}}</button>
+      <br>
+    </mat-card-actions>
+  </mat-card>
+  

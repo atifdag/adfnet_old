@@ -157,7 +157,7 @@ export class ListComponent implements OnInit {
           }
           this.loading = false;
           setTimeout(() => {
-            this.router.navigate(['/User/List']);
+            this.router.navigate(['/Menu/List']);
           }, 1000);
         }
       }
@@ -206,6 +206,8 @@ export class ListComponent implements OnInit {
   endDateEvent(event: MatDatepickerInputEvent<Date>): void {
     this.menuForm.get('endDate').setValue(event.value);
     this.changeForm();
+    
+
   }
   delete(id: string): void {
     this.loading= true;

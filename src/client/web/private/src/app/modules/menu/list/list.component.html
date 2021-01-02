@@ -95,6 +95,9 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>{{'Actions' | globalizationdictionary}}</th>
       <td mat-cell *matCellDef="let row" class="action-link">
+
+           
+
         <button mat-stroked-button [matMenuTriggerFor]="menu">
           {{'Actions' | globalizationdictionary}}
           <mat-icon>keyboard_arrow_down</mat-icon>
@@ -112,7 +115,8 @@
         </mat-menu>
 
       </td>
-    </ng-container>
+    </ng-container> 
+
     <thead>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     </thead>                                                              

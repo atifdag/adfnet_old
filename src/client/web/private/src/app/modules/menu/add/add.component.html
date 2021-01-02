@@ -11,14 +11,14 @@
         <form class="box-form" [formGroup]="menuForm">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>{{ 'Name' | globalizationdictionary }}</mat-label>
-            <input matInput [(ngModel)]="model.item.name" name="name" formControlName="name" (blur)="onBlurFirstName()">
+            <input matInput [(ngModel)]="model.item.name" name="name" formControlName="name" >
             <mat-error *ngIf="!menuForm.controls['name'].valid&&menuForm.controls['name'].dirty">
               {{menuForm.controls['name'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','name') : menuForm.controls['firstName'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','name','2') : ''}}
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>{{ 'Description' | globalizationdictionary }}</mat-label>
-            <input matInput [(ngModel)]="model.item.description" name="description" formControlName="description" (blur)="onBlurLastName()">
+            <input matInput [(ngModel)]="model.item.description" name="description" formControlName="description" >
             <mat-error *ngIf="!menuForm.controls['description'].valid&&menuForm.controls['description'].dirty">
               {{menuForm.controls['description'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','LastName') : menuForm.controls['description'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','LastName','2') : ''}}
             </mat-error>
