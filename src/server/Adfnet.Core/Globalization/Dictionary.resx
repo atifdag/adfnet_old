@@ -197,6 +197,10 @@
     <value>Sil</value>
     <comment>Sil</comment>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Açıklama</value>
+    <comment>Açıklama</comment>
+  </data>
   <data name="Detail" xml:space="preserve">
     <value>Detay</value>
     <comment>Detay</comment>
