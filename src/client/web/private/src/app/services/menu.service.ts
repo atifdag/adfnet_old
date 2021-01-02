@@ -43,4 +43,12 @@ export class MenuService extends BaseCrudService<MenuModel>{
     return this.httpClient.put(this.appSettingsService.apiUrl + '/Menu/UpdateMyInformation', model, { observe: 'response' });
   }
 
+  idNameList(): Observable<HttpResponse<any>> {
+    return this.httpClient.get(
+      this.appSettingsService.apiUrl + '/Menu/IdNameList',
+      { observe: 'response' }
+    );
+  }
+
+
 }

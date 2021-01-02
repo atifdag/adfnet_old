@@ -1,0 +1,60 @@
+<p>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  </p>
+  <mat-card *ngIf="!loading" class="content-card">
+    <mat-card-header>
+      <mat-card-title>{{'MenuManagement' | globalizationdictionary}}</mat-card-title>
+      <mat-card-subtitle>{{'Add' | globalizationdictionary}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="content" fxLayout="row wrap">
+        <form class="box-form" [formGroup]="menuForm">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Name' | globalizationdictionary }}</mat-label>
+            <input matInput [(ngModel)]="model.item.name" name="name" formControlName="name" (blur)="onBlurFirstName()">
+            <mat-error *ngIf="!menuForm.controls['name'].valid&&menuForm.controls['name'].dirty">
+              {{menuForm.controls['name'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','name') : menuForm.controls['firstName'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','name','2') : ''}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Description' | globalizationdictionary }}</mat-label>
+            <input matInput [(ngModel)]="model.item.description" name="description" formControlName="description" (blur)="onBlurLastName()">
+            <mat-error *ngIf="!menuForm.controls['description'].valid&&menuForm.controls['description'].dirty">
+              {{menuForm.controls['description'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','LastName') : menuForm.controls['description'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','LastName','2') : ''}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Code' | globalizationdictionary }}</mat-label>
+            <input matInput  [(ngModel)]="model.item.code" name="code" formControlName="code">
+            <mat-error *ngIf="!menuForm.controls['code'].valid&&menuForm.controls['code'].dirty">
+              {{menuForm.controls['code'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','Username') : menuForm.controls['code'].errors['minlength'] ? globalizationMessagesByParameter2('DangerFieldLengthLimit','Username','8') : ''}}
+            </mat-error>
+          </mat-form-field>       
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Address' | globalizationdictionary }}</mat-label>
+            <input matInput  [(ngModel)]="model.item.address" name="address" formControlName="address">
+            <mat-error style="display: block !important;" *ngIf="!menuForm.controls['address'].valid&&menuForm.controls['address'].dirty">
+              {{menuForm.controls['address'].errors['required'] ? globalizationMessagesByParameter('DangerFieldIsEmpty','Email') : menuForm.controls['address'].errors['address'] ? globalizationMessagesPipe.transform('DangerInvalidEmail') : ''}}
+            </mat-error>
+          </mat-form-field>     
+
+       
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Parent Menus</mat-label>
+            <mat-select formControlName="parentMenus" [(ngModel)]="parentId" (selectionChange)="parentChance()">
+              <mat-option *ngFor="let parent of parentMenus" [value]="parent.id">
+                {{parent.code}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-slide-toggle #isApproved formControlName="isApproved" [checked]="model.item.isApproved">{{isApproved.checked ? globalizationDictionaryPipe.transform('Approved'):globalizationDictionaryPipe.transform('NotApproved')}}</mat-slide-toggle>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions style="text-align: center;">
+      <button mat-button mat-raised-button (click)="back()"><mat-icon>keyboard_backspace</mat-icon> {{'Back' | globalizationdictionary}}</button>
+      <button mat-button mat-raised-button type="submit" (click)="submit()" [disabled]="!menuForm.valid"><mat-icon>save</mat-icon> {{'Save' | globalizationdictionary}}</button>
+      <br>
+    </mat-card-actions>
+  </mat-card>
+  

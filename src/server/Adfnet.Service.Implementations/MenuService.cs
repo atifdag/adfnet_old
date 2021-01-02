@@ -364,9 +364,9 @@ namespace Adfnet.Service.Implementations
             item.Icon = updateModel.Item.Icon;
 
             item.IsApproved = updateModel.Item.IsApproved;
-            
+
             item.LastModificationTime = DateTime.Now;
-            
+
             item.Version = version + 1;
 
             item.ParentMenu = parent;
@@ -412,6 +412,20 @@ namespace Adfnet.Service.Implementations
 
         }
 
-        
-    }
+
+        public List<IdCodeName> IdNameList()
+        {
+            var identityUserMinRoleLevel = _serviceMain.IdentityUserMinRoleLevel;
+            var list = _repositoryMenu.Get().Where(x => x.IsApproved).OrderBy(x => x.DisplayOrder).Select(x => new IdCodeName(x.Id,x.Code, x.Name));
+            if (list.Any())
+            {
+                return list.ToList();
+            }
+
+            throw new NotFoundException();
+
+
+        }
+
+     }
 }
