@@ -4,7 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Adfnet.Core.Security;
+using Adfnet.Service.Models;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Serilog;
 using Serilog.Events;
 
@@ -16,6 +19,7 @@ namespace Adfnet.Web.Api
 
         private static readonly ILogger Log = Serilog.Log.ForContext<SerilogMiddleware>();
         //private static CustomIdentity identity;
+        private static CustomIdentity identity;
         private readonly RequestDelegate _next;
 
         public SerilogMiddleware(RequestDelegate next)
@@ -26,6 +30,7 @@ namespace Adfnet.Web.Api
         public async Task Invoke(HttpContext httpContext)
         {
             if (httpContext == null) throw new ArgumentNullException(nameof(httpContext));
+            identity = (CustomIdentity)httpContext.User.Identity;
             var path = httpContext.Request.Path;
             if (path.StartsWithSegments(new PathString("/Home")) ||
                 path.StartsWithSegments(new PathString("/ContentFiles")))
@@ -51,12 +56,18 @@ namespace Adfnet.Web.Api
                 await _next(httpContext);
                 sw.Stop();
                 var statusCode = httpContext.Response?.StatusCode;
-                var level = statusCode > 399 ? LogEventLevel.Error : LogEventLevel.Information;
+                var level = statusCode > 499 ? LogEventLevel.Error : LogEventLevel.Information;
                 var log = level == LogEventLevel.Error ? LogForErrorContext(httpContext, requestBody) : Log;
-                if (!string.IsNullOrEmpty(requestBody) && (requestBody != "{}" || requestBody != ""))
+                if (path.StartsWithSegments(new PathString("/api/auth/SignIn")))
+                {
+                    var model = JsonConvert.DeserializeObject<LoginModel>(requestBody);
+                    model.Password = null;
+                    log = log.ForContext("RequestForm", JsonConvert.SerializeObject(model));
+                }
+                else if (!string.IsNullOrEmpty(requestBody) || requestBody != "{}")
                     log = log.ForContext("RequestForm", requestBody);
-                //if (identity != null)
-                //{ log = log.ForContext("UserId", identity.UserId).ForContext("UserName", identity.Username); }
+                if (identity != null)
+                { log = log.ForContext("UserId", identity.UserId).ForContext("UserName", identity.Username); }
 
                 log.Write(level, MessageTemplate, httpContext.Request.Method, httpContext.Request.Path, statusCode, sw.Elapsed.TotalMilliseconds);
             }
